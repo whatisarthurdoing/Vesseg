@@ -1,0 +1,6 @@
+pip install Flask
+pip install Flask-Login
+pip install Flask-SQLAlchemy
+pip install Flask-WTF
+
+#Pls do not take this serious, im just collecting in the process
