@@ -4,7 +4,7 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Projects</title>
+        <title>Start</title>
         <style>
             .footer{
                 position: fixed; 
@@ -21,14 +21,17 @@
                 <img src="/static/logo.png">
             </div>
             <a href="/">Vesseg</p>
-            <a class="active" href="/projects">Projects</a>
             <a href="/about">About</a>
-            <a href="/howto">How to</a>
-            <!--TODO: Hier kommt ein Settingssymbol hin-->
-            <a href="/settings">Settings</a>
         </div> 
         <!--Main-->
-        <h1>Hier entsteht die Projects Seite</h1> 
+        <h1>This is Vesseg, a tool to speed up the atherosclerosis research.</h1> 
+        <p>
+            Its is being developed by the Computational Radiology Group at the German Cancer Research Center (DKFZ) in Heidelberg, Germany, in collaboration with the Research Group for Perioperative Vascular Biology at the Clinic for Anaesthesiology at the University Hospital Heidelberg and the Institute for Artificial Intelligence in Medicine (IKIM) at the University Hospital Essen.
+            Please direct questions and feedback at jacobmatthewmurray at gmail dot com. 
+        </p>
+        <!--TODO: Sollen eigentlich Button werden-->
+        <a href="{{url_for('login')}}">Login</a>
+        <a href="{{url_for('register')}}">Register</a>
         <!--Footer-->
         <div class="footer"> 
             <p>Impressum</p>

@@ -1,6 +1,4 @@
-from crypt import methods
-from wsgiref.validate import validator
-from flask import Flask, render_template, url_for
+from flask import Flask, render_template, request, url_for
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import UserMixin
 from flask_wtf import FlaskForm
@@ -22,7 +20,7 @@ class User(db.Model, UserMixin):
     username = db.Column(db.String(20), nullable=False, unique=True)
     password = db.Column(db.String(80), nullable=False)
 
-class RegisterForm(FlaskForm): 
+class RegistrationForm(FlaskForm): 
     username = StringField(validators=[InputRequired(), Length(min=4, max=20)], render_kw={"placeholder": "Username"})
     password = PasswordField(validators=[InputRequired(), Length(min=4, max=20)], render_kw={"placeholder": "Password"})
     submit = SubmitField("Register")
@@ -39,41 +37,52 @@ class LoginForm(FlaskForm):
     password = PasswordField(validators=[InputRequired(), Length(min=4, max=20)], render_kw={"placeholder": "Password"})
     submit = SubmitField("Login")
 
+class ResetPasswordForm(FlaskForm): 
+    #TODO: validators fuer E-Mail ansehen
+    email = StringField(validators=[InputRequired(), Length(min=4, max=20)], render_kw={"placeholder": "E-Mail"})
+    submit = SubmitField("Submit")
 
+class NewPasswordForm(FlaskForm): 
+    #TODO: Durchgehen ob die Spezifikationen Sinn machen
+    password = StringField(validators=[InputRequired(), Length(min=4, max=20)], render_kw={"placeholder": "New password"})
+    confirm_password = StringField(validators=[InputRequired(), Length(min=4, max=20)], render_kw={"placeholder": "Confirm Password"})
+    submit = SubmitField("Submit")
 
 @app.route('/')
-def home(): 
-    return render_template('home.html')
+def start(): 
+    return render_template('index.html')
 
 @app.route('/login', methods=['GET', 'POST'])
 def login(): 
     form = LoginForm()
     return render_template('login.html', form=form)
 
-@app.route('/fpassword')
+@app.route('/fpassword', methods=['GET', 'POST'])
 def fpassword():
-    return render_template('forgotpassword.html')
+    form = ResetPasswordForm()
+    return render_template('forgotpassword.html', form=form)
 
-@app.route('/cpassword')
+@app.route('/cpassword', methods=['GET', 'POST'])
 def cpassword():
-    return render_template('changepassword.html')
+    form = NewPasswordForm()
+    return render_template('changepassword.html', form=form)
 
 @app.route('/register', methods=['GET', 'POST'])
 def register(): 
-    form = RegisterForm()
+    form = RegistrationForm()
     return render_template('register.html', form=form)
 
 @app.route('/projects')
 def projects():
     return render_template('projects.html')
 
-@app.route('/profile')
-def profile():
-    return render_template('profile.html')
-
 @app.route('/about')
 def about():
     return render_template('about.html')
+
+@app.route('/howto')
+def howto(): 
+    return render_template('howto.html')
 
 @app.route('/settings')
 def settings():

@@ -5,17 +5,37 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Login</title>
+        <style>
+            .footer{
+                position: fixed; 
+                left: 0; 
+                bottom: 0; 
+                width: 100%;
+            }
+        </style>
     </head>
     <body>
-        <h1>Login Page</h1> 
-
-        <form method="POST" action="">
+        <!--Header-->
+        <div class="topnav">
+            <div class="logo-image">
+                <img src="/static/logo.png">
+            </div>
+            <a href="/">Vesseg</p>
+            <a href="/about">About</a>
+        </div> 
+        <!--Main-->
+        <h1>Login Page</h1>
+        <form method="POST" action="projects">
             {{form.hidden_tag()}}
             {{form.username}}
             {{form.password}}
             {{form.submit}}
         </form>
 
-        <a href="{{url_for('register')}}">Don't have an account? Sign Up</a><br>
+        <a href="{{url_for('fpassword')}}">Forgot password?</a><br>
+        <!--Footer-->
+        <div class="footer"> 
+            <p>Impressum</p>
+        </div>
     </body> 
 </html>

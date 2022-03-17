@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html> 
     <head> 
@@ -5,8 +6,25 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Register</title>
+        <style>
+            .footer{
+                position: fixed; 
+                left: 0; 
+                bottom: 0; 
+                width: 100%;
+            }
+        </style>
     </head>
     <body>
+        <!--Header-->
+        <div class="topnav">
+            <div class="logo-image">
+                <img src="/static/logo.png">
+            </div>
+            <a href="/">Vesseg</p>
+            <a href="/about">About</a>
+        </div> 
+        <!--Main-->
         <h1>Register Page</h1> 
 
         <form method="POST" action="">
@@ -17,5 +35,9 @@
         </form>
         
         <a href="{{url_for('login')}}">Already have an account? Log in</a><br>
+        <!--Footer-->
+        <div class="footer"> 
+            <p>Impressum</p>
+        </div>
     </body> 
 </html>
