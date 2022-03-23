@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html> 
+    <head> 
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>About</title>
+        <style>
+            .footer{
+                position: fixed; 
+                left: 0; 
+                bottom: 0; 
+                width: 100%;
+            }
+        </style>
+    </head>
+    <body>
+        <!--FIXME: Eigentlich gibt es zwei verschiedene Header fuer About-->
+        <!--Header-->
+        <div class="topnav">
+            <div class="logo-image">
+                <img src="/static/logo.png">
+            </div>
+            <a href="/">Vesseg</p>
+            <a href="/projects">Projects</a>
+            <a class="active" href="/about">About</a>
+            <a href="/howto">How to</a>
+            <!--TODO: Hier kommt ein Settingssymbol hin-->
+            <a href="/settings">Settings</a>
+        </div> 
+        <!--Main-->
+        <h1>This is vesseg, a tool to speed up the atherosclerosis research.</h1> 
+        <p>
+            Its is being developed by the Computational Radiology Group at the German Cancer Research Center (DKFZ) in Heidelberg, Germany, in collaboration with the Research Group for Perioperative Vascular Biology at the Clinic for Anaesthesiology at the University Hospital Heidelberg and the Institute for Artificial Intelligence in Medicine (IKIM) at the University Hospital Essen.
+            
+            
+            The current models are based on the following two U-Net-based segmentation pipelines:
+
+            1. Fabian Isensee, Paul F. Jäger, Simon A. A. Kohl, Jens Petersen, Klaus H. Maier-Hein "Automated Design of Deep Learning Methods for Biomedical Image Segmentation" arXiv preprint arXiv:1904.08128 (2020).
+            2. Howard, Jeremy, and Sylvain Gugger. “Fastai: A Layered API for Deep Learning.” Information 11.2 (2020): 108. Crossref. Web.
+
+
+            Please direct questions and feedback at jacobmatthewmurray at gmail dot com. 
+        </p>
+        <!--Footer-->
+        <div class="footer"> 
+            <a href="/impressum">Impressum</a>
+        </div>
+    </body> 
+</html>
