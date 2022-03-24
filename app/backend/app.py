@@ -1,9 +1,10 @@
-from flask import Flask, render_template, request, url_for, redirect, make_response
+from enum import unique
+from flask import Flask, render_template, request, session, url_for, redirect, make_response
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import UserMixin, LoginManager, login_required, login_user, logout_user, current_user, user_loaded_from_request
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField
-from wtforms.validators import InputRequired, Length, ValidationError
+from wtforms.validators import InputRequired, Length, ValidationError, DataRequired, Email, EqualTo, Length
 from flask_bcrypt import Bcrypt
 from flask_migrate import Migrate
 
@@ -11,19 +12,20 @@ from flask_migrate import Migrate
 
 app = Flask(__name__)
 
+
 db = SQLAlchemy(app)
 migrate = Migrate()
 bcrypt = Bcrypt(app)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
+
+
 #TODO: Configure secret key for production
 app.secret_key = 'thisisasecretkey'
 
 login_manager = LoginManager()
-login_manager.session_protection = "strong"
 login_manager.init_app(app)
 login_manager.login_view = "login"
-login_manager.login_message_category = "info"
 
 @login_manager.user_loader
 def load_user(user_id): 
@@ -32,12 +34,14 @@ def load_user(user_id):
 class User(db.Model, UserMixin): 
     id = db.Column(db.Integer, primary_key=True)
     #email = db.Column(db.String(80), nullable=False, unique=True)
-    username = db.Column(db.String(80), nullable=False)
+    username = db.Column(db.String(80), nullable=False, unique=True)
     password = db.Column(db.String(80), nullable=False)
 
 class RegistrationForm(FlaskForm): 
+    #email = StringField(validators=[DataRequired(), Email(message='Enter a valid E-Mail')], render_kw={"placeholder": "E-Mail"})
     username = StringField(validators=[InputRequired(), Length(min=4, max=40)], render_kw={"placeholder": "Username"})
     password = PasswordField(validators=[InputRequired(), Length(min=8, max=20)], render_kw={"placeholder": "Password"})
+    confirm = PasswordField(validators=[DataRequired(), EqualTo('password', message='Passwords must match.')], render_kw={"placeholder": "Confirm password"})
     submit = SubmitField("Register")
 
     def validate_username(self, username): 
@@ -46,6 +50,12 @@ class RegistrationForm(FlaskForm):
             raise ValidationError(
                 "That username already exists. Please choose a different one."
             )
+    '''
+    def validate_email(self, email):
+        user = User.query.filter_by(email=email.data).first()
+        if user is not None:
+            raise ValidationError('Please use a different email address.')
+    '''
 
 class LoginForm(FlaskForm): 
     username = StringField(validators=[InputRequired(), Length(min=4, max=40)], render_kw={"placeholder": "Username"})
@@ -98,6 +108,7 @@ def register():
 
     if form.validate_on_submit(): 
         hashed_password = bcrypt.generate_password_hash(form.password.data)
+        #TODO: Hier auf E-Mail uebergeben
         new_user = User(username=form.username.data, password=hashed_password)
         db.session.add(new_user)
         db.session.commit() 
@@ -110,7 +121,6 @@ def register():
 def projects():
     return render_template('projects.html')
 
-#FIXME: lets test
 @app.route('/about')
 def about():
     return render_template('about.html')
@@ -120,7 +130,6 @@ def about():
 def howto(): 
     return render_template('howto.html')
 
-#FIXME: Lets test
 @app.route('/settings', methods=['GET', 'POST'])
 @login_required
 def settings():

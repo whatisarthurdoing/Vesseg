@@ -4,5 +4,5 @@ pip install Flask-SQLAlchemy
 pip install Flask-WTF
 pip install Flask-Bcrypt
 pip install Flask-Migrate
-
-#Pls do not take this serious, im just collecting in the process
+pip install email-validator
+#Pls do not take this serious, Im just collecting in the process
