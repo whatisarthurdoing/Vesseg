@@ -15,16 +15,22 @@
         </style>
     </head>
     <body>
-        <!--FIXME: Eigentlich gibt es zwei verschiedene Header fuer Settings-->
         <!--Header-->
         <div class="topnav">
             <div class="logo-image">
                 <img src="/static/logo.png">
             </div>
             <a href="/">Vesseg</p>
+            {% if current_user.username %}
+            <a href="/projects">Projects</a>
+            {% endif %}
             <a href="/about">About</a>
-            <a class="active" href="/settings">Settings</a>
-        </div> 
+            {% if current_user.username %}
+            <a href="/howto">How to</a>
+            <!--FIXME: Hier kommt ein Logo hin-->
+            <a class = "active" href="/settings">Settings</a>
+            {% endif %}
+        </div>
         <!--Main-->
         <h1>Hier entsteht die Settings Seite</h1> 
         <a href="/logout">Log out</a> 

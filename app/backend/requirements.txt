@@ -5,4 +5,5 @@ pip install Flask-WTF
 pip install Flask-Bcrypt
 pip install Flask-Migrate
 pip install email-validator
+pip install Flask-Navigation
 #Pls do not take this serious, Im just collecting in the process

@@ -1,9 +1,8 @@
-from enum import unique
-from flask import Flask, render_template, request, session, url_for, redirect, make_response
+from flask import Flask, render_template, request, session, url_for, redirect
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import UserMixin, LoginManager, login_required, login_user, logout_user, current_user, user_loaded_from_request
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField
+from wtforms import StringField, PasswordField, SubmitField, EmailField
 from wtforms.validators import InputRequired, Length, ValidationError, DataRequired, Email, EqualTo, Length
 from flask_bcrypt import Bcrypt
 from flask_migrate import Migrate
@@ -12,16 +11,15 @@ from flask_migrate import Migrate
 
 app = Flask(__name__)
 
-
 db = SQLAlchemy(app)
-migrate = Migrate()
+migrate = Migrate(app, db)
 bcrypt = Bcrypt(app)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 
 
 #TODO: Configure secret key for production
-app.secret_key = 'thisisasecretkey'
+app.config['SECRET_KEY'] = 'you-will-never-guess'
 
 login_manager = LoginManager()
 login_manager.init_app(app)
@@ -33,15 +31,16 @@ def load_user(user_id):
 
 class User(db.Model, UserMixin): 
     id = db.Column(db.Integer, primary_key=True)
-    #email = db.Column(db.String(80), nullable=False, unique=True)
+    email = db.Column(db.Text(80), nullable=False, unique=True)
     username = db.Column(db.String(80), nullable=False, unique=True)
     password = db.Column(db.String(80), nullable=False)
 
 class RegistrationForm(FlaskForm): 
-    #email = StringField(validators=[DataRequired(), Email(message='Enter a valid E-Mail')], render_kw={"placeholder": "E-Mail"})
+    email = EmailField(validators=[InputRequired()], render_kw={"placeholder": "E-Mail"})
+    #email = StringField('email', validators=[DataRequired(), Email(message='Enter a valid email.')])
     username = StringField(validators=[InputRequired(), Length(min=4, max=40)], render_kw={"placeholder": "Username"})
     password = PasswordField(validators=[InputRequired(), Length(min=8, max=20)], render_kw={"placeholder": "Password"})
-    confirm = PasswordField(validators=[DataRequired(), EqualTo('password', message='Passwords must match.')], render_kw={"placeholder": "Confirm password"})
+    confirm = PasswordField(validators=[InputRequired(), EqualTo('password', message='Passwords must match.')], render_kw={"placeholder": "Confirm password"})
     submit = SubmitField("Register")
 
     def validate_username(self, username): 
@@ -50,12 +49,11 @@ class RegistrationForm(FlaskForm):
             raise ValidationError(
                 "That username already exists. Please choose a different one."
             )
-    '''
+
     def validate_email(self, email):
         user = User.query.filter_by(email=email.data).first()
-        if user is not None:
+        if user:
             raise ValidationError('Please use a different email address.')
-    '''
 
 class LoginForm(FlaskForm): 
     username = StringField(validators=[InputRequired(), Length(min=4, max=40)], render_kw={"placeholder": "Username"})
@@ -68,9 +66,8 @@ class ResetPasswordForm(FlaskForm):
     submit = SubmitField("Submit")
 
 class NewPasswordForm(FlaskForm): 
-    #TODO: Durchgehen ob die Spezifikationen Sinn machen
-    password = StringField(validators=[InputRequired(), Length(min=4, max=20)], render_kw={"placeholder": "New password"})
-    #confirm = PasswordField('Confirm password', validators=[DataRequired(), EqualTo('password', message='Passwords must match.')])
+    password = StringField(validators=[InputRequired(), Length(min=8, max=20)], render_kw={"placeholder": "New password"})
+    confirm = PasswordField(validators=[DataRequired(), EqualTo('password', message='Passwords must match.')], render_kw={"placeholder": "Confirm password"})
     submit = SubmitField("Submit")
 
 @app.route('/')
@@ -108,8 +105,7 @@ def register():
 
     if form.validate_on_submit(): 
         hashed_password = bcrypt.generate_password_hash(form.password.data)
-        #TODO: Hier auf E-Mail uebergeben
-        new_user = User(username=form.username.data, password=hashed_password)
+        new_user = User(email=form.email.data, username=form.username.data, password=hashed_password)
         db.session.add(new_user)
         db.session.commit() 
         return redirect(url_for('login'))
@@ -131,7 +127,6 @@ def howto():
     return render_template('howto.html')
 
 @app.route('/settings', methods=['GET', 'POST'])
-@login_required
 def settings():
     return render_template('settings.html')
 

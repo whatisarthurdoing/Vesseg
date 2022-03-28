@@ -15,15 +15,21 @@
         </style>
     </head>
     <body>
-        <!--FIXME: Eigentlich gibt es zwei verschiedene Header fuer About-->
         <!--Header-->
         <div class="topnav">
             <div class="logo-image">
                 <img src="/static/logo.png">
             </div>
             <a href="/">Vesseg</p>
-            <a href="/about">About</a>
+            {% if current_user.username %}
+            <a href="/projects">Projects</a>
+            {% endif %}
+            <a class= "active" href="/about">About</a>
+            {% if current_user.username %}
+            <a href="/howto">How to</a>
+            <!--FIXME: Hier kommt noch ein Logo hin-->
             <a href="/settings">Settings</a>
+            {% endif %}
         </div> 
         <!--Main-->
         <h1>This is vesseg, a tool to speed up the atherosclerosis research.</h1> 

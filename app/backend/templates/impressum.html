@@ -21,12 +21,16 @@
                 <img src="/static/logo.png">
             </div>
             <a href="/">Vesseg</p>
+            {% if current_user.username %}
             <a href="/projects">Projects</a>
+            {% endif %}
             <a href="/about">About</a>
+            {% if current_user.username %}
             <a href="/howto">How to</a>
-            <!--TODO: Hier kommt ein Settingssymbol hin-->
+            <!--FIXME: Hier kommt noch ein Logo hin-->
             <a href="/settings">Settings</a>
-        </div> 
+            {% endif %}
+        </div>
         <!--Main-->
         <h1>Hier entsteht das Impressum</h1>
         <p>Please direct questions and feedback at jacobmatthewmurray at gmail dot com. </p>
