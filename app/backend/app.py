@@ -12,10 +12,9 @@ api = Flask(__name__)
 db = SQLAlchemy(api)
 migrate = Migrate(api, db)
 bcrypt = Bcrypt(api)
+
 api.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
 api.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
-
-
 #TODO: Configure secret key for production
 api.config["SECRET_KEY"] = 'you-will-never-guess'
 
