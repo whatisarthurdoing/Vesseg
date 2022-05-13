@@ -7,7 +7,6 @@ from pydantic import BaseModel
 class ProjectBase(BaseModel):
     status: Optional[str] = "Project created"
 
-
 class ProjectCreate(ProjectBase):
     title: str
 
@@ -15,6 +14,7 @@ class ProjectCreate(ProjectBase):
 class Project(ProjectBase):
     id: int
     owner_id: int
+    title: str
 
     # Tell model to read data even if it is not a dict but an ORM model
     class Config:
