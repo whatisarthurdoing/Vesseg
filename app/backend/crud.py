@@ -1,9 +1,13 @@
 from unicodedata import name
 from flask_sqlalchemy import models_committed
+from sqlalchemy import true
 from sqlalchemy.orm import Session
+from fastapi.encoders import jsonable_encoder
+import jwt
 
 import models, schemas
 from core.hashing import Hasher
+import main
 
 
 
@@ -17,8 +21,8 @@ def get_user_by_email(db: Session, email: str):
     return db.query(models.User).filter(models.User.email == email).first()
 
 
-def get_users(db: Session, skip: int = 0, limit: int = 100):
-    return db.query(models.User).offset(skip).limit(limit).all()
+def get_users(db: Session):
+    return db.query(models.User).all()
 
 
 def create_user(db: Session, user: schemas.UserCreate):
@@ -56,6 +60,28 @@ def update_user_email(db: Session, user_id: int, new_email: str):
     db.refresh(db_user)
     return db_user
 
+# Helping Methods
+
+def is_user_registered(db: Session, users: list, user: schemas.UserCreate):
+    flag = False
+    for i in users: 
+        if i == user:
+            flag = True
+    return flag
+
+
+
+def user_login(db: Session, user: schemas.UserCreate): 
+    data = jsonable_encoder(user)
+    all_users = get_users(db = db)
+    if is_user_registered(db = db, users = all_users, user=data): 
+        encoded_jwt = jwt.encode(data, SECRET_KEY, algorithm=ALGORITHM)
+        return {"token": encoded_jwt}
+    else: 
+        return {"message": "You are not registered yet"}
+
+    
+
 
 
 # Project
@@ -64,8 +90,8 @@ def get_project(db: Session, project_id: int):
     return db.query(models.Project).filter(models.Project.id == project_id).first() 
 
 
-def get_projects(db: Session, skip: int = 0, limit: int = 100):
-    return db.query(models.Project).offset(skip).limit(limit).all()
+def get_projects(db: Session):
+    return db.query(models.Project).all()
 
 
 def create_project(db: Session, project: schemas.ProjectCreate, user_id: int):
@@ -102,3 +128,9 @@ def update_project_title(db: Session, project_id: int, new_title: str):
     db.commit()
     db.refresh(db_project)
     return db_project
+
+
+# Images
+
+def get_project(db: Session, project_id: int):
+    return db.query(models.Project).filter(models.Project.id == project_id).first() 

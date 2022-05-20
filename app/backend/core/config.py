@@ -14,6 +14,10 @@ class Settings:
         {
             "name": "Project", 
             "description": "CRUD Operations for projects"
+        }, 
+        {
+            "name": "Image", 
+            "description": "CRUD Operations for images"
         }
     ]
 settings = Settings()

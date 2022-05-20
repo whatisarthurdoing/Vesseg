@@ -1,13 +1,18 @@
 from fastapi import Depends, FastAPI, HTTPException
 from sqlalchemy import desc
 from sqlalchemy.orm import Session
+from database import SessionLocal, engine
+from fastapi.encoders import jsonable_encoder
+from fastapi.middleware.cors import CORSMiddleware
 
 import crud, models, schemas
-from database import SessionLocal, engine
-
 from core.config import settings
 
 models.Base.metadata.create_all(bind=engine)
+
+SECRET_KEY = "YOUR_FAST_API_SECRET_KEY"
+ALGORITHM = "HS256"
+ACCESS_TOKEN_EXPIRES_MINUTES = 800
 
 app = FastAPI(
     title=settings.PROJECT_NAME, 
@@ -16,6 +21,18 @@ app = FastAPI(
     openapi_tags=settings.PROJECT_TAGS
 )
 
+origins = {
+    "http://localhost",
+    "http://localhost:3000",
+}
+
+app.add_middleware(
+   CORSMiddleware,
+    allow_origins = origins,
+    allow_credentials =True,
+    allow_methods = ["*"],
+    allow_headers= ["*"],
+)
 
 # Dependency
 def get_db():
@@ -24,6 +41,11 @@ def get_db():
         yield db
     finally:
         db.close()
+
+
+@app.post("/login")
+def user_login(user: schemas.UserCreate):
+    user_login(user = user)
 
 
 @app.post("/users/", response_model=schemas.User, tags=["User"])
@@ -35,8 +57,8 @@ def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
 
 
 @app.get("/users/", response_model=list[schemas.User], tags=["User"])
-def read_users(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
-    db_users = crud.get_users(db, skip=skip, limit=limit)
+def read_users(db: Session = Depends(get_db)):
+    db_users = crud.get_users(db)
     return db_users
 
 
@@ -113,5 +135,3 @@ def delete_project(project_id: int, db: Session = Depends(get_db)):
     if not project: 
         raise HTTPException(status_code = 404, detail = "Project not found")
     crud.delete_project(db, project = project)
-
-
