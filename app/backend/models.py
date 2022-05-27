@@ -67,7 +67,7 @@ class Mask(Base):
     __tablename__ = "mask"
     
     id = Column(Integer, primary_key = True, index = True)
-    mask = Column(String, nullable = False)
+    name = Column(String, nullable = False)
     image_id = Column(Integer, ForeignKey("images.id"), nullable = False)
     predictionmodel_id = Column(Integer, ForeignKey("predictionmodel.id"), nullable = False)
     background_pixels = Column(Integer)

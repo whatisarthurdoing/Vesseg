@@ -132,5 +132,4 @@ def update_project_title(db: Session, project_id: int, new_title: str):
 
 # Images
 
-def get_project(db: Session, project_id: int):
-    return db.query(models.Project).filter(models.Project.id == project_id).first() 
+# TODO: Add Images Crud
