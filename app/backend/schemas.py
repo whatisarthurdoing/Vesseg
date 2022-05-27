@@ -9,7 +9,7 @@ class ProjectBase(BaseModel):
     description: Union[str, None] = None
 
 class ProjectCreate(ProjectBase):
-    pass
+    owner_id: int 
 
 class Project(ProjectBase):
     id: int

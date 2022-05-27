@@ -23,7 +23,7 @@ class Project(Base):
 
     id = Column(Integer, primary_key=True, index=True)
     title = Column(String, index=True, nullable=False)
-    status = Column(String, index=True, nullable=False)
+    description = Column(String)
     owner_id = Column(Integer, ForeignKey("users.id"), nullable=False)
 
     owner = relationship("User", back_populates="projects")
