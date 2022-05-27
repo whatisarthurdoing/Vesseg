@@ -1,41 +1,55 @@
-from typing import Optional
-from pendulum import date, datetime
-
+from typing import List, Union
 from pydantic import BaseModel
 
 
+## Projects
+
 class ProjectBase(BaseModel):
-    status: Optional[str] = "Project created"
+    title: str
+    description: Union[str, None] = None
 
 class ProjectCreate(ProjectBase):
-    title: str
+    pass
 
-# Reading Project
 class Project(ProjectBase):
     id: int
     owner_id: int
-    title: str
 
-    # Tell model to read data even if it is not a dict but an ORM model
     class Config:
         orm_mode = True
 
 
-class UserBase(BaseModel):
-    name: str
-    email: str
+## Users
 
+class UserBase(BaseModel):
+    username: str
+     
+class UserLogin(UserBase):
+    password: str
 
 class UserCreate(UserBase):
     password: str
-
-# Reading User
-class User(UserBase):
-    id: int
-    is_active: bool
-    projects: list[Project] = []
+    email: str
 
     class Config:
         orm_mode = True
 
-# TODO: Add Images schemas
+class User(UserBase):
+    id: int
+    is_active: bool
+    projects: List[Project] = []
+
+    class Config:
+        orm_mode = True
+
+
+## Tokens
+
+class Token(BaseModel):
+    access_token: str
+    token_type: str
+
+class TokenData(BaseModel):
+    username: Union[str, None] = None
+
+
