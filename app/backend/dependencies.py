@@ -1,7 +1,7 @@
 from fastapi.security import OAuth2PasswordBearer
 
-from . import models
-from .database import SessionLocal, engine
+import models
+from database import SessionLocal, engine
 
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="login")

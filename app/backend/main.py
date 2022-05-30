@@ -3,10 +3,10 @@ from sqlalchemy.orm import Session
 from fastapi.security import OAuth2PasswordRequestForm
 from fastapi.middleware.cors import CORSMiddleware
 
-from .core.exceptions import INCORRECT_USERNAME_PASSWORD
-from . import schemas, dependencies, auth 
-from .core.config import ProjectSettings
-from .routers import users, projects
+from core.exceptions import INCORRECT_USERNAME_PASSWORD
+import schemas, dependencies, auth 
+from core.config import ProjectSettings
+from routers import users, projects
 
 
 dependencies.create_database()

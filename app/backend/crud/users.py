@@ -1,8 +1,8 @@
 
 from sqlalchemy.orm import Session
 
-from .. import models, schemas
-from ..core.hashing import Hasher
+import models, schemas
+from core.hashing import Hasher
 
 
 def get_user(db: Session, user_id: int):
