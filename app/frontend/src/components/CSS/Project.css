@@ -1,0 +1,8 @@
+.project{
+    display: flex;
+    flex-direction: column;
+}
+.createProject{
+    display: flex;
+    justify-content: center;
+}

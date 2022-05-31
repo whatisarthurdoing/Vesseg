@@ -1,35 +1,60 @@
-import { AppBar, Toolbar, Typography} from "@mui/material";
-//import {SxProps} from "@mui/material/styles";
+import { AppBar, Toolbar, Typography, Button} from "@mui/material";
 import React from "react";
+import { Link as RouterLink } from "react-router-dom";
 
-/*
-const style = {
-  header: {
-    backgroundColor: "#2F3747",
-  },
-  logo: {
-    color: "#FFFEFE",
-    textAlign: "left",
-  },
-};
-*/
+//TODO: Dynamic change depending on login status
+const headersData = [
+    {
+        label: "Projects", 
+        href: "/project",
+    },
+    {
+        label: "About", 
+        href: "/about", 
+    }, 
+    {
+        label: "settings", 
+        href: "/settings",
+    },
+];
 
 export default function Header() {
-  //const { header, logo } = style();
-
   const displayDesktop = () => {
-    return <Toolbar>{vessegLogo}</Toolbar>;
+    return (
+      <Toolbar>
+        {vessegLogo}
+        {getMenuButton()}
+      </Toolbar>
+    );
   };
-// className={logo}
+
+
   const vessegLogo = (
-    <Typography variant="h6" component="h1">
-      VESSEG
-    </Typography>
+    <Button href="/" color="inherit">
+      <Typography variant="h6" component="h1">VESSEG</Typography>
+    </Button>
   );
-// className={header}
+
+  const getMenuButton = () => {
+    return headersData.map(({ label, href}) => {
+        return ( 
+            <Button 
+                {...{
+                    key: label, 
+                    color: "inherit", 
+                    to: href, 
+                    component: RouterLink
+                }}
+            >
+                {label}
+            </Button>
+        );
+    });
+  };
+
   return (
     <header>
-      <AppBar>{displayDesktop()}</AppBar>
+      <AppBar style ={{backgroundColor:'#2F3747'}} position="sticky">{displayDesktop()}</AppBar>
     </header>
   );
 }

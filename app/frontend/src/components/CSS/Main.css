@@ -1,0 +1,46 @@
+.main{
+    display: flex;
+}
+.split{
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    height: 100vh;
+}
+
+.left {
+    flex-grow: 0;
+    max-width: 60%;
+    -webkit-box-flex: 0;
+    background-color: #839AC7;
+}
+
+.right {
+    justify-content: center;
+    max-width: 40%;
+    -webkit-box-flex: 0;
+    background-color: white;
+}
+
+.centered{
+    position: sticky;
+    margin-top: 100pt;
+    margin-left: 20pt;
+    margin-right: 20pt;
+}
+
+.left h2{
+    color:white;
+}
+.left p{
+    color:white;
+}
+
+.alternative{
+    display: flex;
+    flex-direction: row;
+}
+
+.right p{
+    color: #acacac;
+}
