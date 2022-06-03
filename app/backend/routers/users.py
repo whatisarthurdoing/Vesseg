@@ -23,7 +23,24 @@ async def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
     db_user = _cu.get_user_by_email(db, email=user.email)
     if db_user:
         raise HTTPException(status_code=400, detail="Email already registered")
+    db_user = _cu.get_user_by_username(db, username=user.username)
+    if db_user:
+        raise HTTPException(status_code=400, detail="Username already registered")
     return _cu.create_user(db=db, user=user)
+
+@router.patch("/", response_model=schemas.User)
+async def patch_user(
+        patch_user: schemas.UserPatch, 
+        current_user: schemas.User = Depends(get_current_active_user), 
+        db: Session = Depends(get_db)
+    ):
+    if patch_user.username and _cu.get_user_by_username(db, patch_user.username):
+        raise HTTPException(status_code=400, detail="Email already registered")
+    if patch_user.email and _cu.get_user_by_email(db, patch_user.email):
+        raise HTTPException(status_code=400, detail="Username already registered") 
+    return _cu.patch_user(db=db, patch_user=patch_user, current_user=current_user)
+
+    _
 
 @router.delete("/")
 async def delete_user(

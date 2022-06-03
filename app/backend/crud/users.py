@@ -1,4 +1,5 @@
 
+from requests import patch
 from sqlalchemy.orm import Session
 
 import models, schemas
@@ -34,9 +35,21 @@ def delete_user(db: Session, user: schemas.User):
     db.commit()
     return db_user
 
-def update_user_name(db: Session, user_id: int, new_name: str):
-    db_user = get_user(db=db, user_id=user_id)
-    db_user.name = new_name
+def patch_user(
+        db: Session,
+        patch_user: schemas.UserPatch, 
+        current_user: schemas.User,
+    ) -> models.User :
+    db_user = get_user(db=db, user_id=current_user.id)
+    
+    if patch_user.username:
+        db_user.username = patch_user.username
+    if patch_user.email:
+        db_user.email = patch_user.email
+    if patch_user.password: 
+        db_user.hashed_password = Hasher.get_password_hash(patch_user.password)
+    
     db.commit()
     db.refresh(db_user)
     return db_user
+    

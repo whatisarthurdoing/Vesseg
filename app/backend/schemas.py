@@ -34,6 +34,12 @@ class UserCreate(UserBase):
     class Config:
         orm_mode = True
 
+class UserPatch(BaseModel):
+    password: Union[str,  None] = None
+    username: Union[str, None] = None
+    email: Union[str, None] = None
+
+
 class User(UserBase):
     id: int
     is_active: bool
