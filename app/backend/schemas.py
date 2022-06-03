@@ -18,6 +18,10 @@ class Project(ProjectBase):
     class Config:
         orm_mode = True
 
+class ProjectPatch(BaseModel):
+    title: Union[str, None] = None
+    description: Union[str, None] = None
+
 
 ## Users
 

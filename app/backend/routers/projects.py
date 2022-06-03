@@ -47,6 +47,18 @@ async def create_project(
     )
     return _cp.create_project(db, create_project)
 
+@router.patch("/{project_id}", response_model=schemas.Project)
+async def patch_project(
+        project_id: int,
+        patch_project: schemas.ProjectPatch,
+        db: Session = Depends(get_db),
+        current_user: schemas.User = Depends(get_current_active_user)
+    ) -> schemas.Project:
+    project = _cp.get_project(db=db, project_id=project_id, owner_id=current_user.id)
+    if not project:
+        HTTPException(status_code=404, detail="Project does not exist")
+    return _cp.patch_projet(db, project, patch_project)
+
 
 
 
