@@ -1,6 +1,6 @@
 from sqlalchemy.orm import Session
 
-import models, schemas
+from .. import models, schemas
 
 
 def get_project(db: Session, project_id: int, owner_id: int):

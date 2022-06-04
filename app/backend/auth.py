@@ -4,12 +4,12 @@ from fastapi import Depends
 from jose import JWTError, jwt
 from sqlalchemy.orm import Session
 
-import schemas
-from dependencies import get_db, oauth2_scheme
-from core.exceptions import *
-from core.hashing import Hasher
-from core.config import AuthSettings
-from crud.users import get_user_by_username
+from . import schemas
+from .dependencies import get_db, oauth2_scheme
+from .core.exceptions import *
+from .core.hashing import Hasher
+from .core.config import AuthSettings
+from .crud.users import get_user_by_username
 
 
 

@@ -23,6 +23,7 @@ class ProjectSettings:
 
 class DBSettings:
     SQLALCHEMY_DATABASE_URL: str = "sqlite:///./database.db"
+    SQLALCHEMY_TEST_DATABASE_URL: str = "sqlite:///./test_database.db"
 
 
 class AuthSettings:
