@@ -21,7 +21,7 @@ const headersData = [
 export default function Header() {
   const displayDesktop = () => {
     return (
-      <Toolbar>
+      <Toolbar className="toolbar">
         {vessegLogo}
         {getMenuButton()}
       </Toolbar>
@@ -36,7 +36,7 @@ export default function Header() {
   );
 
   const getMenuButton = () => {
-    return headersData.map(({ label, href}) => {
+    return headersData.map(({ label, href }) => {
         return ( 
             <Button 
                 {...{

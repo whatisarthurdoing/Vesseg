@@ -33,7 +33,7 @@ def get_current_user(
         raise CREDENTIAL_EXCEPTION
     return db_user
 
-def get_current_active_user(current_user: schemas.User = Depends(get_current_user)):
+def get_current_active_user(current_user: schemas.User):
     if not current_user.is_active:
         raise INACTIVE_USER
     return current_user

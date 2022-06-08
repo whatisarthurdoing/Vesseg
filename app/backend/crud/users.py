@@ -4,6 +4,7 @@ from sqlalchemy.orm import Session
 
 from .. import models, schemas
 from ..core.hashing import Hasher
+from .. import auth as _au
 
 
 def get_user(db: Session, user_id: int):
@@ -27,7 +28,9 @@ def create_user(db: Session, user: schemas.UserCreate):
     db.add(db_user)
     db.commit()
     db.refresh(db_user)
-    return db_user
+    user = _au.create_token(db_user)
+    #return db_user
+    return user
 
 def delete_user(db: Session, user: schemas.User):
     db_user = get_user_by_username(db, user.username)

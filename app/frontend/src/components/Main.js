@@ -1,14 +1,11 @@
-import React, { useState, useCallback } from 'react'
+import React, { useState, useCallback} from 'react'
 import "./CSS/Main.css";
 import { FormControl, TextField, Button} from '@mui/material';
 import { Link } from 'react-router-dom';
+//import validator from 'validator';
 //import CopyrightIcon from '@mui/icons-material/Copyright';
 //import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
-
-function checkEmail(){
-
-}
 
 
 
@@ -42,6 +39,18 @@ export default function Main() {
         confirmAccount: "Have an Account already? Sign in"
     });
     //End: Change form on click
+
+    //Start: Form Validation
+    /*
+    const [emailValid, setEmailValid] = useState(true);
+    const validateEmail = email => {
+        return validator.isEmail(email) && email.length > 0;
+    }
+    useEffect(() => {
+        setEmailValid(validateEmail(formSignUp.email));
+    }, [formSignUp.email])
+    */
+    //End: Form validation
 
 
     return (
