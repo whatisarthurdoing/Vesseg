@@ -4,7 +4,6 @@ export const UserContext = createContext();
 
 export const UserProvider = (props) => {
     const [token, setToken] = useState(localStorage.getItem("Token"));
-
     useEffect(() => {
         const fetchUser = async() => {
             const requestOptions = {
@@ -14,8 +13,9 @@ export const UserProvider = (props) => {
                     Authorization: "Bearer " + token, 
                 },
             };
-
-            const response = await fetch("/users/me", requestOptions);
+            //console.log(requestOptions)
+            const response = await fetch("/me", requestOptions);
+            //console.log(requestOptions)
             if (!response.ok){
                 setToken(null);
             }

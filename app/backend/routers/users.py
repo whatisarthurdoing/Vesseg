@@ -4,7 +4,7 @@ from sqlalchemy.orm import Session
 
 from .. import schemas
 from ..dependencies import get_db
-from ..auth import get_current_active_user
+from ..auth import create_token, get_current_active_user
 
 from ..crud import users as _cu
 
@@ -27,6 +27,8 @@ async def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
     if db_user:
         raise HTTPException(status_code=400, detail="Username already registered")
     return _cu.create_user(db=db, user=user)
+
+   #return create_token(user)
 
 @router.patch("/", response_model=schemas.User)
 async def patch_user(
