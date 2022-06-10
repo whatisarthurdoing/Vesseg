@@ -3,6 +3,7 @@ import React, { useContext, useState } from "react";
 import { UserContext } from "../context/UserContext";
 import ErrorMessage from "./ErrorMessage";
 import Login from "./Login";
+
 const Register = () => {
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");

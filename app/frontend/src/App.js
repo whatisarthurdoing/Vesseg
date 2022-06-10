@@ -2,7 +2,6 @@ import './App.css';
 
 import React from 'react';
 import { Routes, Route } from "react-router-dom";
-import User from "./components/User";
 import Project from "./components/Project";
 import Settings from './components/Settings';
 import Impressum from './components/Impressum';
@@ -21,7 +20,6 @@ function App() {
       <Header/>
       <Routes>
         <Route path="/" element = {<Main/>}/>
-        <Route path="/user" element = {<User/>}/>
         <Route path="/project" element = {<Project/>}/>
         <Route path='/settings' element = {<Settings/>}/>
         <Route path='/impressum' element = {<Impressum/>}/>
