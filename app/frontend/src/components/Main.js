@@ -22,7 +22,7 @@ export default function Main() {
 
     const [isOn, toggleIsOn ] = useToggle();
 
-    const [formSignIn, setFormSignIn] = useState({
+    const [formSignIn, ] = useState({
         title: "Sign In",
         name: true, 
         confirmPassword: true, 
@@ -30,7 +30,7 @@ export default function Main() {
         forgotPassword: "Forgot password?", 
         confirmAccount: "Don't have an account? Sign Up"
     });
-    const [formSignUp, setFormSignUp] = useState({
+    const [formSignUp, ] = useState({
         title: "Sign Up", 
         name: false, 
         confirmPassword: false, 
