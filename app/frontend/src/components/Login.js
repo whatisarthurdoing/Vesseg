@@ -1,65 +1,77 @@
-import { useNavigate } from "react-router";
-import { fetchToken, setToken } from "../Auth";
-import { useState } from "react";
-import axios from "axios";
 
-export default function Login() {
-  const navigate = useNavigate();
-  const [name, setUsername] = useState("");
+import React, { useState, useContext } from "react";
+
+import ErrorMessage from "./ErrorMessage";
+import { UserContext } from "../context/UserContext";
+
+const Login = () => {
+  const [name, setName] = useState("");
   const [password, setPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+  const [, setToken] = useContext(UserContext);
 
-  //check to see if the fields are not empty
-  const login = () => {
-    if ((name === "") & (password === "")) {
-      return;
+  const submitLogin = async () => {
+    const requestOptions = {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: JSON.stringify(
+        `grant_type=&username=${name}&password=${password}&scope=&client_id=&client_secret=`
+      ),
+    };
+
+    const response = await fetch("/login", requestOptions);
+    const data = await response.json();
+
+    if (!response.ok) {
+      setErrorMessage(data.detail);
     } else {
-      // make api call to our backend. we'll leave thisfor later
-      axios
-        .post("http://localhost:8000/login", {
-          name: name,
-          password: password,
-        })
-        .then(function (response) {
-          console.log(response.data.token, "response.data.token");
-          if (response.data.token) {
-            setToken(response.data.token);
-            navigate("/profile");
-          }
-        })
-        .catch(function (error) {
-          console.log(error, "error");
-        });
+      setToken(data.access_token);
     }
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    submitLogin();
+  };
+
   return (
-    <div style={{ minHeight: 800, marginTop: 30 }}>
-      <h1>Login page</h1>
-      <div style={{ marginTop: 30 }}>
-        {fetchToken() ? (
-          <p>you are logged in</p>
-        ) : (
-          <div>
-            <form>
-              <label style={{ marginRight: 10 }}>Input Username</label>
-              <input
-                type="text"
-                onChange={(e) => setUsername(e.target.value)}
-              />
-
-              <label style={{ marginRight: 10 }}>Input Password</label>
-              <input
-                type="text"
-                onChange={(e) => setPassword(e.target.value)}
-              />
-
-              <button type="button" onClick={login}>
-                Login
-              </button>
-            </form>
+    <div className="column">
+      <form className="box" onSubmit={handleSubmit}>
+        <h1 className="title has-text-centered">Login</h1>
+        <div className="field">
+          <label className="label">Username</label>
+          <div className="control">
+            <input
+              type="text"
+              placeholder="Enter Username"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              className="input"
+              required
+            />
           </div>
-        )}
-      </div>
+        </div>
+        <div className="field">
+          <label className="label">Password</label>
+          <div className="control">
+            <input
+              type="password"
+              placeholder="Enter password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="input"
+              required
+            />
+          </div>
+        </div>
+        <ErrorMessage message={errorMessage} />
+        <br />
+        <button className="button is-primary" type="submit">
+          Login
+        </button>
+      </form>
     </div>
   );
-}
+};
+
+export default Login;

@@ -28,9 +28,7 @@ def create_user(db: Session, user: schemas.UserCreate):
     db.add(db_user)
     db.commit()
     db.refresh(db_user)
-    user = _au.create_token(db_user)
-    #return db_user
-    return user
+    return db_user
 
 def delete_user(db: Session, user: schemas.User):
     db_user = get_user_by_username(db, user.username)
