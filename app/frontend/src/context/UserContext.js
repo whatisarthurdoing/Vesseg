@@ -3,7 +3,7 @@ import React, { createContext, useEffect, useState } from "react";
 export const UserContext = createContext();
 
 export const UserProvider = (props) => {
-    const [token, setToken] = useState(localStorage.getItem("Token"));
+    const [token, setToken] = useState(localStorage.getItem("myToken"));
     useEffect(() => {
         const fetchUser = async() => {
             const requestOptions = {
@@ -13,13 +13,13 @@ export const UserProvider = (props) => {
                     Authorization: "Bearer " + token, 
                 },
             };
-            //console.log(requestOptions)
-            const response = await fetch("/me", requestOptions);
-            //console.log(requestOptions)
+         
+            const response = await fetch("/users/me", requestOptions);
+         
             if (!response.ok){
                 setToken(null);
             }
-            localStorage.setItem("Token", token);
+            localStorage.setItem("myToken", token);
         };
         fetchUser();
     }, [token]);
