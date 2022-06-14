@@ -13,15 +13,17 @@ const Register = () => {
     const [, setToken] = useContext(UserContext);
         
 
-    const submitRegistration = async () => {
+    const submitRegistration = () => {
         const requestOptions = {
             method: "POST",
             headers: {"Content-Type": "application/json"},
             body: JSON.stringify({username: name, password: password, email: email})
         }
 
-        const response = await fetch("/users/", requestOptions);
-        const data = await response.json();
+        const response = fetch("/users/", requestOptions);
+        //console.log(response)
+        const data = response.json();
+        //console.log(data)
 
         if (!response.ok){
             setErrorMessage(data.detail);
@@ -51,7 +53,7 @@ const Register = () => {
                     <label className="label">Name</label>
                     <div className="control">
                         <input  
-                            type="name" 
+                            type="text" 
                             placeholder="Enter Name" 
                             value={name} 
                             onChange={(e) => setName(e.target.value)} 

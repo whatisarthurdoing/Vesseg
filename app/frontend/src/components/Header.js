@@ -6,7 +6,7 @@ import { Link as RouterLink } from "react-router-dom";
 const headersData = [
     {
         label: "Projects", 
-        href: "/project",
+        href: "/projects",
     },
     {
         label: "About", 

@@ -11,10 +11,10 @@ export const UserProvider = (props) => {
                 headers: {
                     "Content-Type": "application/json", 
                     Authorization: "Bearer " + token, 
-                },
+                }
             };
             //console.log(requestOptions)
-            const response = await fetch("/me", requestOptions);
+            const response = await fetch("/users/me", requestOptions);
             //console.log(requestOptions)
             if (!response.ok){
                 setToken(null);

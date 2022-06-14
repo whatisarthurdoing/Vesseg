@@ -40,19 +40,6 @@ export default function Main() {
     });
     //End: Change form on click
 
-    //Start: Form Validation
-    /*
-    const [emailValid, setEmailValid] = useState(true);
-    const validateEmail = email => {
-        return validator.isEmail(email) && email.length > 0;
-    }
-    useEffect(() => {
-        setEmailValid(validateEmail(formSignUp.email));
-    }, [formSignUp.email])
-    */
-    //End: Form validation
-
-
     return (
         <div className='main'>
             <div className='split left'>

@@ -1,5 +1,3 @@
-import './App.css';
-
 import React from 'react';
 import { Routes, Route } from "react-router-dom";
 import Project from "./components/Project";
@@ -17,19 +15,25 @@ import Register from './components/Register';
 function App() {
   return (
     <div className ="App">
-      <Header/>
-      <Routes>
-        <Route path="/" element = {<Main/>}/>
-        <Route path="/project" element = {<Project/>}/>
-        <Route path='/settings' element = {<Settings/>}/>
-        <Route path='/impressum' element = {<Impressum/>}/>
-        <Route path='/faq' element = {<FAQ/>}/>
-        <Route path='/about' element = {<About/>}/>
-        <Route path='/projects' element = {<Projects/>}/>
-        <Route path='/evaluation' element = {<Evaluation/>}/>
-        <Route path='/register' element = {<Register/>}/>
-      </Routes>
-      <Footer/>
+      <div className='header'>
+        <Header/>
+      </div>
+      <div className='routes'>
+        <Routes>
+          <Route path="/" element = {<Main/>}/>
+          <Route path="/project" element = {<Project/>}/>
+          <Route path='/settings' element = {<Settings/>}/>
+          <Route path='/impressum' element = {<Impressum/>}/>
+          <Route path='/faq' element = {<FAQ/>}/>
+          <Route path='/about' element = {<About/>}/>
+          <Route path='/projects' element = {<Projects/>}/>
+          <Route path='/evaluation' element = {<Evaluation/>}/>
+          <Route path='/register' element = {<Register/>}/>
+        </Routes>
+      </div>
+      <div className='footer'>
+        <Footer/>
+      </div>
     </div>
   );
 }
