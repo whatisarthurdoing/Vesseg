@@ -22,8 +22,6 @@ const Login = () => {
     const response = await fetch("/login", requestOptions);
     const data = await response.json();
 
-    console.log(data)
-
     if (!response.ok) {
       setErrorMessage(data.detail);
     } else {

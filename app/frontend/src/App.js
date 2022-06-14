@@ -11,6 +11,7 @@ import Evaluation from './components/Evaluation';
 import Main from './components/Main';
 import Footer from './components/Footer';
 import Register from './components/Register';
+import Login from './components/Login';
 
 function App() {
   return (
