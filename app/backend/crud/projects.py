@@ -1,6 +1,7 @@
 from sqlalchemy.orm import Session
 
 from .. import models, schemas
+from ..crud import projects as _cp
 
 
 def get_project(db: Session, project_id: int, owner_id: int):
@@ -38,3 +39,9 @@ def patch_project(
     db.refresh(project)
     return project
 
+
+def delete_project(db: Session, project_id: int, user: schemas.User):
+    db_project = get_project(db=db, project_id=project_id, owner_id=user.id)
+    db.delete(db_project)
+    db.commit()
+    return db_project

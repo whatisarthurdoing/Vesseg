@@ -1,22 +1,47 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import './CSS/Project.css'
 
 import TextField from '@mui/material/TextField';
 import Button from "@mui/material/Button";
 
 export default function Project() {
+
+  const [token, ] = useState(localStorage.getItem("myToken"));
+  const [name, setName] = useState("Project");
+
+  const createProject = () => {
+    const requestOptions = {
+      method: "POST", 
+      headers: {
+        'Content-Type': 'application/json', 
+        Authorization: "Bearer " + token
+      }, 
+      body: JSON.stringify({
+        title: name,
+        description: "Project Created"
+      })
+    };
+    try{
+      fetch('/projects/', requestOptions)
+      .then(response => response.json())
+      .then(data => setName(data.title));
+    }
+    catch(e){
+      console.log(e);
+    }
+  };
+
   return (
     <div className='project'>
-        <h1>Projects</h1>
+        <h1>{name}</h1>
         <h2>Create Project</h2>
         <div className='createProject'>
           <TextField
-            id="outlined-password-input"
             label="Name"
-            type="name"
-            autoComplete="current-password"
+            type="text"
+            onChange={(v) => setName(v.target.value)}
           />
-          <Button style={{backgroundColor:'#2F3747'}} variant="contained">Create Project</Button>
+          <Button style={{backgroundColor:'#2F3747'}} variant="contained" onClick={createProject}>Create Project</Button>
         </div>
         <div className='uploadData'>
           <h2>Upload Data</h2>
@@ -44,5 +69,3 @@ export default function Project() {
     </div>
   )
 }
-
-// Dropzone ist fuer material ui nur geplant

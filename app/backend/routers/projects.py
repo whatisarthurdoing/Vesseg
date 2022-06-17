@@ -59,6 +59,15 @@ async def patch_project(
         HTTPException(status_code=404, detail="Project does not exist")
     return _cp.patch_projet(db, project, patch_project)
 
+@router.delete("/")
+async def delete_project(
+        project_id: int,
+        db: Session = Depends(get_db),
+        current_user: schemas.User = Depends(get_current_active_user)
+    ):
+    _cp.delete_project(db=db, user=current_user, project_id=project_id)
+    return {"Current project deleted"}
+
 
 
 
