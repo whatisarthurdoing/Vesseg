@@ -1,0 +1,11 @@
+.field{
+    display: flex;
+    flex-direction: column;
+}
+.box{
+    height: fit-content;
+}
+.control, .label{
+    height: 50px;
+    margin: 10px
+}

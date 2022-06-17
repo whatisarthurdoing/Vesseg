@@ -3,6 +3,7 @@ import React, { useContext, useState } from "react";
 import { UserContext } from "../context/UserContext";
 import ErrorMessage from "./ErrorMessage";
 import Login from "./Login";
+import "./CSS/Register.css"
 
 const Register = () => {
     const [name, setName] = useState("");
@@ -21,10 +22,7 @@ const Register = () => {
         }
 
         const response = fetch("/users/", requestOptions);
-        //console.log(response)
-        const data = response.json();
-        //console.log(data)
-
+        const data = response
         if (!response.ok){
             setErrorMessage(data.detail);
         }
