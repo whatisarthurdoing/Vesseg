@@ -42,6 +42,7 @@ export default function Project() {
             onChange={(v) => setName(v.target.value)}
           />
           <Button style={{backgroundColor:'#2F3747'}} variant="contained" onClick={createProject}>Create Project</Button>
+          <Button style={{color:'#2F3747'}} variant="text">Edit name</Button>
         </div>
         <div className='uploadData'>
           <h2>Upload Data</h2>
@@ -51,8 +52,8 @@ export default function Project() {
         <div className='chooseModel'>
           <h2>Choose a model</h2>
           <p>Read more about our models here</p>
-          <Button style={{backgroundColor:'#2F3747'}} variant="contained">Fast AI</Button>
-          <Button style={{color:'#2F3747'}} variant="text">Nunet</Button>
+          <Button style={{backgroundColor:'#2F3747', width:"200px"}} variant="contained">Fast AI</Button>
+          <Button style={{color:'#2F3747', width:"200px"}} variant="text">Nunet</Button>
         </div>
         <div className='predict'>
           <h2>Predict</h2>
@@ -60,8 +61,8 @@ export default function Project() {
         <div className='downloadReport'>
           <h2>Download Report</h2>
           <p>We will send you a report with all important data to your registered E-Mail adress.</p>
-          <Button style={{backgroundColor:'#2F3747'}} variant="contained">Yes, send me the report</Button>
-          <Button style={{color:'#2F3747'}} variant="text">No thanks, I'm good</Button>
+          <Button style={{backgroundColor:'#2F3747', width:"200px"}} variant="contained">Yes, send me the report</Button>
+          <Button style={{color:'#2F3747', width:"200px"}} variant="text">No thanks, I'm good</Button>
         </div>
         <div className='evaluation'>
           <Button className='evaluationButton' style={{color:'#2F3747', borderColor: '#2F3747'}} variant="outlined" href='/evaluation'>Evaluate the project</Button>

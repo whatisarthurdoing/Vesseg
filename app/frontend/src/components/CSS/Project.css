@@ -6,3 +6,22 @@
     display: flex;
     justify-content: center;
 }
+.uploadData{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.chooseModel{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.downloadReport{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.evaluation{
+    display: flex;
+    justify-content: center;
+}
