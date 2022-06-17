@@ -1,13 +1,12 @@
 import React , { useEffect, useState} from 'react'
 import { Button} from '@mui/material';
-import { DataGrid , GRID_CHECKBOX_SELECTION_COL_DEF, selectedGridRowsCountSelector} from '@mui/x-data-grid';
+import { DataGrid , GRID_CHECKBOX_SELECTION_COL_DEF} from '@mui/x-data-grid';
 
 import "./CSS/Projects.css";
 
 const Projects = () => {
   const [tableData, setTableData] = useState([])
   const [token, ] = useState(localStorage.getItem("myToken"))
-  const [selectedProjects, setSelectedProjects] = useState([]); //row IDs
 
   useEffect(() => {
     const fetchProjects = async () => {
@@ -56,13 +55,45 @@ const Projects = () => {
       },
   ]
 
-  const handleDeleteAll = () => {
+  const [status, setStatus] = useState(null);
+  const [selectedProjects, setSelectedProjects] = useState([]); //row IDs
+
+  const handleDelete = () => {
+    //backend
+    const projectsToDeleteList = tableData.filter(
+      (item) => selectedProjects.includes(item.id)
+    );
+    setSelectedProjects(projectsToDeleteList);
+    console.log(selectedProjects)
+    const requestOptions = {
+      method: "DELETE", 
+      headers: {
+        "content-Type": "application/json",
+        Authorization: "Bearer " + token,
+      }
+    };
+    //frontend
     const filteredProjectList = tableData.filter(
       (item) => !selectedProjects.includes(item.id)
     );
     setTableData(filteredProjectList);
+    try{
+      const response = fetch('/projects/', requestOptions);
+      for ( var i = 0; i < selectedProjects; i ++){
+        response.setStatus('Delete successfulß');
+      }
+      /*
+      .then(
+          (i) => setStatus('Delete successful')
+      );
+      */
+    }
+    catch(e){
+      console.log(e);
+    }
+
   };
-  
+
 
   return (
     <div className='projects'>
@@ -73,7 +104,7 @@ const Projects = () => {
             columns = {columns}
             disableColumnMenu
             checkboxSelection
-            autoPageSizes
+            pageSize={5}
             autoHeight
             rowsPerPageOptions={[5]}
             onSelectionModelChange={(ids) => {
@@ -83,7 +114,7 @@ const Projects = () => {
         </div>
       <div className='buttons'>
         <Button href="/project" variant="outlined" color="success">Create new Project</Button>
-        <Button variant="outlined" color="error" onClick={handleDeleteAll}>Delete</Button>
+        <Button variant="outlined" color="error" onClick={handleDelete}>Delete</Button>
       </div>
     </div>
   )
