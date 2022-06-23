@@ -1,6 +1,8 @@
 import { AppBar, Toolbar, Typography, Button} from "@mui/material";
 import React from "react";
 import { Link as RouterLink } from "react-router-dom";
+import './CSS/Header.css'
+
 
 //TODO: Dynamic change depending on login status
 const headersData = [
@@ -38,7 +40,7 @@ export default function Header() {
   const getMenuButton = () => {
     return headersData.map(({ label, href }) => {
         return ( 
-            <Button 
+            <Button
                 {...{
                     key: label, 
                     color: "inherit", 
