@@ -1,0 +1,34 @@
+.settings{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+h2{
+    height: fit-content !important;
+    width: fit-content;
+    margin-bottom: 50px;
+}
+.editUsername{
+    margin: 20px;
+    height: fit-content !important;
+}
+.editUseremail{
+    margin: 20px;
+    height: fit-content !important;
+}
+.editPassword{
+    margin: 20px;
+    height: fit-content !important;
+}
+.logout{
+    height: fit-content !important;
+}
+.changeNameButton{
+    margin-left: 10px !important;
+}
+.changeEmailButton{
+    margin-left: 10px !important;
+}
+.changePasswordButton{
+    margin-left: 10px !important;
+}
