@@ -1,6 +1,6 @@
 import React , { useEffect, useState} from 'react'
 import { Button} from '@mui/material';
-import { DataGrid , GRID_CHECKBOX_SELECTION_COL_DEF} from '@mui/x-data-grid';
+import { DataGrid , GRID_CHECKBOX_SELECTION_COL_DEF, GridCellParams} from '@mui/x-data-grid';
 
 import "./CSS/Projects.css";
 
@@ -59,38 +59,37 @@ const Projects = () => {
   const [selectedProjects, setSelectedProjects] = useState([]); //row IDs
 
   const handleDelete = () => {
-    //backend
-    const projectsToDeleteList = tableData.filter(
-      (item) => selectedProjects.includes(item.id)
-    );
-    setSelectedProjects(projectsToDeleteList);
-    console.log(selectedProjects)
     const requestOptions = {
       method: "DELETE", 
       headers: {
         "content-Type": "application/json",
         Authorization: "Bearer " + token,
       }
+      //selectedProjects: Array von Indices die geloescht werden sollen
     };
-    //frontend
     const filteredProjectList = tableData.filter(
       (item) => !selectedProjects.includes(item.id)
     );
     setTableData(filteredProjectList);
+    console.log(selectedProjects);
     try{
       const response = fetch('/projects/', requestOptions);
       for ( var i = 0; i < selectedProjects; i ++){
-        response.setStatus('Delete successfulß');
+        response.then(() => setStatus('Delete successful'));
       }
-      /*
-      .then(
-          (i) => setStatus('Delete successful')
-      );
-      */
     }
     catch(e){
       console.log(e);
     }
+    /*
+    const projectsToDeleteList = tableData.filter(
+      (item) => selectedProjects.includes(item.id)
+    );
+    setSelectedProjects(projectsToDeleteList);
+    */
+  };
+
+  const redirectToProjectPage = () => {
 
   };
 
@@ -110,6 +109,7 @@ const Projects = () => {
             onSelectionModelChange={(ids) => {
               setSelectedProjects(ids);
             }}
+            onCellClick = {redirectToProjectPage}
           />
         </div>
       <div className='buttons'>

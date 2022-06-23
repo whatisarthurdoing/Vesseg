@@ -13,3 +13,13 @@ h1{
     flex-direction: row;
     justify-content: space-between;
 }
+.table{
+    height: fit-content;
+    margin: 50px;
+}
+a.MuiButton-outlined{
+    margin-left: 50px;
+}
+button.MuiButton-root{
+    margin-right: 50px;
+}
