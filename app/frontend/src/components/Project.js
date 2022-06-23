@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import './CSS/Project.css'
 
 import TextField from '@mui/material/TextField';
@@ -31,6 +31,8 @@ export default function Project() {
     }
   };
 
+  //<Button style={{color:'#2F3747'}} variant="text">Edit name</Button>
+
   return (
     <div className='project'>
         <h1>{name}</h1>
@@ -42,7 +44,6 @@ export default function Project() {
             onChange={(v) => setName(v.target.value)}
           />
           <Button style={{backgroundColor:'#2F3747'}} variant="contained" onClick={createProject}>Create Project</Button>
-          <Button style={{color:'#2F3747'}} variant="text">Edit name</Button>
         </div>
         <div className='uploadData'>
           <h2>Upload Data</h2>
@@ -54,9 +55,7 @@ export default function Project() {
           <p>Read more about our models here</p>
           <Button style={{backgroundColor:'#2F3747', width:"200px"}} variant="contained">Fast AI</Button>
           <Button style={{color:'#2F3747', width:"200px"}} variant="text">Nunet</Button>
-        </div>
-        <div className='predict'>
-          <h2>Predict</h2>
+          <Button style={{color:'#2F3747', width:"100px"}} variant="text">Predict</Button>
         </div>
         <div className='downloadReport'>
           <h2>Download Report</h2>
