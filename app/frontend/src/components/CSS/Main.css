@@ -1,3 +1,7 @@
+.main{
+    display: flex;
+    overflow: hidden;
+}
 .split{
     display: flex;
     width: 100%;
@@ -6,7 +10,7 @@
 }
 
 .left {
-    flex-grow: 0;
+    justify-content: center;
     max-width: 60%;
     -webkit-box-flex: 0;
     background-color: #839AC7;
@@ -18,26 +22,36 @@
     -webkit-box-flex: 0;
     background-color: white;
 }
-
 .centered{
-    position: sticky;
-    margin-top: 100pt;
-    margin-left: 20pt;
-    margin-right: 20pt;
+    justify-content: center;
 }
-
 .left h2{
     color:white;
+    margin: 50px;
 }
 .left p{
     color:white;
+    height: fit-content;
+    width: fit-content;
+    margin: 50px;
 }
 
 .alternative{
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
+    height: fit-content;
+
 }
 
 .right p{
     color: #acacac;
+    height: fit-content;
+}
+
+.form{
+    height: fit-content;
+}
+
+.titleRight{
+    margin: 50px;
 }

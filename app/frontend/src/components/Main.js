@@ -55,13 +55,13 @@ export default function Main() {
 
             <div className='split right'>
                 <div className='centered'>
-                <h2>{isOn ? formSignIn.title : formSignUp.title}</h2>
+                <h2 className='titleRight'>{isOn ? formSignIn.title : formSignUp.title}</h2>
                 <FormControl>
-                    <TextField required="true" margin='dense' label='Name' placeholder='Name' multilinevariant='filled' disabled = {isOn ? formSignIn.name : formSignUp.name}/>
-                    <TextField required="true" margin='dense' label="E-Mail" inputProps = "email" placeholder='E-Mail' multilinevariant="filled"/>
-                    <TextField required="true" margin='dense' label="Password" placeholder='Password' multilinevariant="filled"/>
-                    <TextField required="true" margin='dense' label="Confirm" placeholder='Confirm password' multilinevariant="filled" disabled={isOn ? formSignIn.confirmPassword : formSignUp.confirmPassword}/>
-                    <Button style={{backgroundColor:'#2F3747'}} variant="contained">{isOn ? formSignIn.button : formSignUp.button}</Button>
+                    <TextField className="form" required="true" margin='dense' label='Name' placeholder='Name' multilinevariant='filled' disabled = {isOn ? formSignIn.name : formSignUp.name}/>
+                    <TextField className="form" required="true" margin='dense' label="E-Mail" inputProps = "email" placeholder='E-Mail' multilinevariant="filled"/>
+                    <TextField className="form" required="true" margin='dense' label="Password" placeholder='Password' multilinevariant="filled"/>
+                    <TextField className="form" required="true" margin='dense' label="Confirm" placeholder='Confirm password' multilinevariant="filled" disabled={isOn ? formSignIn.confirmPassword : formSignUp.confirmPassword}/>
+                    <Button className="form" style={{backgroundColor:'#2F3747'}} variant="contained">{isOn ? formSignIn.button : formSignUp.button}</Button>
                     <div className='alternative'>
                         <Link to='/forgotpassword'>{isOn ? formSignIn.forgotPassword : formSignUp.forgotPassword}</Link>
                         <Link 
