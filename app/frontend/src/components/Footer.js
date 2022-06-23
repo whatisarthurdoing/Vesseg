@@ -10,7 +10,7 @@ export default function Footer() {
       <Button href="/impressum" color="inherit">
         Impressum
       </Button>
-      <Button href="https://mml.ikim.nrw/">
+      <Button href="https://mml.ikim.nrw/" target="_blank">
         <Image className="image" component='img' src={image} width={200} height={40}/>
       </Button>
     </footer>
