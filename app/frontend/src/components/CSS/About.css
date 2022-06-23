@@ -1,0 +1,16 @@
+.about{
+    display: flex;
+    flex-direction: column;
+}
+.vesseg{
+    height: fit-content;
+    margin-left: 50px;
+    margin-right: 50px;
+}
+.radiomics{
+    height: fit-content;
+    margin: 50px;
+}
+.vesseg > p:nth-child(1) > ol:nth-child(6){
+    height: fit-content;
+}
