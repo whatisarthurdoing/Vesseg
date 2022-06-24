@@ -8,6 +8,25 @@ export default function Settings() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [status, setStatus] = useState(null);
+
+  const deleteUser = () => {
+    const requestOptions = {
+      method: "DELETE", 
+      headers: {
+        "content-Type": "application/json",
+        Authorization: "Bearer " + token,
+      }
+    };
+    try{
+      fetch('/users/', requestOptions)
+      .then(() => setStatus('Delete successful'));
+    }
+    catch(e){
+      console.log(e);
+    }
+  };
+
 
   const editName = () => {
     const requestOptions = {
@@ -74,16 +93,21 @@ export default function Settings() {
     localStorage.removeItem("myToken")
   }
 
-
-
-
+/*
+  TODO: 
+  1. Email-Feld validieren
+  2. Password-Feld Augen-Icon hide/show password
+  3. Error Messages
+*/
   return (
     <div className='settings'>
       <h1>Settings</h1>
+      <Button className='deleteUser'  href='/' style={{color:'red', width:"200px"}} variant="text" onClick={deleteUser}>Delete Profile</Button>
       <div className='editUsername'>
           <TextField
             label="Name"
             type="text"
+            variant='standard'
             onChange={(v) => setName(v.target.value)}
           />
           <Button className='changeNameButton' style={{backgroundColor:'#2F3747'}} variant="contained" onClick={editName}>change username</Button>
@@ -92,6 +116,7 @@ export default function Settings() {
           <TextField
             label="E-Mail"
             type="text"
+            variant='standard'
             onChange={(v) => setEmail(v.target.value)}
           />
           <Button className='changeEmailButton' style={{backgroundColor:'#2F3747'}} variant="contained" onClick={editEmail}>change email</Button>
@@ -99,7 +124,8 @@ export default function Settings() {
       <div className='editPassword'>
           <TextField
             label="Password"
-            type="text"
+            type="password"
+            variant='standard'
             onChange={(v) => setPassword(v.target.value)}
           />
           <Button className='changePasswordButton' style={{backgroundColor:'#2F3747'}} variant="contained" onClick={editPassword}>change password</Button>
