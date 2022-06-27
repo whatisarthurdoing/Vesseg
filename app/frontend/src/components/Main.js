@@ -1,8 +1,11 @@
-import React, { useState, useCallback} from 'react'
-import "./CSS/Main.css";
+import React, { useContext, useState, useCallback} from 'react'
 import { FormControl, TextField, Button} from '@mui/material';
 import { Link } from 'react-router-dom';
-//import validator from 'validator';
+import validator from 'validator';
+
+import "./CSS/Main.css";
+import { UserContext } from '../context/UserContext';
+
 //import CopyrightIcon from '@mui/icons-material/Copyright';
 //import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
@@ -10,6 +13,7 @@ import { Link } from 'react-router-dom';
 
 
 export default function Main() {
+
     //Start: Change form on click
     function useToggle( initialValue = false){
         const [value, setValue] = useState(initialValue)
@@ -25,6 +29,7 @@ export default function Main() {
     const [formSignIn, ] = useState({
         title: "Sign In",
         name: true, 
+        email: true,
         confirmPassword: true, 
         button: "SIGN IN",
         forgotPassword: "Forgot password?", 
@@ -32,13 +37,78 @@ export default function Main() {
     });
     const [formSignUp, ] = useState({
         title: "Sign Up", 
-        name: false, 
+        name: true,
+        email: false, 
         confirmPassword: false, 
         button: "SIGN UP", 
         forgotPassword: "Forgot password?", 
         confirmAccount: "Have an Account already? Sign in"
     });
     //End: Change form on click
+
+
+    const [name, setName] = useState("");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [confirmPassword, setConfirmPassword] = useState("");
+    const [errorMessage, setErrorMessage] = useState("");
+    const [, setToken] = useContext(UserContext);
+        
+
+    const submitRegistration = () => {
+        const requestOptions = {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify({username: name, password: password, email: email})
+        }
+
+        const response = fetch("/users/", requestOptions);
+        const data = response
+        if (!response.ok){
+            setErrorMessage(data.detail);
+        }
+        else{
+            setToken(data.access_token);
+        }
+    }
+  
+    const submitLogin = async () => {
+      const requestOptions = {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded"},
+        body: JSON.stringify(
+          `grant_type=&username=${name}&password=${password}&scope=&client_id=&client_secret=`
+        ),
+      };
+  
+      const response = await fetch("/login", requestOptions);
+      const data = await response.json();
+  
+      if (!response.ok) {
+        setErrorMessage(data.detail);
+      } else {
+        setToken(data.access_token);
+      }
+    };
+  
+    const handleSubmitLogin = (e) => {
+        e.preventDefault();
+        submitLogin();
+    };
+
+    const handleSubmitRegistration = (e) => {
+        e.preventDefault();
+        if (password === confirmPassword && password.length > 7 && validator.isEmail(email)){
+            submitRegistration();
+        }
+        else{
+            setErrorMessage("Ensure that the passwords match and greater than seven characters");
+        }
+    }
+
+
+
+
 
     return (
         <div className='main'>
@@ -55,24 +125,55 @@ export default function Main() {
 
             <div className='split right'>
                 <div className='centered'>
-                <h2 className='titleRight'>{isOn ? formSignIn.title : formSignUp.title}</h2>
-                <FormControl>
-                    <TextField className="form" required="true" margin='dense' label='Name' placeholder='Name' multilinevariant='filled' disabled = {isOn ? formSignIn.name : formSignUp.name}/>
-                    <TextField className="form" required="true" margin='dense' label="E-Mail" inputProps = "email" placeholder='E-Mail' multilinevariant="filled"/>
-                    <TextField className="form" required="true" margin='dense' label="Password" placeholder='Password' multilinevariant="filled"/>
-                    <TextField className="form" required="true" margin='dense' label="Confirm" placeholder='Confirm password' multilinevariant="filled" disabled={isOn ? formSignIn.confirmPassword : formSignUp.confirmPassword}/>
-                    <Button className="form" style={{backgroundColor:'#2F3747'}} variant="contained">{isOn ? formSignIn.button : formSignUp.button}</Button>
-                    <div className='alternative'>
-                        <Link to='/forgotpassword'>{isOn ? formSignIn.forgotPassword : formSignUp.forgotPassword}</Link>
-                        <Link 
-                        to="/"
-                        onClick={toggleIsOn}
-                        >
-                        {isOn ? formSignIn.confirmAccount : formSignUp.confirmAccount}
-                        </Link>
-                    </div>
-                    <p>Copyright IKIM 2022</p>
-                </FormControl>
+                    <h2 className='titleRight'>{isOn ? formSignIn.title : formSignUp.title}</h2>
+                    <FormControl onSubmit={isOn ? handleSubmitRegistration : handleSubmitLogin}>
+                        <TextField 
+                            className="form" 
+                            required="true" 
+                            margin='dense' 
+                            label='Name' 
+                            placeholder='Name' 
+                            multilinevariant='filled' 
+                        />
+                        <TextField 
+                            className="form" 
+                            required="true" 
+                            margin='dense' 
+                            label="E-Mail" 
+                            inputProps = "email" 
+                            placeholder='E-Mail' 
+                            multilinevariant="filled"
+                            disabled = {isOn ? formSignIn.name : formSignUp.name}
+                        />
+                        <TextField 
+                            className="form" 
+                            required="true" 
+                            margin='dense'
+                            label="Password" 
+                            placeholder='Password' 
+                            multilinevariant="filled"
+                        />
+                        <TextField 
+                            className="form" 
+                            required="true" 
+                            margin='dense' 
+                            label="Confirm" 
+                            placeholder='Confirm password' 
+                            multilinevariant="filled" 
+                            disabled={isOn ? formSignIn.confirmPassword : formSignUp.confirmPassword}
+                        />
+                        <Button className="form" style={{backgroundColor:'#2F3747'}} variant="contained">{isOn ? formSignIn.button : formSignUp.button}</Button>
+                        <div className='alternative'>
+                            <Link to='/forgotpassword'>{isOn ? formSignIn.forgotPassword : formSignUp.forgotPassword}</Link>
+                            <Link 
+                            to="/"
+                            onClick={toggleIsOn}
+                            >
+                            {isOn ? formSignIn.confirmAccount : formSignUp.confirmAccount}
+                            </Link>
+                        </div>
+                        <p>Copyright IKIM 2022</p>
+                    </FormControl>
                 </div>
             </div>
         </div>
