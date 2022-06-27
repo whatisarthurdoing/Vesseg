@@ -73,20 +73,17 @@ const Projects = () => {
     setTableData(filteredProjectList);
     console.log(selectedProjects);
     try{
-      const response = fetch('/projects/', requestOptions);
-      for ( var i = 0; i < selectedProjects; i ++){
-        response.then(() => setStatus('Delete successful'));
+      for ( var i = 0; i < selectedProjects.length; i ++){
+        const element = selectedProjects[i];
+        const text = '/projects/element'
+        const fetcher = text.replace("element", element)
+        fetch(fetcher, requestOptions)
+        .then(() => setStatus('Delete successful'));
       }
     }
     catch(e){
       console.log(e);
     }
-    /*
-    const projectsToDeleteList = tableData.filter(
-      (item) => selectedProjects.includes(item.id)
-    );
-    setSelectedProjects(projectsToDeleteList);
-    */
   };
 
   const redirectToProjectPage = () => {
@@ -110,6 +107,7 @@ const Projects = () => {
               setSelectedProjects(ids);
             }}
             onCellClick = {redirectToProjectPage}
+            disableSelectionOnClick = {true}
           />
         </div>
       <div className='buttons'>
