@@ -11,6 +11,7 @@ import Evaluation from './components/Evaluation';
 import Main from './components/Main';
 import Footer from './components/Footer';
 import Register from './components/Register';
+import CreateProject from './components/CreateProject';
 
 function App() {
   return (
@@ -21,7 +22,8 @@ function App() {
       <div className='routes'>
         <Routes>
           <Route path="/" element = {<Main/>}/>
-          <Route path="/project" element = {<Project/>}/>
+          <Route path="/project" element = {<CreateProject/>}/>
+          <Route path="/project/:id" element = {<Project/>}/>
           <Route path='/settings' element = {<Settings/>}/>
           <Route path='/impressum' element = {<Impressum/>}/>
           <Route path='/faq' element = {<FAQ/>}/>
