@@ -86,11 +86,6 @@ const Projects = () => {
     }
   };
 
-  const redirectToProjectPage = () => {
-
-  };
-
-
   return (
     <div className='projects'>
         <h1>Projects</h1>
@@ -106,7 +101,7 @@ const Projects = () => {
             onSelectionModelChange={(ids) => {
               setSelectedProjects(ids);
             }}
-            onCellClick = {redirectToProjectPage}
+            onCellClick
             disableSelectionOnClick = {true}
           />
         </div>
