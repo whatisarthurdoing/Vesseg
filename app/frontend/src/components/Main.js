@@ -82,6 +82,7 @@ export default function Main() {
       };
   
       const response = await fetch("/login", requestOptions);
+      console.log(response);
       const data = await response.json();
   
       if (!response.ok) {
@@ -91,20 +92,21 @@ export default function Main() {
       }
     };
   
-    const handleSubmitLogin = (e) => {
+    const handleSubmit = (e) => {
         e.preventDefault();
-        submitLogin();
-    };
-
-    const handleSubmitRegistration = (e) => {
-        e.preventDefault();
-        if (password === confirmPassword && password.length > 7 && validator.isEmail(email)){
-            submitRegistration();
+        console.log(e);
+        if (isOn){
+            if (password === confirmPassword && password.length > 7 && validator.isEmail(email)){
+                submitRegistration();
+            }
+            else{
+                setErrorMessage("Ensure that the passwords match and greater than seven characters");
+            }
         }
         else{
-            setErrorMessage("Ensure that the passwords match and greater than seven characters");
+            submitLogin();
         }
-    }
+    };
 
 
 
@@ -126,10 +128,10 @@ export default function Main() {
             <div className='split right'>
                 <div className='centered'>
                     <h2 className='titleRight'>{isOn ? formSignIn.title : formSignUp.title}</h2>
-                    <FormControl onSubmit={isOn ? handleSubmitRegistration : handleSubmitLogin}>
+                    <FormControl onSubmit={handleSubmit}>
                         <TextField 
                             className="form" 
-                            required="true" 
+                            required={true}
                             margin='dense' 
                             label='Name' 
                             placeholder='Name' 
@@ -137,17 +139,17 @@ export default function Main() {
                         />
                         <TextField 
                             className="form" 
-                            required="true" 
+                            required={true}
                             margin='dense' 
                             label="E-Mail" 
-                            inputProps = "email" 
+                            input = "email" 
                             placeholder='E-Mail' 
                             multilinevariant="filled"
-                            disabled = {isOn ? formSignIn.name : formSignUp.name}
+                            disabled = {isOn ? formSignIn.email : formSignUp.email}
                         />
                         <TextField 
                             className="form" 
-                            required="true" 
+                            required={true}
                             margin='dense'
                             label="Password" 
                             placeholder='Password' 
@@ -155,14 +157,14 @@ export default function Main() {
                         />
                         <TextField 
                             className="form" 
-                            required="true" 
+                            required={true}
                             margin='dense' 
                             label="Confirm" 
                             placeholder='Confirm password' 
                             multilinevariant="filled" 
                             disabled={isOn ? formSignIn.confirmPassword : formSignUp.confirmPassword}
                         />
-                        <Button className="form" style={{backgroundColor:'#2F3747'}} variant="contained">{isOn ? formSignIn.button : formSignUp.button}</Button>
+                        <Button className="form" style={{backgroundColor:'#2F3747'}} variant="contained" type="submit">{isOn ? formSignIn.button : formSignUp.button}</Button>
                         <div className='alternative'>
                             <Link to='/forgotpassword'>{isOn ? formSignIn.forgotPassword : formSignUp.forgotPassword}</Link>
                             <Link 
