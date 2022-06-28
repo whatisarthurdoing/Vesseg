@@ -1,0 +1,53 @@
+.createProject{
+    display: flex;
+    flex-direction: column;
+}
+h2{
+    margin: 0 !important;
+}
+button.MuiButton-root:nth-child(2){
+    margin-left: 20px;
+    height: 40px;
+    margin: 10px;
+}
+.content-createProject{
+    max-width: fit-content;
+}
+.stepper{
+    max-width: 600px;
+    margin-left: 160px;
+}
+
+
+
+
+span.Mui-active{
+    height: fit-content;
+}
+div.MuiStep-root:nth-child(1) > span:nth-child(1) > span:nth-child(2){
+    height: fit-content !important;
+}
+div.MuiStep-root:nth-child(1) > span:nth-child(1){
+    height: fit-content;
+}
+div.MuiStep-root:nth-child(1){
+    height: fit-content;
+}
+div.MuiStep-root:nth-child(3) > span:nth-child(1){
+    height: fit-content;
+}
+div.MuiStep-root:nth-child(3) > span:nth-child(1) > span:nth-child(2){
+    height: fit-content;
+}
+div.MuiStep-root:nth-child(5) > span:nth-child(1){
+    height: fit-content;
+}
+div.MuiStep-root:nth-child(5) > span:nth-child(1) > span:nth-child(2){
+    height: fit-content;
+}
+div.MuiStep-root:nth-child(7) > span:nth-child(1){
+    height: fit-content;
+}
+div.MuiStep-root:nth-child(9) > span:nth-child(1){
+    height: fit-content;
+}
