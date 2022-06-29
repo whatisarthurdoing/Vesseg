@@ -1,5 +1,5 @@
 import React , { useEffect, useState} from 'react'
-import { Button} from '@mui/material';
+import { Button, Link} from '@mui/material';
 import { DataGrid , GRID_CHECKBOX_SELECTION_COL_DEF, GridCellParams} from '@mui/x-data-grid';
 
 import "./CSS/Projects.css";
@@ -39,6 +39,13 @@ const Projects = () => {
       },
       {
         field: "title",
+        renderCell: (params) => {
+          const projectId = params.id;
+          const text = '/project/projectID'
+          const fetcher = text.replace("projectID", projectId)
+
+          return <Link href={fetcher}>{params.value}</Link>;
+        },
         headerName: "NAME",
         flex: 1
         //sortable
@@ -101,7 +108,6 @@ const Projects = () => {
             onSelectionModelChange={(ids) => {
               setSelectedProjects(ids);
             }}
-            onCellClick
             disableSelectionOnClick = {true}
           />
         </div>
