@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import {Button, TextField ,Stepper, StepLabel, Step, StepContent, getListItemSecondaryActionClassesUtilityClass} from '@mui/material';
+import {Button, TextField ,Stepper, StepLabel, Step, StepContent} from '@mui/material';
 import Dropzone from 'react-dropzone';
 
 import './CSS/CreateProject.css'
@@ -26,7 +26,7 @@ export default function CreateProject() {
 
   const [token, ] = useState(localStorage.getItem("myToken"));
   const [id, setId] = useState(0);
-  const [name, setName] = useState("");
+  const [name, setName] = useState(" ");
   const [title, setTitle] = useState("Project");
 
   const createProject = () => {
@@ -99,6 +99,19 @@ export default function CreateProject() {
     */
   };
 
+  const validate = (inputText) => {
+    console.log(inputText);
+    const text = inputText.replace(/\s+/g, '');
+    console.log(text);
+    if (text === ''){
+      //TODO: Error Message: No Whitespaces Allowed
+      setName("No Spaces allowed")
+    }
+    else{
+      setName(text);
+    }
+  };
+
   //TODO: Buttons Colors change und Auswahl
   return (
     <div className='createProject'>
@@ -113,9 +126,9 @@ export default function CreateProject() {
               <TextField
                 label="Name"
                 type="text"
-                onChange={(v) => setName(v.target.value)}
+                onChange={(v) => validate(v.target.value)}
               />
-              <Button style={{backgroundColor:'#2F3747'}} variant="contained" onClick={createProject}>Create Project</Button>`
+              <Button style={{backgroundColor:'#2F3747'}} variant="contained" onClick={createProject} disabled={name.includes(" ")}>Create Project</Button>`
             </StepContent>
           </Step>
           <Step>                  
