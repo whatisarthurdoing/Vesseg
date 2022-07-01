@@ -10,7 +10,6 @@ import Header from './components/Header';
 import Evaluation from './components/Evaluation';
 import Main from './components/Main';
 import Footer from './components/Footer';
-import Register from './components/Register';
 import CreateProject from './components/CreateProject';
 
 function App() {
@@ -30,7 +29,6 @@ function App() {
           <Route path='/about' element = {<About/>}/>
           <Route path='/projects' element = {<Projects/>}/>
           <Route path='/evaluation' element = {<Evaluation/>}/>
-          <Route path='/register' element = {<Register/>}/>
         </Routes>
       </div>
       <div className='footer'>
