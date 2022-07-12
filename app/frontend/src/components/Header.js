@@ -1,23 +1,34 @@
 import { AppBar, Toolbar, Typography, Button} from "@mui/material";
-import React from "react";
+import React, {useState} from "react";
 import { Link as RouterLink } from "react-router-dom";
+
 import './CSS/Header.css'
 
 
-//TODO: Dynamic change depending on login status
-const headersData = [
-    {
-        label: "Projects", 
-        href: "/projects",
-    },
-    {
-        label: "About", 
-        href: "/about", 
-    }, 
-    {
-        label: "settings", 
-        href: "/settings",
-    },
+const headersDataLoggedOut = [
+  {
+    label: "About", 
+    href: "/about", 
+  },
+];
+
+const headersDataLoggedIn = [
+  {
+    label: "Projects", 
+    href: "/projects",
+  },
+  {
+    label: "About", 
+    href: "/about", 
+  }, 
+  {
+    label: "FAQ", 
+    href: "/faq",
+  },
+  {
+    label: "settings", 
+    href: "/settings",
+  },
 ];
 
 export default function Header() {
@@ -36,9 +47,23 @@ export default function Header() {
       <Typography variant="h6" component="h1">VESSEG</Typography>
     </Button>
   );
+  const isAuthenticated = () => {
+    const [token, setToken ] = useState(localStorage.getItem("myToken"));
+
+    let headerToShow = headersDataLoggedIn;
+
+    if(token === "null"){
+      headerToShow = headersDataLoggedOut;
+      return headerToShow;
+    }
+    return headerToShow;
+  };
 
   const getMenuButton = () => {
-    return headersData.map(({ label, href }) => {
+
+    const authenticator = isAuthenticated();
+
+    return authenticator.map(({ label, href }) => {
         return ( 
             <Button
                 {...{
