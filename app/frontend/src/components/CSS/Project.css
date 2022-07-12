@@ -1,38 +1,32 @@
-.project{
-    display: flex;
-    flex-direction: column;
-    margin-left: 50px;
-}
-.createProject{
+.allContent{
     height: fit-content;
-    display: flex;
-    margin-bottom: 10px;
-}
-.uploadData{
-    display: flex;
-    flex-direction: column;
-}
-.chooseModel{
-    display: flex;
-    flex-direction: column;
-}
-.downloadReport{
-    display: flex;
-    flex-direction: column;
-}
-.evaluation{
-    display: flex;
-    justify-content: center;
-}
-.evaluationButton{
-    height: fit-content;
-}
-h2{
-    height: fit-content;
-}
-
-button.MuiButton-root:nth-child(2){
     margin-left: 20px;
-    height: 40px;
-    margin: 10px;
+}
+.MuiFormControl-root{
+    height: fit-content;
+    width: 240px;
+}
+.changeProjectName{
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+}
+.buttons{
+    height: fit-content;
+    width: fit-content;
+}
+.changeUploadData{
+    height: fit-content;
+}
+.changeModel{
+    height: fit-content;
+}
+.downloadReportAgain{
+    height: fit-content;
+}
+.evaluateAgain{
+    height: fit-content;
+}
+h1{
+    align-self: center;
 }

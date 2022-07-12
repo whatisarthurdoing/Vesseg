@@ -1,12 +1,14 @@
 import React , { useEffect, useState} from 'react'
 import { Button, Link} from '@mui/material';
-import { DataGrid , GRID_CHECKBOX_SELECTION_COL_DEF, GridCellParams} from '@mui/x-data-grid';
+import { DataGrid , GRID_CHECKBOX_SELECTION_COL_DEF} from '@mui/x-data-grid';
 
 import "./CSS/Projects.css";
 
 const Projects = () => {
   const [tableData, setTableData] = useState([])
   const [token, ] = useState(localStorage.getItem("myToken"))
+
+  console.log(token)
 
   useEffect(() => {
     const fetchProjects = async () => {
@@ -40,9 +42,12 @@ const Projects = () => {
       {
         field: "title",
         renderCell: (params) => {
-          const projectId = params.id;
-          const text = '/project/projectID'
-          const fetcher = text.replace("projectID", projectId)
+          const text = '/project/projectId/projectName';
+          const getName = params.value;
+          const getId = params.id;
+          let fetcher = text.replace("projectId", getId);
+          fetcher = fetcher.replace("projectName", getName);
+          console.log(fetcher)
 
           return <Link href={fetcher}>{params.value}</Link>;
         },
@@ -112,7 +117,7 @@ const Projects = () => {
           />
         </div>
       <div className='buttons'>
-        <Button href="/project" variant="outlined" color="success">Create new Project</Button>
+        <Button href="/createProject" variant="outlined" color="success">Create new Project</Button>
         <Button variant="outlined" color="error" onClick={handleDelete}>Delete</Button>
       </div>
     </div>

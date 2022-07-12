@@ -29,7 +29,7 @@
 }
 .left h2{
     color:white;
-    margin: 50px;
+    align-self: center;
 }
 .left p{
     color:white;
@@ -42,7 +42,8 @@
     display: flex;
     flex-direction: column;
     height: fit-content;
-
+    margin-left: 20px;
+    margin-right: 20px;
 }
 
 .right p{
@@ -55,5 +56,30 @@
 }
 
 .titleRight{
-    margin: 50px;
+    align-self: center;
+}
+div.MuiFormControl-root:nth-child(1){
+    display: flex;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+div.MuiFormControl-root:nth-child(2){
+    display: flex;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+div.MuiFormControl-root:nth-child(3){
+    display: flex;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+div.MuiFormControl-root:nth-child(4){
+    display: flex;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+button.MuiButton-root{
+    display: flex;
+    margin-left: 20px;
+    margin-right: 20px;
 }
