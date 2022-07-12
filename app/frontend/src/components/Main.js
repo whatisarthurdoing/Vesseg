@@ -1,13 +1,12 @@
 import React, { useContext, useState, useCallback} from 'react'
 import { FormControl, TextField, Button} from '@mui/material';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import validator from 'validator';
+import CopyrightIcon from '@mui/icons-material/Copyright';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 import "./CSS/Main.css";
 import { UserContext } from '../context/UserContext';
-
-//import CopyrightIcon from '@mui/icons-material/Copyright';
-//import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 
 
@@ -15,7 +14,7 @@ import { UserContext } from '../context/UserContext';
 export default function Main() {
 
     //Start: Change form on click
-    function useToggle( initialValue = false){
+    function useToggle( initialValue ){
         const [value, setValue] = useState(initialValue)
 
         const toggle = useCallback(() => {
@@ -24,7 +23,7 @@ export default function Main() {
         return [value, toggle];
     }
 
-    const [isOn, toggleIsOn ] = useToggle();
+    const [isOn, toggleIsOn ] = useToggle(false);
 
     const [formSignIn, ] = useState({
         title: "Sign In",
@@ -53,22 +52,30 @@ export default function Main() {
     const [confirmPassword, setConfirmPassword] = useState("");
     const [errorMessage, setErrorMessage] = useState("");
     const [, setToken] = useContext(UserContext);
-        
+    
+    const navigate = useNavigate();
 
     const submitRegistration = () => {
-        const requestOptions = {
-            method: "POST",
-            headers: {"Content-Type": "application/json"},
-            body: JSON.stringify({username: name, password: password, email: email})
-        }
+        if (password === confirmPassword && password.length > 7 && validator.isEmail(email)){
+            const requestOptions = {
+                method: "POST",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify({username: name, password: password, email: email})
+            }
 
-        const response = fetch("/users/", requestOptions);
-        const data = response
-        if (!response.ok){
-            setErrorMessage(data.detail);
+            const response = fetch("/users/", requestOptions);
+            const data = response
+            if (!response.ok){
+                setErrorMessage(data.detail);
+            }
+            else{
+                setToken(data.access_token);
+            }
+            toggleIsOn(true);
+            window.location.reload();
         }
         else{
-            setToken(data.access_token);
+            setErrorMessage("Ensure that the passwords match and greater than seven characters");
         }
     }
   
@@ -82,7 +89,6 @@ export default function Main() {
       };
   
       const response = await fetch("/login", requestOptions);
-      console.log(response);
       const data = await response.json();
   
       if (!response.ok) {
@@ -90,18 +96,14 @@ export default function Main() {
       } else {
         setToken(data.access_token);
       }
+
+      navigate("/projects");
     };
   
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(e);
-        if (isOn){
-            if (password === confirmPassword && password.length > 7 && validator.isEmail(email)){
-                submitRegistration();
-            }
-            else{
-                setErrorMessage("Ensure that the passwords match and greater than seven characters");
-            }
+        if(!isOn){
+            submitRegistration();
         }
         else{
             submitLogin();
@@ -127,8 +129,8 @@ export default function Main() {
 
             <div className='split right'>
                 <div className='centered'>
-                    <h2 className='titleRight'>{isOn ? formSignIn.title : formSignUp.title}</h2>
-                    <FormControl onSubmit={handleSubmit}>
+                    <h2 className='titleRight'><AccountCircleIcon/> {isOn ? formSignIn.title : formSignUp.title}</h2>
+                    <form onSubmit={handleSubmit}>
                         <TextField 
                             className="form" 
                             required={true}
@@ -136,6 +138,7 @@ export default function Main() {
                             label='Name' 
                             placeholder='Name' 
                             multilinevariant='filled' 
+                            onChange={(e) => setName(e.target.value)} 
                         />
                         <TextField 
                             className="form" 
@@ -146,14 +149,17 @@ export default function Main() {
                             placeholder='E-Mail' 
                             multilinevariant="filled"
                             disabled = {isOn ? formSignIn.email : formSignUp.email}
+                            onChange={(e) => setEmail(e.target.value)} 
                         />
                         <TextField 
                             className="form" 
                             required={true}
                             margin='dense'
                             label="Password" 
+                            type="password"
                             placeholder='Password' 
                             multilinevariant="filled"
+                            onChange={(e) => setPassword(e.target.value)} 
                         />
                         <TextField 
                             className="form" 
@@ -161,8 +167,10 @@ export default function Main() {
                             margin='dense' 
                             label="Confirm" 
                             placeholder='Confirm password' 
+                            type="password"
                             multilinevariant="filled" 
                             disabled={isOn ? formSignIn.confirmPassword : formSignUp.confirmPassword}
+                            onChange={(e) => setConfirmPassword(e.target.value)} 
                         />
                         <Button className="form" style={{backgroundColor:'#2F3747'}} variant="contained" type="submit">{isOn ? formSignIn.button : formSignUp.button}</Button>
                         <div className='alternative'>
@@ -174,8 +182,10 @@ export default function Main() {
                             {isOn ? formSignIn.confirmAccount : formSignUp.confirmAccount}
                             </Link>
                         </div>
-                        <p>Copyright IKIM 2022</p>
-                    </FormControl>
+                        <p>
+                            IKIM <CopyrightIcon fontSize='small'/> 2022
+                        </p>
+                    </form>
                 </div>
             </div>
         </div>
