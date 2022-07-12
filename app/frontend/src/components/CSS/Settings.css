@@ -36,3 +36,8 @@ h2{
 .changePasswordButton{
     margin-left: 10px !important;
 }
+.paper{
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+}

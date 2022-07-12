@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Button, TextField } from '@mui/material'
+import { Button, TextField, Paper } from '@mui/material'
 import './CSS/Settings.css'
 
 export default function Settings() {
@@ -9,6 +9,36 @@ export default function Settings() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [status, setStatus] = useState(null);
+
+  //TODO: Error Message: No Whitespaces Allowed
+  const validation = (inputText, type) => {
+    const text = inputText.replace(/\s+/g, '');
+
+    if(type === "name"){
+      if (text === ''){
+        setName("NoSpacesAllowed")
+      }
+      else{
+        setName(text);
+      }
+    }
+    if(type === "email"){
+      if (text === ''){
+        setEmail("NoSpacesAllowed")
+      }
+      else{
+        setEmail(text);
+      }
+    }
+    if(type === "password"){
+      if (text === ''){
+        setPassword("NoSpacesAllowed")
+      }
+      else{
+        setPassword(text);
+      }
+    }
+  };
 
   const deleteUser = () => {
     const requestOptions = {
@@ -59,6 +89,7 @@ export default function Settings() {
         "email": email
       })
     };
+          console.log(requestOptions);
     try{
       fetch('/users/', requestOptions)
       .then(response => response.json())
@@ -102,34 +133,37 @@ export default function Settings() {
   return (
     <div className='settings'>
       <h1>Settings</h1>
-      <Button className='deleteUser'  href='/' style={{color:'red', width:"200px"}} variant="text" onClick={deleteUser}>Delete Profile</Button>
-      <div className='editUsername'>
-          <TextField
-            label="Name"
-            type="text"
-            variant='standard'
-            onChange={(v) => setName(v.target.value)}
-          />
-          <Button className='changeNameButton' style={{backgroundColor:'#2F3747'}} variant="contained" onClick={editName}>change username</Button>
-      </div>
-      <div className='editUseremail'>
-          <TextField
-            label="E-Mail"
-            type="text"
-            variant='standard'
-            onChange={(v) => setEmail(v.target.value)}
-          />
-          <Button className='changeEmailButton' style={{backgroundColor:'#2F3747'}} variant="contained" onClick={editEmail}>change email</Button>
-      </div>
-      <div className='editPassword'>
-          <TextField
-            label="Password"
-            type="password"
-            variant='standard'
-            onChange={(v) => setPassword(v.target.value)}
-          />
-          <Button className='changePasswordButton' style={{backgroundColor:'#2F3747'}} variant="contained" onClick={editPassword}>change password</Button>
-      </div>
+      <Paper className='paper'>
+        <h3>Edit User</h3>
+        <div className='editUsername'>
+            <TextField
+              label="Name"
+              type="text"
+              variant='standard'
+              onChange={(v) => validation(v.target.value, "name")}
+            />
+            <Button className='changeNameButton' style={{backgroundColor:'#2F3747'}} variant="contained" onClick={editName}>change username</Button>
+        </div>
+        <div className='editUseremail'>
+            <TextField
+              label="E-Mail"
+              type="text"
+              variant='standard'
+              onChange={(v) => validation(v.target.value, "email")}
+            />
+            <Button className='changeEmailButton' style={{backgroundColor:'#2F3747'}} variant="contained" onClick={editEmail} disabled={email.includes(" ")}>change email</Button>
+        </div>
+        <div className='editPassword'>
+            <TextField
+              label="Password"
+              type="password"
+              variant='standard'
+              onChange={(v) => validation(v.target.value, "password")}
+            />
+            <Button className='changePasswordButton' style={{backgroundColor:'#2F3747'}} variant="contained" onClick={editPassword} disabled={password.includes(" ")}>change password</Button>
+        </div>
+        <Button className='deleteUser'  href='/' style={{color:'red', width:"200px"}} variant="text" onClick={deleteUser}>Delete Profile</Button>
+      </Paper>
       <Button className='logout'  href='/' style={{color:'red', width:"200px"}} variant="text" onClick={handleLogout}>Log out</Button>
     </div>
   )
