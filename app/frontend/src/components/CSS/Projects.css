@@ -11,7 +11,8 @@ h1{
     margin-bottom: 50pt;
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: space-between !important;
+    width: auto !important;
 }
 .table{
     height: fit-content;
@@ -22,4 +23,5 @@ a.MuiButton-outlined{
 }
 button.MuiButton-root{
     margin-right: 50px !important;
+    height: 50px !important;
 }
