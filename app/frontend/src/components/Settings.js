@@ -134,7 +134,7 @@ export default function Settings() {
     <div className='settings'>
       <h1>Settings</h1>
       <Paper className='paper'>
-        <h3>Edit User</h3>
+        <h3 id='editUser'>Edit User</h3>
         <div className='editUsername'>
             <TextField
               label="Name"
@@ -142,7 +142,7 @@ export default function Settings() {
               variant='standard'
               onChange={(v) => validation(v.target.value, "name")}
             />
-            <Button className='changeNameButton' style={{backgroundColor:'#2F3747'}} variant="contained" onClick={editName}>change username</Button>
+            <Button className='changeNameButton' style={{color:'#2F3747'}} variant="text" onClick={editName}>change username</Button>
         </div>
         <div className='editUseremail'>
             <TextField
@@ -151,7 +151,7 @@ export default function Settings() {
               variant='standard'
               onChange={(v) => validation(v.target.value, "email")}
             />
-            <Button className='changeEmailButton' style={{backgroundColor:'#2F3747'}} variant="contained" onClick={editEmail} disabled={email.includes(" ")}>change email</Button>
+            <Button className='changeEmailButton' style={{color:'#2F3747'}} variant="text" onClick={editEmail} disabled={email.includes(" ")}>change email</Button>
         </div>
         <div className='editPassword'>
             <TextField
@@ -160,11 +160,11 @@ export default function Settings() {
               variant='standard'
               onChange={(v) => validation(v.target.value, "password")}
             />
-            <Button className='changePasswordButton' style={{backgroundColor:'#2F3747'}} variant="contained" onClick={editPassword} disabled={password.includes(" ")}>change password</Button>
+            <Button className='changePasswordButton' style={{color:'#2F3747'}} variant="text" onClick={editPassword} disabled={password.includes(" ")}>change password</Button>
         </div>
         <Button className='deleteUser'  href='/' style={{color:'red', width:"200px"}} variant="text" onClick={deleteUser}>Delete Profile</Button>
       </Paper>
-      <Button className='logout'  href='/' style={{color:'red', width:"200px"}} variant="text" onClick={handleLogout}>Log out</Button>
+      <Button className='logout'  href='/' style={{color:'#2F3747', width:"200px"}} variant="text" onClick={handleLogout}>Log out</Button>
     </div>
   )
 }

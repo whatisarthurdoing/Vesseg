@@ -2,25 +2,31 @@
     display: flex;
     align-items: center;
     flex-direction: column;
+    height: auto !important;
 }
-h2{
+#editUser{
     height: fit-content !important;
     width: fit-content;
     margin-bottom: 50px;
+    margin-left: 40px;
 }
 .deleteUser{
     height: fit-content;
     margin: 50px !important;
+    align-self: center;
 }
 .editUsername{
+    display: flex;
     margin: 20px;
     height: fit-content !important;
 }
 .editUseremail{
+    display: flex;
     margin: 20px;
     height: fit-content !important;
 }
 .editPassword{
+    display: flex;
     margin: 20px;
     height: fit-content !important;
 }

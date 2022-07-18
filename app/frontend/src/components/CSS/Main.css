@@ -57,7 +57,23 @@
 
 .titleRight{
     align-self: center;
+    height: fit-content !important;
 }
+
+#vessegTitle{
+    height: fit-content !important;
+}
+
+#mainForm{
+    display: flex;
+    flex-direction: column;
+}
+
+#mainIKIM{
+    align-self: center;
+}
+
+
 div.MuiFormControl-root:nth-child(1){
     display: flex;
     margin-left: 20px;

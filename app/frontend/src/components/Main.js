@@ -96,7 +96,7 @@ export default function Main() {
       } else {
         setToken(data.access_token);
       }
-
+      //console.log(localStorage.getItem("myToken"));
       navigate("/projects");
     };
   
@@ -118,7 +118,7 @@ export default function Main() {
         <div className='main'>
             <div className='split left'>
                 <div className='centered'>
-                    <h2>This is vesseg, a tool to speed up atherosclerosis research.</h2>
+                    <h2 id='vessegTitle'>This is vesseg, a tool to speed up atherosclerosis research.</h2>
                     <p>
                     Its is being developed by the Computational Radiology Group at the German Cancer Research Center (DKFZ) in Heidelberg, Germany,
                     in collaboration with the Research Group for Perioperative Vascular Biology at the Clinic for Anaesthesiology
@@ -130,7 +130,7 @@ export default function Main() {
             <div className='split right'>
                 <div className='centered'>
                     <h2 className='titleRight'><AccountCircleIcon/> {isOn ? formSignIn.title : formSignUp.title}</h2>
-                    <form onSubmit={handleSubmit}>
+                    <form onSubmit={handleSubmit} id="mainForm">
                         <TextField 
                             className="form" 
                             required={true}
@@ -182,7 +182,7 @@ export default function Main() {
                             {isOn ? formSignIn.confirmAccount : formSignUp.confirmAccount}
                             </Link>
                         </div>
-                        <p>
+                        <p id='mainIKIM'>
                             IKIM <CopyrightIcon fontSize='small'/> 2022
                         </p>
                     </form>
