@@ -1,6 +1,7 @@
 .about{
     display: flex;
     flex-direction: column;
+    background-color: #839AC7;
 }
 .vesseg{
     height: fit-content;
@@ -13,4 +14,16 @@
 }
 .vesseg > p:nth-child(1) > ol:nth-child(6){
     height: fit-content;
+}
+.about > h1:nth-child(1){
+    color: white;
+}
+.vesseg > p:nth-child(1){
+    color: white;
+}
+.radiomics > h1:nth-child(1){
+    color: white;
+}
+.radiomics > p:nth-child(2){
+    color: white;
 }
