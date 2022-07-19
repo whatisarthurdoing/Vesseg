@@ -1,5 +1,5 @@
 import React, { useContext, useState, useCallback} from 'react'
-import { FormControl, TextField, Button} from '@mui/material';
+import {TextField, Button} from '@mui/material';
 import { Link, useNavigate } from 'react-router-dom';
 import validator from 'validator';
 import CopyrightIcon from '@mui/icons-material/Copyright';
@@ -110,84 +110,97 @@ export default function Main() {
         }
     };
 
+    const [activeToken,] = useContext(UserContext);
 
-
-
-
-    return (
-        <div className='main'>
-            <div className='split left'>
-                <div className='centered'>
-                    <h2 id='vessegTitle'>This is vesseg, a tool to speed up atherosclerosis research.</h2>
-                    <p>
+    if (activeToken === null){
+        return (
+            <div className='main'>
+                <div className='split left'>
+                    <div className='centered'>
+                        <h2 id='vessegTitle'>This is vesseg, a tool to speed up atherosclerosis research.</h2>
+                        <p>
+                        Its is being developed by the Computational Radiology Group at the German Cancer Research Center (DKFZ) in Heidelberg, Germany,
+                        in collaboration with the Research Group for Perioperative Vascular Biology at the Clinic for Anaesthesiology
+                        at the University Hospital Heidelberg and the Institute for Artificial Intelligence in Medicine (IKIM) at the University Hospital Essen.
+                        </p>
+                    </div>
+                </div>
+    
+                <div className='split right'>
+                    <div className='centered'>
+                        <h2 className='titleRight'><AccountCircleIcon/> {isOn ? formSignIn.title : formSignUp.title}</h2>
+                        <form onSubmit={handleSubmit} id="mainForm">
+                            <TextField 
+                                className="form" 
+                                required={true}
+                                margin='dense' 
+                                label='Name' 
+                                placeholder='Name' 
+                                multilinevariant='filled' 
+                                onChange={(e) => setName(e.target.value)} 
+                            />
+                            <TextField 
+                                className="form" 
+                                required={true}
+                                margin='dense' 
+                                label="E-Mail" 
+                                input = "email" 
+                                placeholder='E-Mail' 
+                                multilinevariant="filled"
+                                disabled = {isOn ? formSignIn.email : formSignUp.email}
+                                onChange={(e) => setEmail(e.target.value)} 
+                            />
+                            <TextField 
+                                className="form" 
+                                required={true}
+                                margin='dense'
+                                label="Password" 
+                                type="password"
+                                placeholder='Password' 
+                                multilinevariant="filled"
+                                onChange={(e) => setPassword(e.target.value)} 
+                            />
+                            <TextField 
+                                className="form" 
+                                required={true}
+                                margin='dense' 
+                                label="Confirm" 
+                                placeholder='Confirm password' 
+                                type="password"
+                                multilinevariant="filled" 
+                                disabled={isOn ? formSignIn.confirmPassword : formSignUp.confirmPassword}
+                                onChange={(e) => setConfirmPassword(e.target.value)} 
+                            />
+                            <Button className="form" style={{backgroundColor:'#2F3747'}} variant="contained" type="submit">{isOn ? formSignIn.button : formSignUp.button}</Button>
+                            <div className='alternative'>
+                                <Link to='/forgotpassword'>{isOn ? formSignIn.forgotPassword : formSignUp.forgotPassword}</Link>
+                                <Link 
+                                to="/"
+                                onClick={toggleIsOn}
+                                >
+                                {isOn ? formSignIn.confirmAccount : formSignUp.confirmAccount}
+                                </Link>
+                            </div>
+                            <p id='mainIKIM'>
+                                IKIM <CopyrightIcon fontSize='small'/> 2022
+                            </p>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        )
+    }
+    //if logged in, don't show login/registration form
+    else{
+        return(
+            <div id = "mainLoggedIn">
+                <h2 id='vessegTitleLoggedIn'>This is vesseg, a tool to speed up atherosclerosis research.</h2>
+                <p id='textLoggedIn'>
                     Its is being developed by the Computational Radiology Group at the German Cancer Research Center (DKFZ) in Heidelberg, Germany,
                     in collaboration with the Research Group for Perioperative Vascular Biology at the Clinic for Anaesthesiology
                     at the University Hospital Heidelberg and the Institute for Artificial Intelligence in Medicine (IKIM) at the University Hospital Essen.
-                    </p>
-                </div>
+                </p>
             </div>
-
-            <div className='split right'>
-                <div className='centered'>
-                    <h2 className='titleRight'><AccountCircleIcon/> {isOn ? formSignIn.title : formSignUp.title}</h2>
-                    <form onSubmit={handleSubmit} id="mainForm">
-                        <TextField 
-                            className="form" 
-                            required={true}
-                            margin='dense' 
-                            label='Name' 
-                            placeholder='Name' 
-                            multilinevariant='filled' 
-                            onChange={(e) => setName(e.target.value)} 
-                        />
-                        <TextField 
-                            className="form" 
-                            required={true}
-                            margin='dense' 
-                            label="E-Mail" 
-                            input = "email" 
-                            placeholder='E-Mail' 
-                            multilinevariant="filled"
-                            disabled = {isOn ? formSignIn.email : formSignUp.email}
-                            onChange={(e) => setEmail(e.target.value)} 
-                        />
-                        <TextField 
-                            className="form" 
-                            required={true}
-                            margin='dense'
-                            label="Password" 
-                            type="password"
-                            placeholder='Password' 
-                            multilinevariant="filled"
-                            onChange={(e) => setPassword(e.target.value)} 
-                        />
-                        <TextField 
-                            className="form" 
-                            required={true}
-                            margin='dense' 
-                            label="Confirm" 
-                            placeholder='Confirm password' 
-                            type="password"
-                            multilinevariant="filled" 
-                            disabled={isOn ? formSignIn.confirmPassword : formSignUp.confirmPassword}
-                            onChange={(e) => setConfirmPassword(e.target.value)} 
-                        />
-                        <Button className="form" style={{backgroundColor:'#2F3747'}} variant="contained" type="submit">{isOn ? formSignIn.button : formSignUp.button}</Button>
-                        <div className='alternative'>
-                            <Link to='/forgotpassword'>{isOn ? formSignIn.forgotPassword : formSignUp.forgotPassword}</Link>
-                            <Link 
-                            to="/"
-                            onClick={toggleIsOn}
-                            >
-                            {isOn ? formSignIn.confirmAccount : formSignUp.confirmAccount}
-                            </Link>
-                        </div>
-                        <p id='mainIKIM'>
-                            IKIM <CopyrightIcon fontSize='small'/> 2022
-                        </p>
-                    </form>
-                </div>
-            </div>
-        </div>
-    )
+        )
+    }
 }
