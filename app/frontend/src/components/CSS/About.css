@@ -5,12 +5,14 @@
 }
 .vesseg{
     height: fit-content;
-    margin-left: 50px;
-    margin-right: 50px;
+    margin-left: 200px;
+    margin-right: 200px;
 }
 .radiomics{
     height: fit-content;
-    margin: 50px;
+    margin-top: 50px;
+    margin-left: 200px;
+    margin-right: 200px;
 }
 .vesseg > p:nth-child(1) > ol:nth-child(6){
     height: fit-content;
