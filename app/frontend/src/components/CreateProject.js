@@ -1,8 +1,8 @@
 import React, { useState, useCallback } from 'react'
 import {Button, TextField ,Stepper, StepLabel, Step, StepContent} from '@mui/material';
-
-import './CSS/CreateProject.css'
 import { Box } from '@mui/system';
+
+import './CSS/CreateProject.css';
 
 
 
@@ -22,6 +22,7 @@ export default function CreateProject() {
   const [id, setId] = useState(0);
   const [name, setName] = useState(" ");
   const [title, setTitle] = useState("Project");
+  const [stateContent, setStateContent] = useState(true);
 
   const createProject = () => {
     const requestOptions = {
@@ -45,6 +46,7 @@ export default function CreateProject() {
     }
     setId(id);
     setTitle(name);
+    setStateContent(true);
     handleNext();
   };
   
@@ -68,51 +70,18 @@ export default function CreateProject() {
     }
   };
 
-  const [createTitle, setCreatTitle] = useState("Create Project");
+  const [error, setError] = useState(false);
 
   //TODO: Dont create a project with the same name
   const validate = (inputText) => {
     const text = inputText.replace(/\s+/g, '');
     if (text === ''){
-      //TODO: Error Message: No Whitespaces Allowed
-      setName("No Spaces allowed")
+      setError(true);
     }
     else{
+      setTitle(text);
       setName(text);
     }
-  };
-
-  //Start: Edit title with back button of upload data
-  const editTitle = () => {
-    const requestOptions = {
-      method: "PATCH", 
-      headers: {
-        'Content-Type': 'application/json', 
-        Authorization: "Bearer " + token
-      }, 
-      body: JSON.stringify({
-        "title": name
-      })
-    };
-    try{
-      fetch('/projects/', requestOptions)
-      .then(response => response.json())
-      .then(data => setName(data.title));
-    }
-    catch(e){
-      console.log(e);
-    }
-    setId(id);
-    setTitle(name);
-    handleNext();
-  };
-
-  const [createButton, setCreateButton] = useState("Create");
-
-  const handleEditProjectTitle = () => {
-    handleBack();
-    setCreatTitle("Edit project name");
-    setCreateButton("Change name");
   };
 
   function useToggle( initialValue = false){
@@ -124,6 +93,7 @@ export default function CreateProject() {
     return [value, toggle];
   }
 
+  /*
   const [isOn, toggleIsOn ] = useToggle();
 
   const handleProject = () => {
@@ -132,31 +102,59 @@ export default function CreateProject() {
       toggleIsOn(true);
     }
     else{
-      editTitle();
+      handleEditProjectTitle();
     }
 
   };
-  //End: Edit title with back button of upload data
+  */
+
+  const [createTitle, setCreateTitle] = useState("Create Project");
+
+  const handleEditProjectTitle = () => {
+    handleBack();
+    setCreateTitle("Edit project name");
+    setStateContent(false);
+  };
+
+  const createProjectComponent = <div id="contentCreateComponent">
+                                    <TextField
+                                      label="Name"
+                                      type="text"
+                                      onChange={(v) => validate(v.target.value)}
+                                      error={error}
+                                    />
+                                    <Button id="createProjectButton" style={{color:'#2F3747'}} variant="text" onClick={createProject} disabled={title.includes(" ")}>create</Button>
+                                  </div>
+
+  const editTitleComponent =  <div id='contentEditTitle'>
+                        <p id = "textEditName">
+                          You have created the project "{title}".
+                          To edit it's name, click on the title in the projects table.
+                        </p>
+                        <Button onClick={handleNext} style={{color:'#2F3747', width:"120px"}} variant="text">Next</Button>
+                      </div>
+
+  const contentOfFirstStep = () => {
+    if(stateContent){
+      return createProjectComponent;
+    }
+    else{
+      return editTitleComponent;
+    }
+  };
 
 
-  //disabled={name.includes(" ")}
-  //TODO: Buttons Colors change und Auswahl
   return (
     <div className='createProject'>
       <h1>{title}</h1>
       <Box className='stepper'>
         <Stepper activeStep={activeStep} orientation="vertical">
-          <Step>
+          <Step id='createStep'>
             <StepLabel>
               <h2>{createTitle}</h2>
             </StepLabel>
             <StepContent TransitionProps={{ unmountOnExit: false }} className='content-createProject'>
-              <TextField
-                label="Name"
-                type="text"
-                onChange={(v) => validate(v.target.value)}
-              />
-              <Button style={{color:'#2F3747'}} variant="outlined" onClick={handleProject} disabled={title.includes(" ")}>{createButton}</Button>
+              {contentOfFirstStep()}
             </StepContent>
           </Step>
           <Step>                  
@@ -166,8 +164,10 @@ export default function CreateProject() {
             <StepContent>
               <p>Upload your image data here. The following types are accepted: JPG, PNG, ?</p>
               <p>[Hier kommt die Dropzone hin]</p>
-              <Button onClick={handleEditProjectTitle} style={{color:'#2F3747', width:"120px"}} variant="text">Back</Button>
-              <Button onClick={handleNext} style={{color:'#2F3747', width:"120px"}} variant="contained">Upload</Button>
+              <div className='buttonsParallel'>
+                <Button onClick={handleEditProjectTitle} style={{color:'#2F3747', width:"120px"}} variant="text">Back</Button>
+                <Button onClick={handleNext} style={{backgroundColor:'white', color:'#2F3747', width:"120px"}} variant="contained">Upload</Button>
+              </div>
             </StepContent>
           </Step>
           <Step>
@@ -176,10 +176,14 @@ export default function CreateProject() {
             </StepLabel>
             <StepContent>
               <p>Read more about our models here</p>
-              <Button onClick = {handleButtonVariantChange} style={{colorButtonFirst, width:"200px"}} variant={isActiveFirst}>Fast AI</Button>
-              <Button onClick = {handleButtonVariantChange} style={{colorButtonNotSecond, width:"200px"}} variant={isActiveSecond}>Nunet</Button>
-              <Button onClick={handleBack} style={{color:'#2F3747', width:"120px"}} variant="text">Back</Button>
-              <Button onClick={handleNext} style={{color:'#2F3747', width:"120px"}} variant="contained">Next</Button>
+              <div className='buttonsParallel'>
+                <Button onClick = {handleButtonVariantChange} style={{colorButtonFirst, width:"200px"}} variant={isActiveFirst}>Fast AI</Button>
+                <Button onClick = {handleButtonVariantChange} style={{colorButtonNotSecond, width:"200px"}} variant={isActiveSecond}>Nunet</Button>
+              </div>
+              <div className='buttonsParallel'>
+                <Button onClick={handleBack} style={{color:'#2F3747', width:"120px"}} variant="text">Back</Button>
+                <Button onClick={handleNext} style={{color:'#2F3747', width:"120px"}} variant="contained">Next</Button>
+              </div>
             </StepContent>
           </Step> 
           <Step>

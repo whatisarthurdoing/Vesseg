@@ -17,9 +17,15 @@ button.MuiButton-root:nth-child(2){
     max-width: 600px;
     margin-left: 160px;
 }
-
-
-
+.buttonsParallel{
+    display: flex;
+}
+#contentCreateComponent{
+    display: flex;
+}
+#textEditName{
+    height: fit-content;
+}
 
 span.Mui-active{
     height: fit-content;
@@ -50,4 +56,10 @@ div.MuiStep-root:nth-child(7) > span:nth-child(1){
 }
 div.MuiStep-root:nth-child(9) > span:nth-child(1){
     height: fit-content;
+}
+.MuiCollapse-wrapperInner{
+    display: flex;
+}
+.MuiCollapse-entered > div:nth-child(1) > div:nth-child(1){
+    display: flex;
 }
