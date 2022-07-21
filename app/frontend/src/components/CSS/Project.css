@@ -1,6 +1,9 @@
+.singleProject{
+    height: auto !important;
+}
 .allContent{
     height: fit-content;
-    margin-left: 20px;
+    margin-left: 240px;
 }
 .MuiFormControl-root{
     height: fit-content;
@@ -10,13 +13,18 @@
     height: fit-content;
     display: flex;
     flex-direction: column;
+    width: fit-content;
 }
 .buttons{
     height: fit-content;
-    width: fit-content;
+    width: fit-content !important;
 }
 .changeUploadData{
     height: fit-content;
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+    margin-top: 20px;
 }
 .changeModel{
     height: fit-content;
@@ -26,7 +34,30 @@
 }
 .evaluateAgain{
     height: fit-content;
+    margin-bottom: 120px;
 }
 h1{
     align-self: center;
+}
+.projectChangeName{
+    display: flex;
+}
+#titleCreateProject{
+    margin-left: 20px;
+}
+#titleEditData{
+    margin-left: 20px;
+}
+.textEditData{
+    margin-left: 20px;
+    margin-right: 20px;
+}
+#changeModelSelectionButtons{
+    display: flex;
+}
+.buttonsModel{
+    width: 160px !important;
+}
+#titleChangeModel{
+    margin-left: 20px;
 }
