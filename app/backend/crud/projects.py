@@ -32,9 +32,10 @@ def patch_project(
         project: models.Project, 
         patch_project: schemas.ProjectPatch
     ) -> models.Project:
-    project.description = patch_project.description
     if patch_project.title: 
         project.title = patch_project.title
+    if patch_project.description: 
+        project.description = patch_project.description
     db.commit()
     db.refresh(project)
     return project

@@ -1,16 +1,15 @@
-import React , { useEffect, useState} from 'react'
+import React , { useContext, useEffect, useState} from 'react'
 import { Button, Link} from '@mui/material';
 import { DataGrid , GRID_CHECKBOX_SELECTION_COL_DEF} from '@mui/x-data-grid';
 
 import "./CSS/Projects.css";
+import { UserContext } from '../context/UserContext';
 
 const Projects = () => {
   const [tableData, setTableData] = useState([])
-  const [token, ] = useState(localStorage.getItem("myToken"))
+  const [token,] = useContext(UserContext);
 
-  console.log(token)
-
-  useEffect(() => {
+  useEffect(() => { 
     const fetchProjects = async () => {
       const requestOptions = {
         method: "GET", 
@@ -47,7 +46,6 @@ const Projects = () => {
           const getId = params.id;
           let fetcher = text.replace("projectId", getId);
           fetcher = fetcher.replace("projectName", getName);
-          console.log(fetcher)
 
           return <Link href={fetcher}>{params.value}</Link>;
         },
@@ -83,7 +81,6 @@ const Projects = () => {
       (item) => !selectedProjects.includes(item.id)
     );
     setTableData(filteredProjectList);
-    console.log(selectedProjects);
     try{
       for ( var i = 0; i < selectedProjects.length; i ++){
         const element = selectedProjects[i];

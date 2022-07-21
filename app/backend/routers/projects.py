@@ -57,7 +57,7 @@ async def patch_project(
     project = _cp.get_project(db=db, project_id=project_id, owner_id=current_user.id)
     if not project:
         HTTPException(status_code=404, detail="Project does not exist")
-    return _cp.patch_projet(db, project, patch_project)
+    return _cp.patch_project(db, project, patch_project)
 
 @router.delete("/{project_id}")
 async def delete_project(
