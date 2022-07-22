@@ -84,30 +84,6 @@ export default function CreateProject() {
     }
   };
 
-  function useToggle( initialValue = false){
-    const [value, setValue] = useState(initialValue)
-
-    const toggle = useCallback(() => {
-    setValue(v => !v);
-    }, []);
-    return [value, toggle];
-  }
-
-  /*
-  const [isOn, toggleIsOn ] = useToggle();
-
-  const handleProject = () => {
-    if(!isOn){
-      createProject();
-      toggleIsOn(true);
-    }
-    else{
-      handleEditProjectTitle();
-    }
-
-  };
-  */
-
   const [createTitle, setCreateTitle] = useState("Create Project");
 
   const handleEditProjectTitle = () => {
