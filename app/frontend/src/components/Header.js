@@ -1,35 +1,9 @@
-import { AppBar, Toolbar, Typography, Button} from "@mui/material";
-import React, {useState} from "react";
-import { Link as RouterLink } from "react-router-dom";
+import { AppBar, Toolbar, Typography, Button, Link} from "@mui/material";
+import React, {useContext, useState} from "react";
+import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
 
 import './CSS/Header.css'
-
-
-const headersDataLoggedOut = [
-  {
-    label: "About", 
-    href: "/about", 
-  },
-];
-
-const headersDataLoggedIn = [
-  {
-    label: "Projects", 
-    href: "/projects",
-  },
-  {
-    label: "About", 
-    href: "/about", 
-  }, 
-  {
-    label: "FAQ", 
-    href: "/faq",
-  },
-  {
-    label: "settings", 
-    href: "/settings",
-  },
-];
+import { UserContext } from '../context/UserContext';
 
 export default function Header() {
   const displayDesktop = () => {
@@ -47,36 +21,28 @@ export default function Header() {
       <Typography variant="h6" component="h1">VESSEG</Typography>
     </Button>
   );
-  const isAuthenticated = () => {
-    const [token, setToken ] = useState(localStorage.getItem("myToken"));
 
-    let headerToShow = headersDataLoggedIn;
-
-    if(token === "null"){
-      headerToShow = headersDataLoggedOut;
-      return headerToShow;
-    }
-    return headerToShow;
-  };
+  const [flag, setFlag] = useState(true);
 
   const getMenuButton = () => {
 
-    const authenticator = isAuthenticated();
+    const [token,] = useContext(UserContext);
 
-    return authenticator.map(({ label, href }) => {
-        return ( 
-            <Button
-                {...{
-                    key: label, 
-                    color: "inherit", 
-                    to: href, 
-                    component: RouterLink
-                }}
-            >
-                {label}
-            </Button>
-        );
-    });
+    if (token === null){
+      return(
+        <Button href="/about" sx={{color: flag ? "inherit" : "primary"}} onClick={ () => setFlag(!flag)}>About</Button>
+      );
+    }
+    else{
+      return(
+        <div id="contentButtons">
+          <Button href="/projects" color={flag ? "inherit" : "primary"} onClick={ () => setFlag(!flag)}>Projects</Button>
+          <Button href="/about" color={flag ? "inherit" : "primary"} onClick={ () => setFlag(!flag)}>About</Button>
+          <Button href="/faq" color={flag ? "inherit" : "primary"} onClick={ () => setFlag(!flag)}>FAQ</Button>
+          <Link href="/settings" onClick={ () => setFlag(!flag)} color={flag ? "inherit" : "primary"} ><SettingsOutlinedIcon/></Link>
+        </div>
+      );
+    }
   };
 
   return (
