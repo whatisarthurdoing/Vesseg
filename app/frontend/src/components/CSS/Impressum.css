@@ -1,0 +1,16 @@
+#impressum{
+    background-color: #839AC7;
+    display: flex;
+    flex-direction: column;
+}
+#titleImpressum{
+    color: white;
+}
+.textImpressum{
+    color: white;
+    height: fit-content;
+    align-self: center;
+}
+p.textImpressum:nth-child(2){
+    margin-top: 210px;
+}
