@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import {Button, TextField ,Stepper, StepLabel, Step, StepContent} from '@mui/material';
 import { Box } from '@mui/system';
 
@@ -23,64 +23,113 @@ export default function CreateProject() {
   const [name, setName] = useState(" ");
   const [title, setTitle] = useState("Project");
   const [stateContent, setStateContent] = useState(true);
+  const [inputText, setInputText] = useState("");
+  const validity = useRef(false);
 
   const createProject = () => {
-    const requestOptions = {
-      method: "POST", 
-      headers: {
-        'Content-Type': 'application/json', 
-        Authorization: "Bearer " + token
-      }, 
-      body: JSON.stringify({
-        title: name,
-        description: "Project Created"
-      })
-    };
-    try{
-      fetch('/projects/', requestOptions)
-      .then(response => response.json())
-      .then(data => setName(data.title));
+    validate(inputText);
+    if (validity.current){
+      const requestOptions = {
+        method: "POST", 
+        headers: {
+          'Content-Type': 'application/json', 
+          Authorization: "Bearer " + token
+        }, 
+        body: JSON.stringify({
+          title: inputText,
+          description: "Project Created"
+        })
+      };
+      try{
+        fetch('/projects/', requestOptions)
+        .then(response => response.json())
+        .then(data => setName(data.title));
+      }
+      catch(e){
+        console.log(e);
+      }
+      setId(id);
+      setTitle(inputText);
+      setStateContent(true);
+      handleNext();
     }
-    catch(e){
-      console.log(e);
-    }
-    setId(id);
-    setTitle(name);
-    setStateContent(true);
-    handleNext();
   };
   
   const [isActiveFirst, setIsActiveFirst] = useState('contained');
-  const [colorButtonFirst, setColorButtonFirst] = useState("backgroundColor:'#2F3747'");
   const [isActiveSecond, setIsActiveSecond] = useState('text');
-  const [colorButtonNotSecond, setColorButtonSecond] = useState("color:'#2F3747'");
 
   const handleButtonVariantChange = () => {
     if ( isActiveFirst === 'contained'){
       setIsActiveFirst('text');
-      setColorButtonFirst("color:'#2F3747'");
       setIsActiveSecond('contained');
-      setColorButtonSecond("backgroundColor:'#2F3747'");
     }
     else{
       setIsActiveFirst('contained');
-      setColorButtonFirst("backgroundColor:'#2F3747'");
       setIsActiveSecond('text');
-      setColorButtonSecond("color:'#2F3747'");
     }
   };
 
+  const [currentProjects, setCurrentProjects] = useState();
+
+  useEffect(() => { 
+    const fetchProjects = async () => {
+      const requestOptions = {
+        method: "GET", 
+        headers: {
+          "content-Type": "application/json",
+          Authorization: "Bearer " + token,
+        }
+      };
+      try{
+        fetch("/projects/", requestOptions)
+        .then((data) => data.json())
+        .then((data) => setCurrentProjects(data));
+      }
+      catch(e){
+        console.log(e)
+      }
+    }
+    fetchProjects();
+  }, []);
+
+  const [helperText, setHelperText] = useState("");
   const [error, setError] = useState(false);
 
-  //TODO: Dont create a project with the same name
   const validate = (inputText) => {
+    // Eliminating all whitespaces in input
     const text = inputText.replace(/\s+/g, '');
+    let alreadyExists = false;
+
+    //compare if new project name already exists
+    for( let i = 0; i < currentProjects.length; i++){
+      let projectToCompare = currentProjects[i].title
+      if(projectToCompare === text){
+        alreadyExists = true;
+      }
+    }
+
+    // Input is empty
     if (text === ''){
+      setHelperText("No whitespaces allowed");
       setError(true);
+      validity.current = false;
+    }
+    // Input is too short or too long
+    else if(text.length < 4 || text.length > 30){
+      setHelperText("Name must be between 4 and 30 characters long");
+      setError(true);
+      validity.current = false;
+    }
+    // new project name already exists
+    else if(alreadyExists){
+      setHelperText("There is already a project with this name");
+      setError(true);
+      validity.current = false;
     }
     else{
-      setTitle(text);
-      setName(text);
+      setInputText(text);
+      setError(false);
+      validity.current = true;
     }
   };
 
@@ -96,8 +145,9 @@ export default function CreateProject() {
                                     <TextField
                                       label="Name"
                                       type="text"
-                                      onChange={(v) => validate(v.target.value)}
                                       error={error}
+                                      helperText = {error ? helperText : ""}
+                                      onChange={(v) => setInputText(v.target.value)}
                                     />
                                     <Button id="createProjectButton" style={{color:'#2F3747'}} variant="text" onClick={createProject} disabled={title.includes(" ")}>create</Button>
                                   </div>
@@ -153,8 +203,8 @@ export default function CreateProject() {
             <StepContent>
               <p>Read more about our models here</p>
               <div className='buttonsParallel'>
-                <Button onClick = {handleButtonVariantChange} style={{colorButtonFirst, width:"200px"}} variant={isActiveFirst}>Fast AI</Button>
-                <Button onClick = {handleButtonVariantChange} style={{colorButtonNotSecond, width:"200px"}} variant={isActiveSecond}>Nunet</Button>
+                <Button onClick = {handleButtonVariantChange} style={{backgroundColor:'#2F3747', width:"200px"}} variant={isActiveFirst}>Fast AI</Button>
+                <Button onClick = {handleButtonVariantChange} style={{color:'#2F3747', width:"200px"}} variant={isActiveSecond}>Nunet</Button>
               </div>
               <div className='buttonsParallel'>
                 <Button onClick={handleBack} style={{color:'#2F3747', width:"120px"}} variant="text">Back</Button>
