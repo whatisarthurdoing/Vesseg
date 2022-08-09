@@ -1,6 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { useParams } from 'react-router-dom';
-import {Paper, Box, TextField, Button} from '@mui/material';
+import {Paper, TextField, Button} from '@mui/material';
+import IconButton from '@mui/material/IconButton';
+import PhotoCamera from '@mui/icons-material/PhotoCamera';
 
 import './CSS/Project.css'
 
@@ -113,7 +115,7 @@ export default function Project() {
 
   return (
     <div className='singleProject'>
-      <h1>{ pageTitle }</h1>
+      <h1 id='pageTitle'>{ pageTitle }</h1>
       <div className='allContent'>
         <Paper className='changeProjectName'>
           <h3 id='titleCreateProject'>Change project name</h3>
@@ -132,26 +134,32 @@ export default function Project() {
         <Paper className="changeUploadData">
           <h3 id='titleEditData'>Edit uploaded data</h3>
           <p className='textEditData'>Upload your image data here. The following types are accepted: JPG, PNG, ?</p>
-          <p className='textEditData'>[Hier kommt die Dropzone hin]</p>
-          <Button className="buttons" style={{color:'#2F3747', width:"120px"}} variant="text">Upload</Button>
+          <Paper id="editUploadPaper">
+            <IconButton id='cameraIcon' style={{color:'#2F3747'}} aria-label="upload picture" component="label">
+              <input hidden accept="image/*" multiple type="file"/>
+              <PhotoCamera />
+            </IconButton>
+          </Paper>
+          <Button id='uploadButtonEditUploadedData' style={{color:'#2F3747', width:"120px"}} variant="text">Upload</Button>
         </Paper>
         <Paper className="changeModel">
           <h3 id='titleChangeModel'>Change model selection</h3>
           <p className='textEditData'>Read more about our models here</p>
           <div id='changeModelSelectionButtons'>
-            <Button className="buttonsModel" style={{color:'#2F3747', width:"200px"}} variant="outlined">Fast AI</Button>
-            <Button className="buttonsModel" style={{color:'#2F3747', width:"200px"}} variant="outlined">Nunet</Button>
-            <Button className="buttons" style={{color:'#2F3747', width:"120px"}} variant="text">select</Button>
+            <Button id='buttonChangeModelFastAi' style={{color:'#2F3747', borderColor: '#2F3747', width:"200px"}} variant="outlined">Fast AI</Button>
+            <Button id='buttonChangeModelNunet' style={{color:'#2F3747', borderColor: '#2F3747', width:"200px"}} variant="outlined">Nunet</Button>
           </div>
+          <Button id='selectButtonChangeModel' style={{color:'#2F3747', width:"120px"}} variant="text">select</Button>
         </Paper>
-        <Box className="downloadReportAgain">
-          <h3>Download Report</h3>
-          <p>Report downloaded with [model] chosen</p>
-        </Box>
-        <Box className="evaluateAgain">
-          <h3>Evaluation</h3>
-          <Button className="buttons" style={{color:'#2F3747', borderColor: '#2F3747'}} variant="outlined" href='/evaluation'>Evaluate the project</Button>
-        </Box>
+        <Paper className="downloadReportAgain">
+          <h3 id='titleChangeDownloadReport'>Download Report</h3>
+          <p className='textEditData'>Report downloaded with [model] chosen</p>
+          <Button style={{color:'#2F3747', borderColor: '#2F3747'}} variant="outlined">Download new report</Button>
+        </Paper>
+        <Paper className="evaluateAgain">
+          <h3 id='titleChangeEvaluateAgain'>Evaluation</h3>
+          <Button id="evaluateAgainButton" style={{color:'#2F3747', borderColor: '#2F3747'}} variant="outlined" href='/evaluation'>Evaluate the project</Button>
+        </Paper>
       </div>
     </div>
   )

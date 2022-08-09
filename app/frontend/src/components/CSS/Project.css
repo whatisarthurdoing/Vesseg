@@ -13,7 +13,7 @@
     height: fit-content;
     display: flex;
     flex-direction: column;
-    width: fit-content;
+    width: 1000px;
 }
 .buttons{
     height: fit-content;
@@ -23,17 +23,29 @@
     height: fit-content;
     display: flex;
     flex-direction: column;
-    width: fit-content;
+    width: 1000px;
     margin-top: 20px;
 }
 .changeModel{
     height: fit-content;
+    display: flex;
+    flex-direction: column;
+    width: 1000px;
+    margin-top: 20px;
 }
 .downloadReportAgain{
     height: fit-content;
+    display: flex;
+    flex-direction: column;
+    width: 1000px;
+    margin-top: 20px;
 }
 .evaluateAgain{
     height: fit-content;
+    display: flex;
+    flex-direction: column;
+    width: 1000px;
+    margin-top: 20px;
     margin-bottom: 120px;
 }
 h1{
@@ -55,9 +67,38 @@ h1{
 #changeModelSelectionButtons{
     display: flex;
 }
-.buttonsModel{
-    width: 160px !important;
-}
 #titleChangeModel{
     margin-left: 20px;
+}
+#titleChangeDownloadReport{
+    margin-left: 20px;
+}
+#titleChangeEvaluateAgain{
+    margin-left: 20px;
+}
+#evaluateAgainButton{
+    width: fit-content;
+    margin-bottom: 20px;
+}
+#buttonChangeModelFastAi{
+    width: 160px !important;
+}
+#buttonChangeModelNunet{
+    width: 160px !important;
+    margin: 0px !important;
+}
+#selectButtonChangeModel{
+    width: fit-content;
+}
+#editUploadPaper{
+    width: 400px;
+    margin: 20px;
+    height: 400px;
+}
+#cameraIcon{
+    width: 100%;
+}
+#uploadButtonEditUploadedData{
+    width: fit-content !important;
+    margin-left: 340px;
 }
