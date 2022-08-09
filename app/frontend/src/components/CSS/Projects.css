@@ -25,3 +25,11 @@ button.MuiButton-root{
     margin-right: 50px !important;
     height: 50px !important;
 }
+#createProjectButton{
+    margin-left: 50px;
+}
+#deleteButtonProjects{
+    width: fit-content;
+    margin: 0px !important;
+    margin-right: 50px !important;
+}

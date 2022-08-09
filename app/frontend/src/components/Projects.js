@@ -114,8 +114,8 @@ const Projects = () => {
           />
         </div>
       <div className='buttons'>
-        <Button href="/createProject" variant="outlined" color="success">Create new Project</Button>
-        <Button variant="outlined" color="error" onClick={handleDelete}>Delete</Button>
+        <Button id='createProjectButton' href="/createProject" variant="contained" style={{backgroundColor:'#db7093', color:'white'}}>Create new Project</Button>
+        <Button id='deleteButtonProjects' variant="outlined" color="error" onClick={handleDelete}>Delete</Button>
       </div>
     </div>
   )
