@@ -222,8 +222,8 @@ export default function CreateProject() {
             <StepContent>
               <p>Read more about our models <a href='/about' style={{textDecoration: 'none'}}>here</a></p>
               <div id='buttonsChooseModelCreateProject'>
-                <Button onClick = {handleButtonVariantChange} style={{ color:{colorFirstButton}, backgroundColor: {backgroundColorFirstButton}, width:"200px"}} variant={isActiveFirst}>Fast AI</Button>
-                <Button onClick = {handleButtonVariantChange} style={{ color:{colorSecondButton}, backgroundColor: {backgroundColorSecondButton}, width:"200px"}} variant={isActiveSecond}>Nunet</Button>
+                <Button onClick = {handleButtonVariantChange} style={{ color: colorFirstButton, backgroundColor: backgroundColorFirstButton, width:"200px"}} variant={isActiveFirst}>Fast AI</Button>
+                <Button onClick = {handleButtonVariantChange} style={{ color: colorSecondButton, backgroundColor: backgroundColorSecondButton, width:"200px"}} variant={isActiveSecond}>Nunet</Button>
               </div>
               <div id='stepButtonsChooseModelCreateProject'>
                 <Button onClick={handleBack} style={{color:'#2F3747', width:"120px"}} variant="text">Back</Button>
@@ -238,8 +238,8 @@ export default function CreateProject() {
             <StepContent>
               <p>We will send you a report with all important data to your registered E-Mail adress.</p>
               <div id="buttonsDownloadReportCreateProject">
-                <Button onClick={handleButtonVariantChange}  style={{color:{colorFirstButton}, backgroundColor: {backgroundColorFirstButton}, width:"fit-content"}} variant={isActiveFirst}>Yes, send me the report</Button>
-                <Button onClick={handleButtonVariantChange}  style={{color:{colorSecondButton}, backgroundColor: {backgroundColorSecondButton}, width:"200px"}} variant={isActiveSecond}>No thanks, I'm good</Button>
+                <Button onClick={handleButtonVariantChange}  style={{color: colorFirstButton, backgroundColor: backgroundColorFirstButton, width:"fit-content"}} variant={isActiveFirst}>Yes, send me the report</Button>
+                <Button onClick={handleButtonVariantChange}  style={{color: colorSecondButton, backgroundColor: backgroundColorSecondButton, width:"200px"}} variant={isActiveSecond}>No thanks, I'm good</Button>
               </div>
               <div id="stepButtonsDownloadReportCreateProject">
                 <Button onClick={handleBack} style={{color:'#2F3747', width:"120px"}} variant="text">Back</Button>
