@@ -2,3 +2,16 @@
     display: flex;
     justify-content: space-between;
 }
+#contentButtons{
+    height: fit-content;
+    width: fit-content;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+a.MuiTypography-root{
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    width: fit-content;
+}
