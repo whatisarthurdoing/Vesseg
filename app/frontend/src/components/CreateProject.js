@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react'
-import {Button, TextField ,Stepper, StepLabel, Step, StepContent} from '@mui/material';
+import {Button, TextField ,Stepper, StepLabel, Step, StepContent, Paper} from '@mui/material';
 import { Box } from '@mui/system';
+import IconButton from '@mui/material/IconButton';
+import PhotoCamera from '@mui/icons-material/PhotoCamera';
 
 import './CSS/CreateProject.css';
 
@@ -57,15 +59,27 @@ export default function CreateProject() {
   
   const [isActiveFirst, setIsActiveFirst] = useState('contained');
   const [isActiveSecond, setIsActiveSecond] = useState('text');
+  const [colorFirstButton, setColorFirstButton] = useState("white");
+  const [colorSecondButton, setColorSecondButton] = useState("#2F3747");
+  const [backgroundColorFirstButton, setBackGroundColorFirstButton] = useState("#2F3747");
+  const [backgroundColorSecondButton, setBackGroundColorSecondButton] = useState("white");
 
   const handleButtonVariantChange = () => {
     if ( isActiveFirst === 'contained'){
       setIsActiveFirst('text');
       setIsActiveSecond('contained');
+      setColorFirstButton('#2F3747');
+      setColorSecondButton("white");
+      setBackGroundColorFirstButton("white");
+      setBackGroundColorSecondButton("#2F3747");
     }
     else{
       setIsActiveFirst('contained');
       setIsActiveSecond('text');
+      setColorFirstButton("white");
+      setColorSecondButton("#2F3747");
+      setBackGroundColorFirstButton("#2F3747");
+      setBackGroundColorSecondButton("white");
     }
   };
 
@@ -189,10 +203,15 @@ export default function CreateProject() {
             </StepLabel>
             <StepContent>
               <p>Upload your image data here. The following types are accepted: JPG, PNG, ?</p>
-              <p>[Hier kommt die Dropzone hin]</p>
+              <Paper id="editUploadPaperCreateProject">
+                <IconButton id='cameraIconCreateProject' style={{color:'#2F3747'}} aria-label="upload picture" component="label">
+                  <input hidden accept="image/*" multiple type="file"/>
+                  <PhotoCamera />
+                </IconButton>
+              </Paper>
               <div className='buttonsParallel'>
-                <Button onClick={handleEditProjectTitle} style={{color:'#2F3747', width:"120px"}} variant="text">Back</Button>
-                <Button onClick={handleNext} style={{backgroundColor:'white', color:'#2F3747', width:"120px"}} variant="contained">Upload</Button>
+                <Button id='uploadDataButtonCreateProject' onClick={handleNext} style={{backgroundColor:'white', color:'#2F3747', width:"120px"}} variant="contained">Upload</Button>
+                <Button id='backButtonUploadDataCreateProject' onClick={handleEditProjectTitle} style={{color:'#2F3747', width:"120px"}} variant="text">Back</Button>
               </div>
             </StepContent>
           </Step>
@@ -201,14 +220,14 @@ export default function CreateProject() {
               <h2>Choose a model</h2>
             </StepLabel>
             <StepContent>
-              <p>Read more about our models here</p>
-              <div className='buttonsParallel'>
-                <Button onClick = {handleButtonVariantChange} style={{backgroundColor:'#2F3747', width:"200px"}} variant={isActiveFirst}>Fast AI</Button>
-                <Button onClick = {handleButtonVariantChange} style={{color:'#2F3747', width:"200px"}} variant={isActiveSecond}>Nunet</Button>
+              <p>Read more about our models <a href='/about' style={{textDecoration: 'none'}}>here</a></p>
+              <div id='buttonsChooseModelCreateProject'>
+                <Button onClick = {handleButtonVariantChange} style={{ color:{colorFirstButton}, backgroundColor: {backgroundColorFirstButton}, width:"200px"}} variant={isActiveFirst}>Fast AI</Button>
+                <Button onClick = {handleButtonVariantChange} style={{ color:{colorSecondButton}, backgroundColor: {backgroundColorSecondButton}, width:"200px"}} variant={isActiveSecond}>Nunet</Button>
               </div>
-              <div className='buttonsParallel'>
+              <div id='stepButtonsChooseModelCreateProject'>
                 <Button onClick={handleBack} style={{color:'#2F3747', width:"120px"}} variant="text">Back</Button>
-                <Button onClick={handleNext} style={{color:'#2F3747', width:"120px"}} variant="contained">Next</Button>
+                <Button onClick={handleNext} style={{backgroundColor:'white', color:'#2F3747', width:"120px"}} variant="contained">Choose</Button>
               </div>
             </StepContent>
           </Step> 
@@ -218,10 +237,14 @@ export default function CreateProject() {
             </StepLabel>
             <StepContent>
               <p>We will send you a report with all important data to your registered E-Mail adress.</p>
-              <Button style={{backgroundColor:'#2F3747', width:"fit-content"}} variant="contained">Yes, send me the report</Button>
-              <Button style={{color:'#2F3747', width:"200px"}} variant="text">No thanks, I'm good</Button>
-              <Button onClick={handleBack} style={{color:'#2F3747', width:"120px"}} variant="text">Back</Button>
-              <Button onClick={handleNext} style={{color:'#2F3747', width:"120px"}} variant="contained">Next</Button>
+              <div id="buttonsDownloadReportCreateProject">
+                <Button onClick={handleButtonVariantChange}  style={{color:{colorFirstButton}, backgroundColor: {backgroundColorFirstButton}, width:"fit-content"}} variant={isActiveFirst}>Yes, send me the report</Button>
+                <Button onClick={handleButtonVariantChange}  style={{color:{colorSecondButton}, backgroundColor: {backgroundColorSecondButton}, width:"200px"}} variant={isActiveSecond}>No thanks, I'm good</Button>
+              </div>
+              <div id="stepButtonsDownloadReportCreateProject">
+                <Button onClick={handleBack} style={{color:'#2F3747', width:"120px"}} variant="text">Back</Button>
+                <Button onClick={handleNext} style={{ backgroundColor:"white", color:'#2F3747', width:"120px"}} variant="contained">Send</Button>
+              </div>
             </StepContent>
           </Step>
           <Step>
@@ -229,7 +252,7 @@ export default function CreateProject() {
               <h2>Evaluation</h2>
             </StepLabel>
             <StepContent>
-              <Button className='evaluationButton' style={{color:'#2F3747', borderColor: '#2F3747'}} variant="outlined" href='/evaluation'>Evaluate the project</Button>
+              <Button id='evaluationButton' style={{color:'#2F3747', borderColor: '#2F3747'}} variant="outlined" href='/evaluation'>Evaluate the project</Button>
               <Button onClick={handleBack} style={{color:'#2F3747', width:"120px"}} variant="text">Back</Button>
             </StepContent>
           </Step>

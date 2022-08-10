@@ -5,11 +5,6 @@
 h2{
     margin: 0 !important;
 }
-button.MuiButton-root:nth-child(2){
-    margin-left: 20px;
-    height: 40px;
-    margin: 10px;
-}
 .content-createProject{
     display: flex;
 }
@@ -19,12 +14,30 @@ button.MuiButton-root:nth-child(2){
 }
 .buttonsParallel{
     display: flex;
+    flex-direction: column;
 }
 #contentCreateComponent{
     display: flex;
 }
 #textEditName{
     height: fit-content;
+}
+#editUploadPaperCreateProject{
+    width: 400px;
+    margin: 20px;
+    height: 400px;
+}
+#cameraIconCreateProject{
+    width: 100%;
+}
+#uploadDataButtonCreateProject{
+    margin-left: 300px;
+}
+#buttonsChooseModelCreateProject{
+    display: flex;
+}
+#stepButtonsChooseModelCreateProject{
+    display: flex;
 }
 
 span.Mui-active{
@@ -60,6 +73,60 @@ div.MuiStep-root:nth-child(9) > span:nth-child(1){
 .MuiCollapse-wrapperInner{
     display: flex;
 }
+button.MuiButton-root:nth-child(2){
+    margin-left: 20px;
+    height: 40px;
+    margin: 10px;
+}
+
+/*
+    Third Step
+*/
+
+/* Right sided buttons in third step "choose a model"*/
+#buttonsChooseModelCreateProject > button:nth-child(2){
+    margin: 0px !important;
+}
+button.MuiButton-contained:nth-child(2){
+    margin: 0px !important;
+}
+
+/* Div of content of second step "Upload Data"*/
 .MuiCollapse-entered > div:nth-child(1) > div:nth-child(1){
     display: flex;
+    flex-direction: column;
+}
+
+/*
+    Fourth Step
+*/
+#buttonsDownloadReportCreateProject{
+    display: flex;
+}
+#stepButtonsDownloadReportCreateProject{
+    display: flex;
+}
+/*Right sided buttons*/
+#buttonsDownloadReportCreateProject > button:nth-child(2){
+    margin: 0px !important;
+}
+button.MuiButton-contained:nth-child(2){
+    margin: 0px !important;
+}
+
+
+/*
+    Stepper in general
+*/
+
+/*SVG circles*/
+.css-1u4zpwo-MuiSvgIcon-root-MuiStepIcon-root.Mui-active{
+    color: rgb(219, 112, 147) !important;
+}
+.css-1u4zpwo-MuiSvgIcon-root-MuiStepIcon-root.Mui-completed{
+    color: rgb(219, 112, 147) !important;
+}
+
+#evaluationButton{
+    margin-left: 10px !important;
 }
