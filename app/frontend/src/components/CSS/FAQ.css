@@ -1,0 +1,34 @@
+#faq{
+    background-color: #839AC7;
+    display: flex;
+    flex-direction: column;
+    height: auto !important;
+}
+#questionsAndAnswers{
+    margin-left: 200px;
+    margin-right: 200px;
+}
+#titleFAQ{
+    color: white;
+}
+.questionsFAQ{
+    color: white;
+    height: fit-content;
+}
+.answersFAQ{
+    color: white;
+    height: fit-content;
+    margin-bottom: 60px;
+}
+#question1{
+    height: fit-content;
+}
+#question2{
+    height: fit-content;
+}
+#question3{
+    height: fit-content;
+}
+#question4{
+    height: fit-content;
+}
