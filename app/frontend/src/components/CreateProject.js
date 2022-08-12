@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect, useRef } from 'react';
 import {Button, TextField ,Stepper, StepLabel, Step, StepContent, Paper} from '@mui/material';
 import { Box } from '@mui/system';
 import IconButton from '@mui/material/IconButton';
@@ -10,8 +10,13 @@ import './CSS/CreateProject.css';
 
 export default function CreateProject() {
 
+  /*
+    Stepper
+  */
+
   const [activeStep, setActiveStep] = useState(0);
 
+  //Controls the next and back buttons in stepper
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
   };
@@ -19,6 +24,7 @@ export default function CreateProject() {
   const handleBack = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
+
 
   const [token, ] = useState(localStorage.getItem("myToken"));
   const [id, setId] = useState(0);
@@ -56,6 +62,10 @@ export default function CreateProject() {
       handleNext();
     }
   };
+
+  /*
+    Handle variant changes for buttons where user can choose between two options
+  */
   
   const [isActiveFirst, setIsActiveFirst] = useState('contained');
   const [isActiveSecond, setIsActiveSecond] = useState('text');
@@ -83,6 +93,10 @@ export default function CreateProject() {
     }
   };
 
+  /*
+    Get list of project names that already exist, so that new project doesn't match an
+    already existing name
+  */
   const [currentProjects, setCurrentProjects] = useState();
 
   useEffect(() => { 
@@ -106,6 +120,9 @@ export default function CreateProject() {
     fetchProjects();
   }, []);
 
+  /*
+    Validate the name input
+  */
   const [helperText, setHelperText] = useState("");
   const [error, setError] = useState(false);
 
@@ -147,6 +164,7 @@ export default function CreateProject() {
     }
   };
 
+  // Title of the page -> Changes if project is created to new projects name
   const [createTitle, setCreateTitle] = useState("Create Project");
 
   const handleEditProjectTitle = () => {
@@ -155,6 +173,7 @@ export default function CreateProject() {
     setStateContent(false);
   };
 
+  // Initial content of first step
   const createProjectComponent = <div id="contentCreateComponent">
                                     <TextField
                                       label="Name"
@@ -166,14 +185,16 @@ export default function CreateProject() {
                                     <Button id="createProjectButton" style={{color:'#2F3747'}} variant="text" onClick={createProject} disabled={title.includes(" ")}>create</Button>
                                   </div>
 
+  // Content of first step when user clicks "back" button in second step
   const editTitleComponent =  <div id='contentEditTitle'>
-                        <p id = "textEditName">
-                          You have created the project "{title}".
-                          To edit it's name, click on the title in the projects table.
-                        </p>
-                        <Button onClick={handleNext} style={{color:'#2F3747', width:"120px"}} variant="text">Next</Button>
-                      </div>
+                                <p id = "textEditName">
+                                  You have created the project "{title}".
+                                  To edit it's name, click on the title in the projects table.
+                                </p>
+                                <Button onClick={handleNext} style={{color:'#2F3747', width:"120px"}} variant="text">Next</Button>
+                              </div>
 
+  // Handle content change of the first step
   const contentOfFirstStep = () => {
     if(stateContent){
       return createProjectComponent;
