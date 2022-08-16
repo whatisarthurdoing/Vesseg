@@ -6,6 +6,12 @@
     width: 100%;
     background-color: #2F3747;
     color: white;
-    height: 30pt;
+    height: 35pt;
     justify-content: space-between;
+}
+#impressumButton{
+    margin-left: 20px;
+}
+#ikimLogoButton{
+    margin-right: 20px;
 }

@@ -46,7 +46,7 @@ export default function Header() {
   };
 
   return (
-    <header>
+    <header id="header">
       <AppBar style ={{backgroundColor:'#2F3747'}} position="sticky">{displayDesktop()}</AppBar>
     </header>
   );
