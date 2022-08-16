@@ -3,11 +3,12 @@
     align-items: center;
     flex-direction: column;
     height: auto !important;
+    margin-top: 60px;
+    margin-bottom: 50px;
 }
 #editUser{
     height: fit-content !important;
     width: fit-content;
-    margin-bottom: 50px;
     margin-left: 40px;
 }
 .deleteUser{
@@ -37,7 +38,7 @@
     margin-left: 10px !important;
 }
 .changeEmailButton{
-    margin-left: 10px !important;
+    margin-left: 0px !important;
 }
 .changePasswordButton{
     margin-left: 10px !important;
@@ -46,4 +47,8 @@
     height: fit-content;
     display: flex;
     flex-direction: column;
+}
+#textEditUser{
+    margin-left: 40px;
+    margin-right: 20px;
 }

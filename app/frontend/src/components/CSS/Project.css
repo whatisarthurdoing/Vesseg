@@ -1,5 +1,7 @@
 .singleProject{
     height: auto !important;
+    margin-top: 70px;
+    margin-bottom: 50px;
 }
 .allContent{
     height: fit-content;

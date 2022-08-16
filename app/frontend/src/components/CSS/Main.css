@@ -1,6 +1,8 @@
 .main{
     display: flex;
     overflow: hidden;
+    margin-top: 60px;
+    margin-bottom: 50px;
 }
 .split{
     display: flex;
@@ -56,8 +58,8 @@
 }
 
 .titleRight{
-    align-self: center;
     height: fit-content !important;
+    margin-left: 20px !important;
 }
 
 #vessegTitle{
@@ -67,6 +69,7 @@
 #mainForm{
     display: flex;
     flex-direction: column;
+    margin-top: 20px;
 }
 
 #mainIKIM{
@@ -93,11 +96,14 @@ div.MuiFormControl-root:nth-child(4){
     display: flex;
     margin-left: 20px;
     margin-right: 20px;
+    margin-bottom: 20px;
 }
 button.MuiButton-root{
     display: flex;
     margin-left: 20px;
     margin-right: 20px;
+    margin-bottom: 20px;
+    width: 240px;
 }
 
 #mainLoggedIn{
@@ -117,4 +123,14 @@ button.MuiButton-root{
     margin-right: 200px;
     margin-top: 100px;
     align-self: center;
+}
+.mui-image-wrapper {
+    align-self: center;
+}
+#textImage{
+    color:white;
+    align-self: center;
+}
+#image{
+    border-radius: 50%;
 }
