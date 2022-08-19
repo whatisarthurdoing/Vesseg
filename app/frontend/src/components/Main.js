@@ -1,21 +1,24 @@
-import React, { useContext, useState, useCallback} from 'react'
+import React, { useContext, useState, useCallback, useRef} from 'react'
 import {TextField, Button} from '@mui/material';
 import { Link, useNavigate } from 'react-router-dom';
 import validator from 'validator';
-import CopyrightIcon from '@mui/icons-material/Copyright';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import Image from 'mui-image';
 
 import "./CSS/Main.css";
 import { UserContext } from '../context/UserContext';
+import image from "../img/Logo.png";
 
 
 
 
 export default function Main() {
 
+    const [stateContent, setStateContent] = useState(true);
+
     //Start: Change form on click
     function useToggle( initialValue ){
         const [value, setValue] = useState(initialValue)
+        //setStateContent(false);
 
         const toggle = useCallback(() => {
         setValue(v => !v);
@@ -50,67 +53,194 @@ export default function Main() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
-    const [errorMessage, setErrorMessage] = useState("");
     const [, setToken] = useContext(UserContext);
+
+    const [inputTextName, setInputTextName] = useState("");
+    const [inputTextEmail, setInputTextEmail] = useState("");
+    const [inputTextPassword, setInputTextPassword] = useState("");
+    const [inputTextConfirm, setInputTextConfirm] = useState("");
+
+    const [errorName, setErrorName] = useState(false);
+    const [errorEmail, setErrorEmail] = useState(false);
+    const [errorPassword, setErrorPassword] = useState(false);
+    const [errorConfirm, setErrorConfirm] = useState(false);
+
+    const [helperTextName, setHelperTextName] = useState("");
+    const [helperTextEmail, setHelperTextEmail] = useState("");
+    const [helperTextPassword, setHelperTextPassword] = useState("");
+    const [helperTextConfirm, setHelperTextConfirm] = useState("");
+    const validity = useRef(false);
     
     const navigate = useNavigate();
 
     const submitRegistration = () => {
-        if (password === confirmPassword && password.length > 7 && validator.isEmail(email)){
+        if(validity.current){
             const requestOptions = {
                 method: "POST",
                 headers: {"Content-Type": "application/json"},
-                body: JSON.stringify({username: name, password: password, email: email})
+                body: JSON.stringify({username: inputTextName, password: inputTextPassword, email: inputTextEmail})
             }
-
             const response = fetch("/users/", requestOptions);
             const data = response
-            if (!response.ok){
-                setErrorMessage(data.detail);
-            }
-            else{
+            if(response.ok){
                 setToken(data.access_token);
             }
             toggleIsOn(true);
             window.location.reload();
         }
-        else{
-            setErrorMessage("Ensure that the passwords match and greater than seven characters");
-        }
     }
   
-    const submitLogin = async () => {
-      const requestOptions = {
-        method: "POST",
-        headers: { "Content-Type": "application/x-www-form-urlencoded"},
-        body: JSON.stringify(
-          `grant_type=&username=${name}&password=${password}&scope=&client_id=&client_secret=`
-        ),
-      };
-  
-      const response = await fetch("/login", requestOptions);
-      const data = await response.json();
-  
-      if (!response.ok) {
-        setErrorMessage(data.detail);
-      } else {
-        setToken(data.access_token);
-      }
-      //console.log(localStorage.getItem("myToken"));
-      navigate("/projects");
+    const submitLogin = async() => {
+        if(validity.current){
+            const requestOptions = {
+                method: "POST",
+                headers: { "Content-Type": "application/x-www-form-urlencoded"},
+                body: JSON.stringify(
+                    `grant_type=&username=${inputTextName}&password=${inputTextPassword}&scope=&client_id=&client_secret=`
+                ),
+            };
+            const response = await fetch("/login", requestOptions);
+            const data = await response.json();
+            if (!response.ok) {
+                setErrorName(true);
+                setHelperTextName("Person doesn't exist");
+            } 
+            else {
+                setToken(data.access_token);
+                navigate("/projects");
+            }
+        }
     };
   
     const handleSubmit = (e) => {
         e.preventDefault();
         if(!isOn){
+            validateName(inputTextName);
+            validateEmail(inputTextEmail);
+            validatePassword(inputTextPassword);
+            validateConfirm(inputTextConfirm);
             submitRegistration();
         }
         else{
+            validateName(inputTextName);
+            validatePassword(inputTextPassword);
             submitLogin();
         }
     };
 
     const [activeToken,] = useContext(UserContext);
+
+    const emailComponent = <TextField 
+                                className="form" 
+                                required={true}
+                                margin='dense' 
+                                label="E-Mail" 
+                                input = "email" 
+                                placeholder='E-Mail' 
+                                multilinevariant="filled"
+                                disabled = {isOn ? formSignIn.email : formSignUp.email}
+                                error={errorEmail}
+                                helperText = {errorEmail ? helperTextEmail : ""}
+                                onChange={(e) => setInputTextEmail(e.target.value)} 
+                            />
+    const confirmComponent = <TextField 
+                                className="form" 
+                                required={true}
+                                margin='dense' 
+                                label="Confirm" 
+                                placeholder='Confirm password' 
+                                type="password"
+                                multilinevariant="filled" 
+                                disabled={isOn ? formSignIn.confirmPassword : formSignUp.confirmPassword}
+                                error={errorConfirm}
+                                helperText = {errorConfirm ? helperTextConfirm : ""}
+                                onChange={(e) => setInputTextConfirm(e.target.value)} 
+                            />
+
+    const setFormEmailComponent = () => {
+        if(stateContent){
+            return emailComponent;
+        }
+    };
+    const setFormConfirmComponent = () => {
+        if(stateContent){
+            return confirmComponent;
+        }
+    };
+
+    const validateName = (inputTextName) => {
+        // Input is too short or too long
+        if(inputTextName.length < 4 || inputTextName.length > 30){
+            setHelperTextName("Name must be between 4 and 30 characters long");
+            setErrorName(true);
+            validity.current = false;
+        }
+        else if(inputTextName === ''){
+            setHelperTextName("No whitespaces allowed");
+            setErrorName(true);
+            validity.current = false;
+        }
+        else{
+            setErrorName(false);
+            validity.current = true;
+        }
+    };
+
+    const validateEmail = (inputTextEmail) => {
+        if(validator.isEmail(inputTextEmail)){
+            setErrorEmail(false);
+            validity.current = true;
+        }
+        else if(inputTextEmail === ''){
+            setHelperTextEmail("No whitespaces allowed");
+            setErrorEmail(true);
+            validity.current = false;
+        }
+        else{
+            setHelperTextEmail("Email is not in the right format");
+            setErrorEmail(true);
+            validity.current = false;
+        }
+    };
+
+    const validatePassword = (inputTextPassword) => {
+        if(inputTextPassword.length > 7){
+            setErrorPassword(false);
+            validity.current = true;
+        }
+        else if(inputTextPassword === ''){
+            setHelperTextPassword("No whitespaces allowed");
+            setErrorPassword(true);
+            validity.current = false;
+        }
+        else{
+            setHelperTextPassword("Password must be at least 8 characters long");
+            setErrorPassword(true);
+            validity.current = false;
+        }
+    };
+
+    const validateConfirm = (inputTextConfirm) => {
+        if(inputTextConfirm === inputTextPassword){
+            setErrorConfirm(false);
+            validity.current = true;
+        }
+        else if(inputTextConfirm === ''){
+            setHelperTextConfirm("No whitespaces allowed");
+            setErrorConfirm(true);
+            validity.current = false;
+        }
+        else{
+            setHelperTextConfirm("Confirm password doesn't match password");
+            setErrorConfirm(true);
+            validity.current = false;
+        }
+    };
+
+    // Eliminating all whitespaces in input
+    //const text = inputText.replace(/\s+/g, '');
+
+
 
     if (activeToken === null){
         return (
@@ -123,12 +253,13 @@ export default function Main() {
                         in collaboration with the Research Group for Perioperative Vascular Biology at the Clinic for Anaesthesiology
                         at the University Hospital Heidelberg and the Institute for Artificial Intelligence in Medicine (IKIM) at the University Hospital Essen.
                         </p>
+                        <Image id="image" component='img' src={image} width={320} height={320}/>
                     </div>
                 </div>
     
                 <div className='split right'>
                     <div className='centered'>
-                        <h2 className='titleRight'><AccountCircleIcon/> {isOn ? formSignIn.title : formSignUp.title}</h2>
+                        <h2 className='titleRight'>{isOn ? formSignIn.title : formSignUp.title}</h2>
                         <form onSubmit={handleSubmit} id="mainForm">
                             <TextField 
                                 className="form" 
@@ -137,19 +268,11 @@ export default function Main() {
                                 label='Name' 
                                 placeholder='Name' 
                                 multilinevariant='filled' 
-                                onChange={(e) => setName(e.target.value)} 
+                                error={errorName}
+                                helperText = {errorName ? helperTextName : ""}
+                                onChange={(e) => setInputTextName(e.target.value)} 
                             />
-                            <TextField 
-                                className="form" 
-                                required={true}
-                                margin='dense' 
-                                label="E-Mail" 
-                                input = "email" 
-                                placeholder='E-Mail' 
-                                multilinevariant="filled"
-                                disabled = {isOn ? formSignIn.email : formSignUp.email}
-                                onChange={(e) => setEmail(e.target.value)} 
-                            />
+                            {setFormEmailComponent()}
                             <TextField 
                                 className="form" 
                                 required={true}
@@ -158,19 +281,11 @@ export default function Main() {
                                 type="password"
                                 placeholder='Password' 
                                 multilinevariant="filled"
-                                onChange={(e) => setPassword(e.target.value)} 
+                                error={errorPassword}
+                                helperText = {errorPassword ? helperTextPassword : ""}
+                                onChange={(e) => setInputTextPassword(e.target.value)} 
                             />
-                            <TextField 
-                                className="form" 
-                                required={true}
-                                margin='dense' 
-                                label="Confirm" 
-                                placeholder='Confirm password' 
-                                type="password"
-                                multilinevariant="filled" 
-                                disabled={isOn ? formSignIn.confirmPassword : formSignUp.confirmPassword}
-                                onChange={(e) => setConfirmPassword(e.target.value)} 
-                            />
+                            {setFormConfirmComponent()}
                             <Button className="form" style={{backgroundColor:'#2F3747'}} variant="contained" type="submit">{isOn ? formSignIn.button : formSignUp.button}</Button>
                             <div className='alternative'>
                                 <Link to='/forgotpassword'>{isOn ? formSignIn.forgotPassword : formSignUp.forgotPassword}</Link>
@@ -181,9 +296,6 @@ export default function Main() {
                                 {isOn ? formSignIn.confirmAccount : formSignUp.confirmAccount}
                                 </Link>
                             </div>
-                            <p id='mainIKIM'>
-                                IKIM <CopyrightIcon fontSize='small'/> 2022
-                            </p>
                         </form>
                     </div>
                 </div>
