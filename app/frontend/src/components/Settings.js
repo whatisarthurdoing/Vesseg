@@ -1,45 +1,96 @@
-import React, { useState } from 'react'
-import { Button, TextField, Paper } from '@mui/material'
-import './CSS/Settings.css'
+import React, { useContext, useState, useRef } from 'react';
+import { Button, TextField, Paper } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
+import validator from 'validator';
+
+import './CSS/Settings.css';
+import { UserContext } from '../context/UserContext';
 
 export default function Settings() {
 
-  const [token, setToken ] = useState(localStorage.getItem("myToken"));
+  const [token, setToken] = useContext(UserContext);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [status, setStatus] = useState(null);
+  const [, setStatus] = useState(null);
 
-  //TODO: Error Message: No Whitespaces Allowed
-  const validation = (inputText, type) => {
+  const [errorName, setErrorName] = useState(false);
+  const [errorEmail, setErrorEmail] = useState(false);
+  const [errorPassword, setErrorPassword] = useState(false);
+
+  const [helperTextName, setHelperTextName] = useState("");
+  const [helperTextEmail, setHelperTextEmail] = useState("");
+  const [helperTextPassword, setHelperTextPassword] = useState("");
+
+  const [inputTextName, setInputTextName] = useState("");
+  const [inputTextEmail, setInputTextEmail] = useState("");
+  const [inputTextPassword, setInputTextPassword] = useState("");
+
+  const validity = useRef(false);
+  const navigate = useNavigate();
+
+  const validateName = (inputText) => {
+    // Input is too short or too long
+    if(inputText.length < 4 || inputText.length > 30){
+      setHelperTextName("Name must be between 4 and 30 characters long");
+      setErrorName(true);
+      validity.current = false;
+    }
+    //Input is empty
+    else if(inputText === ''){
+      setHelperTextName("No whitespaces allowed");
+      setErrorName(true);
+      validity.current = false;
+    }
+    else{
+      setErrorName(false);
+      validity.current = true;
+      editName();
+    }
+  }
+  
+  const validateEmail = (inputText) => {
     const text = inputText.replace(/\s+/g, '');
-
-    if(type === "name"){
-      if (text === ''){
-        setName("NoSpacesAllowed")
-      }
-      else{
-        setName(text);
-      }
+    //Validate if input of email has email format
+    if(validator.isEmail(text)){
+      setEmail(text);
+      setErrorEmail(false);
+      validity.current = true;
+      editEmail();
     }
-    if(type === "email"){
-      if (text === ''){
-        setEmail("NoSpacesAllowed")
-      }
-      else{
-        setEmail(text);
-      }
+    //Input is empty
+    else if(text === ''){
+      setHelperTextEmail("No whitespaces allowed");
+      setErrorEmail(true);
+      validity.current = false;
     }
-    if(type === "password"){
-      if (text === ''){
-        setPassword("NoSpacesAllowed")
-      }
-      else{
-        setPassword(text);
-      }
+    else{
+      setHelperTextEmail("Email is not in the right format");
+      setErrorEmail(true);
+      validity.current = false;
     }
-  };
-
+  }
+  const validatePassword = (inputText) => {
+    const text = inputText.replace(/\s+/g, '');
+    //Password doesn't have the right length of min. 8 characters
+    if(inputTextPassword.length > 7){
+      setPassword(text);
+      setErrorPassword(false);
+      validity.current = true;
+      editPassword();
+    }
+    //Input is empty
+    else if(text === ''){
+      setHelperTextPassword("No whitespaces allowed");
+      setErrorPassword(true);
+      validity.current = false;
+    }
+    else{
+      setHelperTextPassword("Password must be at least 8 characters long");
+      setErrorPassword(true);
+      validity.current = false;
+    }
+  }
   const deleteUser = () => {
     const requestOptions = {
       method: "DELETE", 
@@ -66,7 +117,7 @@ export default function Settings() {
         Authorization: "Bearer " + token
       }, 
       body: JSON.stringify({
-        "username": name
+        "username": inputTextName
       })
     };
     try{
@@ -77,7 +128,10 @@ export default function Settings() {
     catch(e){
       console.log(e);
     }
+    handleLogout();
+    navigate("/");
   };
+
   const editEmail = () => {
     const requestOptions = {
       method: "PATCH", 
@@ -86,7 +140,7 @@ export default function Settings() {
         Authorization: "Bearer " + token
       }, 
       body: JSON.stringify({
-        "email": email
+        "email": inputTextEmail
       })
     };
           console.log(requestOptions);
@@ -98,7 +152,10 @@ export default function Settings() {
     catch(e){
       console.log(e);
     }
+    handleLogout();
+    navigate("/");
   };
+
   const editPassword = () => {
     const requestOptions = {
       method: "PATCH", 
@@ -107,7 +164,7 @@ export default function Settings() {
         Authorization: "Bearer " + token
       }, 
       body: JSON.stringify({
-        "password": password
+        "password": inputTextPassword
       })
     };
     try{
@@ -118,49 +175,55 @@ export default function Settings() {
     catch(e){
       console.log(e);
     }
+    handleLogout();
+    navigate("/");
   };
 
   const handleLogout = () => {
     localStorage.removeItem("myToken")
   }
-
-/*
-  TODO: 
-  1. Email-Feld validieren
-  2. Password-Feld Augen-Icon hide/show password
-  3. Error Messages
-*/
+  
   return (
     <div className='settings'>
       <h1>Settings</h1>
       <Paper className='paper'>
         <h3 id='editUser'>Edit User</h3>
+        <div id="textEditUser">
+          <p>Please notice, that if you change any of your data, <br/> you will be logged out automatically and need to log in again.</p>
+          <p>To ensure, that your projects processes will not be aborted, <br/> please wait until they are finished.</p>
+        </div>
         <div className='editUsername'>
             <TextField
               label="Name"
               type="text"
               variant='standard'
-              onChange={(v) => validation(v.target.value, "name")}
+              error = {errorName}
+              helperText = {errorName ? helperTextName : " "}
+              onChange={(v) => setInputTextName(v.target.value)}
             />
-            <Button className='changeNameButton' style={{color:'#2F3747'}} variant="text" onClick={editName}>change username</Button>
+            <Button className='changeNameButton' style={{color:'#2F3747'}} variant="text" onClick={() => validateName(inputTextName)}>change username</Button>
         </div>
         <div className='editUseremail'>
             <TextField
-              label="E-Mail"
+              label="E-Mail"  
               type="text"
               variant='standard'
-              onChange={(v) => validation(v.target.value, "email")}
+              error = {errorEmail}
+              helperText = {errorEmail ? helperTextEmail : " "}
+              onChange={(v) => setInputTextEmail(v.target.value)}
             />
-            <Button className='changeEmailButton' style={{color:'#2F3747'}} variant="text" onClick={editEmail} disabled={email.includes(" ")}>change email</Button>
+            <Button className='changeEmailButton' style={{color:'#2F3747'}} variant="text" onClick={() => validateEmail(inputTextEmail)}>change email</Button>
         </div>
         <div className='editPassword'>
             <TextField
               label="Password"
               type="password"
               variant='standard'
-              onChange={(v) => validation(v.target.value, "password")}
+              error = {errorPassword}
+              helperText = {errorPassword ? helperTextPassword : " "}
+              onChange={(v) => setInputTextPassword(v.target.value)}
             />
-            <Button className='changePasswordButton' style={{color:'#2F3747'}} variant="text" onClick={editPassword} disabled={password.includes(" ")}>change password</Button>
+            <Button className='changePasswordButton' style={{color:'#2F3747'}} variant="text" onClick={() => validatePassword(inputTextPassword)}>change password</Button>
         </div>
         <Button className='deleteUser'  href='/' style={{color:'red', width:"200px"}} variant="text" onClick={deleteUser}>Delete Profile</Button>
       </Paper>
