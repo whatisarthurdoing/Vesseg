@@ -1,0 +1,45 @@
+.sliderImg{
+    width:100%;
+    height: 500px;
+}
+#evaluation{
+    display: flex;
+    flex-direction: column;
+    margin-top: 60px;
+    margin-bottom: 50px;
+    height: auto !important;
+}
+#rating{
+    height: fit-content;
+    width: fit-content;
+    display: flex;
+    align-self: center;
+}
+.alice-carousel__dots{
+    height: fit-content;
+}
+#imageLabeling{
+    height: fit-content;
+    display: flex;
+    justify-content: space-around;
+}
+.alice-carousel{
+    height: fit-content;
+    width: fit-content;
+}
+.alice-carousel > div:nth-child(1){
+    height: fit-content;
+}
+.alice-carousel__wrapper{
+    width: 800px;
+    height: 400px;
+}
+#ratingText{
+    margin-left: 20px;
+}
+#originalImageText{
+    margin-left: 20px;
+}
+#predictionText{
+    margin-right: 20px;
+}
