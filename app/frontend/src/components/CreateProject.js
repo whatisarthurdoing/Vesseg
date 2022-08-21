@@ -3,6 +3,8 @@ import {Button, TextField ,Stepper, StepLabel, Step, StepContent, Paper} from '@
 import { Box } from '@mui/system';
 import IconButton from '@mui/material/IconButton';
 import PhotoCamera from '@mui/icons-material/PhotoCamera';
+//TODO: Progressbar for user feedback in upload image step
+//import CircularProgress, {CircularProgressProps} from '@mui/material/CircularProgress';
 
 import './CSS/CreateProject.css';
 
