@@ -48,11 +48,6 @@ export default function Main() {
     });
     //End: Change form on click
 
-
-    const [name, setName] = useState("");
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const [confirmPassword, setConfirmPassword] = useState("");
     const [, setToken] = useContext(UserContext);
 
     const [inputTextName, setInputTextName] = useState("");
@@ -84,9 +79,14 @@ export default function Main() {
             const data = response
             if(response.ok){
                 setToken(data.access_token);
+                window.location.reload();
             }
-            toggleIsOn(true);
-            window.location.reload();
+            else{
+                setErrorName(true);
+                setHelperTextName("Person already exists");
+            }
+            //toggleIsOn();
+            //console.log(isOn);
         }
     }
   
@@ -104,7 +104,7 @@ export default function Main() {
             if (!response.ok) {
                 setErrorName(true);
                 setHelperTextName("Person doesn't exist");
-            } 
+            }
             else {
                 setToken(data.access_token);
                 navigate("/projects");
@@ -114,6 +114,7 @@ export default function Main() {
   
     const handleSubmit = (e) => {
         e.preventDefault();
+        //Registration
         if(!isOn){
             validateName(inputTextName);
             validateEmail(inputTextEmail);
@@ -121,6 +122,7 @@ export default function Main() {
             validateConfirm(inputTextConfirm);
             submitRegistration();
         }
+        //Login
         else{
             validateName(inputTextName);
             validatePassword(inputTextPassword);
@@ -157,13 +159,13 @@ export default function Main() {
                                 onChange={(e) => setInputTextConfirm(e.target.value)} 
                             />
 
-    const setFormEmailComponent = () => {
-        if(stateContent){
+    const EmailComponent = () => {
+        if(!isOn){
             return emailComponent;
         }
     };
-    const setFormConfirmComponent = () => {
-        if(stateContent){
+    const ConfirmComponent = () => {
+        if(!isOn){
             return confirmComponent;
         }
     };
@@ -272,7 +274,7 @@ export default function Main() {
                                 helperText = {errorName ? helperTextName : ""}
                                 onChange={(e) => setInputTextName(e.target.value)} 
                             />
-                            {setFormEmailComponent()}
+                            {EmailComponent()}
                             <TextField 
                                 className="form" 
                                 required={true}
@@ -285,7 +287,7 @@ export default function Main() {
                                 helperText = {errorPassword ? helperTextPassword : ""}
                                 onChange={(e) => setInputTextPassword(e.target.value)} 
                             />
-                            {setFormConfirmComponent()}
+                            {ConfirmComponent()}
                             <Button className="form" style={{backgroundColor:'#2F3747'}} variant="contained" type="submit">{isOn ? formSignIn.button : formSignUp.button}</Button>
                             <div className='alternative'>
                                 <Link to='/forgotpassword'>{isOn ? formSignIn.forgotPassword : formSignUp.forgotPassword}</Link>
