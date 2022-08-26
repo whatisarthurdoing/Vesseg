@@ -1,17 +1,19 @@
 import { AppBar, Toolbar, Typography, Button, Link} from "@mui/material";
 import React, {useContext, useState} from "react";
 import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-
+import Dialog from '@mui/material/Dialog';
+import CloseIcon from '@mui/icons-material/Close';
+import IconButton from '@mui/material/IconButton';
+import ListItemText from '@mui/material/ListItemText';
+import ListItem from '@mui/material/ListItem';
+import List from '@mui/material/List';
+import Divider from '@mui/material/Divider';
+import LinearProgress from "@mui/material/LinearProgress";
+import DeleteIcon from '@mui/icons-material/Delete';
 
 import './CSS/Header.css'
 import { UserContext } from '../context/UserContext';
 
-//TODO: Add "Task" buton between projects and about connected to full-screen dialog:
-//https://mui.com/material-ui/react-dialog/
-
-
-//TODO: add active color: rgb(219, 112, 147)/#db7093
 
 export default function Header() {
   const displayDesktop = () => {
@@ -30,25 +32,18 @@ export default function Header() {
     </Button>
   );
 
-  const [buttonColor, setButtonColor] = useState("secondary");
-  const [flag, setFlag] = useState(true);
-
   /*
-  const handleClick = () => {
-    setFlag(!flag);
+    Tasks 
+  */
+  const [open, setOpen] = useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
   };
 
-  const theme = createTheme({
-    palette: {
-      primary: {
-        main: '#db7093'
-      }, 
-      secondary:{
-        main: '#ffffff'
-      }
-    }
-  })
-  */
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   const getMenuButton = () => {
 
@@ -84,10 +79,69 @@ export default function Header() {
               color: '#ffffff',
               backgroundColor: '#2F3747'
             }}
-            //onClick={handleClick}
           >
             Projects
           </Button>
+          <Button
+            sx={{
+              '&:active': {
+                color: '#db7093',
+                backgroundColor: '#2F3747'
+              }, 
+              color: '#ffffff',
+              backgroundColor: '#2F3747'
+            }}
+            onClick={handleClickOpen}
+            id="taskButton"
+          >
+            Tasks
+          </Button>
+          <Dialog 
+            fullScreen
+            open={open}
+            onClose={handleClose}
+          >
+            <AppBar sx={{ position: 'relative', backgroundColor:"#db7093" }}>
+              <Toolbar>
+                <IconButton
+                  edge="start"
+                  color="inherit"
+                  onClick={handleClose}
+                  aria-label="close"
+                >
+                  <CloseIcon />
+                </IconButton>
+                <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
+                  Tasks
+                </Typography>
+              </Toolbar>
+            </AppBar>
+            <List>
+              <ListItem button>
+                <ListItemText primary="Taskname 1"/>
+                <ListItemText edge="center"><LinearProgress value={100} /></ListItemText>
+                <IconButton edge="end" aria-label="delete"><DeleteIcon/></IconButton>
+              </ListItem>
+              <Divider />
+              <ListItem button>
+                <ListItemText primary="Taskname 2"/>
+                <ListItemText edge="center"><LinearProgress value={100} /></ListItemText>
+                <IconButton edge="end" aria-label="delete"><DeleteIcon/></IconButton>
+              </ListItem>
+              <Divider />
+              <ListItem button>
+                <ListItemText primary="Taskname 3"/>
+                <ListItemText edge="center"><LinearProgress value={100} /></ListItemText>
+                <IconButton edge="end" aria-label="delete"><DeleteIcon/></IconButton>
+              </ListItem>
+              <Divider />
+              <ListItem button>
+                <ListItemText primary="Taskname 4"/>
+                <ListItemText edge="center"><LinearProgress value={100} /></ListItemText>
+                <IconButton edge="end" aria-label="delete"><DeleteIcon/></IconButton>
+              </ListItem>
+            </List>
+          </Dialog>
           <Button 
             href="/about" 
             sx={{
