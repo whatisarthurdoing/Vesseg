@@ -2,6 +2,11 @@ import React, { useContext, useState, useRef } from 'react';
 import { Button, TextField, Paper } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import validator from 'validator';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
 
 import './CSS/Settings.css';
 import { UserContext } from '../context/UserContext';
@@ -91,6 +96,21 @@ export default function Settings() {
       validity.current = false;
     }
   }
+
+  /*
+    Delete User
+  */
+
+  const [open, setOpen] = useState(false);
+  
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   const deleteUser = () => {
     const requestOptions = {
       method: "DELETE", 
@@ -106,6 +126,8 @@ export default function Settings() {
     catch(e){
       console.log(e);
     }
+    handleClose();
+    navigate("/");
   };
 
 
@@ -190,7 +212,7 @@ export default function Settings() {
         <h3 id='editUser'>Edit User</h3>
         <div id="textEditUser">
           <p>Please notice, that if you change any of your data, <br/> you will be logged out automatically and need to log in again.</p>
-          <p>To ensure, that your projects processes will not be aborted, <br/> please wait until they are finished.</p>
+          <p>To ensure, that your projects processes will not be aborted, <br/> please wait until your tasks are finished.</p>
         </div>
         <div className='editUsername'>
             <TextField
@@ -225,7 +247,24 @@ export default function Settings() {
             />
             <Button className='changePasswordButton' style={{color:'#2F3747'}} variant="text" onClick={() => validatePassword(inputTextPassword)}>change password</Button>
         </div>
-        <Button className='deleteUser'  href='/' style={{color:'red', width:"200px"}} variant="text" onClick={deleteUser}>Delete Profile</Button>
+        <Button className='deleteUser' style={{color:'red', width:"200px"}} variant="text" onClick={handleClickOpen}>Delete Profile</Button>
+        <Dialog open={open} onClose={handleClose}>
+          <DialogTitle>
+            {"Do you want to delete your profile permanently?"}
+          </DialogTitle>
+          <DialogContent>
+            <DialogContentText>
+              Deleting you profile will lead to deleting all your projects and data as well.
+              This is permanent and can not be reclaimed.
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button style={{color: '#2F3747'}} onClick={handleClose}>Back</Button>
+            <Button id="deleteUserButtonInField" style={{color: 'red'}} onClick={deleteUser} autoFocus>
+              Delete
+            </Button>
+          </DialogActions>
+        </Dialog>
       </Paper>
       <Button className='logout'  href='/' style={{color:'#2F3747', width:"200px"}} variant="text" onClick={handleLogout}>Log out</Button>
     </div>
