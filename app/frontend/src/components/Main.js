@@ -34,7 +34,7 @@ export default function Main() {
         email: true,
         confirmPassword: true, 
         button: "SIGN IN",
-        forgotPassword: "Forgot password?", 
+        //forgotPassword: "Forgot password?", 
         confirmAccount: "Don't have an account? Sign Up"
     });
     const [formSignUp, ] = useState({
@@ -43,7 +43,7 @@ export default function Main() {
         email: false, 
         confirmPassword: false, 
         button: "SIGN UP", 
-        forgotPassword: "Forgot password?", 
+        //forgotPassword: "Forgot password?", 
         confirmAccount: "Have an Account already? Sign in"
     });
     //End: Change form on click
@@ -242,7 +242,9 @@ export default function Main() {
     // Eliminating all whitespaces in input
     //const text = inputText.replace(/\s+/g, '');
 
-
+    /*  FORGOT PASSWORD
+        <Link to='/forgotpassword'>{isOn ? formSignIn.forgotPassword : formSignUp.forgotPassword}</Link> 
+    */
 
     if (activeToken === null){
         return (
@@ -290,7 +292,6 @@ export default function Main() {
                             {ConfirmComponent()}
                             <Button className="form" style={{backgroundColor:'#2F3747'}} variant="contained" type="submit">{isOn ? formSignIn.button : formSignUp.button}</Button>
                             <div className='alternative'>
-                                <Link to='/forgotpassword'>{isOn ? formSignIn.forgotPassword : formSignUp.forgotPassword}</Link>
                                 <Link 
                                 to="/"
                                 onClick={toggleIsOn}
