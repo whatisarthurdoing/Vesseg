@@ -1,6 +1,9 @@
-html, body, #root, .App, :not(.header), .routes > div{
-  height: 100%
+/*:not(.header)*/
+html, body, #root, .App, .routes{
+  height: 100% !important;
 }
+
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',

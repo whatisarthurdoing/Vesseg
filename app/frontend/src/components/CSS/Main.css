@@ -110,6 +110,7 @@ button.MuiButton-root{
     display: flex;
     background-color: #839AC7;
     flex-direction: column;
+    height: 100%;
 }
 #vessegTitleLoggedIn{
     color: white;
