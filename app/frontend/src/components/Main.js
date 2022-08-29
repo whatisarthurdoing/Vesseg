@@ -53,7 +53,7 @@ export default function Main() {
         confirmPassword: true, 
         button: "LOGIN",
         //forgotPassword: "Forgot password?", 
-        confirmAccount: "Don't have an account? Log in"
+        confirmAccount: "Don't have an account? Sign up"
     });
     const [formSignUp, ] = useState({
         title: "Sign Up", 
@@ -62,7 +62,7 @@ export default function Main() {
         confirmPassword: false, 
         button: "SIGN UP", 
         //forgotPassword: "Forgot password?", 
-        confirmAccount: "Have an Account already? Sign in"
+        confirmAccount: "Have an Account already? Log in"
     });
 
     const [, setToken] = useContext(UserContext);
@@ -347,7 +347,7 @@ export default function Main() {
                             <DialogContent>
                                 <DialogContentText>
                                     You are registered now. 
-                                    Click on "Sign in" to log in to your profile.
+                                    Click on "Log in" to log in to your profile.
                                 </DialogContentText>
                             </DialogContent>
                             <DialogActions>
