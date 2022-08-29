@@ -3,22 +3,36 @@ import {TextField, Button} from '@mui/material';
 import { Link, useNavigate } from 'react-router-dom';
 import validator from 'validator';
 import Image from 'mui-image';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
 
 import "./CSS/Main.css";
 import { UserContext } from '../context/UserContext';
 import image from "../img/Logo.png";
 
 
+/*
+    Artefact, code that might be usefull
+*/
+
+    // Eliminating all whitespaces in input
+    //const text = inputText.replace(/\s+/g, '');
+
+    /*  FORGOT PASSWORD
+        <Link to='/forgotpassword'>{isOn ? formSignIn.forgotPassword : formSignUp.forgotPassword}</Link> 
+    */
+
+
 
 
 export default function Main() {
-
-    const [stateContent, setStateContent] = useState(true);
-
-    //Start: Change form on click
+    /*
+        Change form on click
+    */
     function useToggle( initialValue ){
         const [value, setValue] = useState(initialValue)
-        //setStateContent(false);
 
         const toggle = useCallback(() => {
         setValue(v => !v);
@@ -28,14 +42,18 @@ export default function Main() {
 
     const [isOn, toggleIsOn ] = useToggle(false);
 
+    /*
+        Content of forms
+    */
+
     const [formSignIn, ] = useState({
-        title: "Sign In",
+        title: "Login",
         name: true, 
         email: true,
         confirmPassword: true, 
-        button: "SIGN IN",
+        button: "LOGIN",
         //forgotPassword: "Forgot password?", 
-        confirmAccount: "Don't have an account? Sign Up"
+        confirmAccount: "Don't have an account? Log in"
     });
     const [formSignUp, ] = useState({
         title: "Sign Up", 
@@ -46,7 +64,6 @@ export default function Main() {
         //forgotPassword: "Forgot password?", 
         confirmAccount: "Have an Account already? Sign in"
     });
-    //End: Change form on click
 
     const [, setToken] = useContext(UserContext);
 
@@ -68,25 +85,27 @@ export default function Main() {
     
     const navigate = useNavigate();
 
-    const submitRegistration = () => {
+    /*
+        API calls for registration and login
+    */
+
+    const submitRegistration = async() => {
         if(validity.current){
             const requestOptions = {
                 method: "POST",
                 headers: {"Content-Type": "application/json"},
                 body: JSON.stringify({username: inputTextName, password: inputTextPassword, email: inputTextEmail})
             }
-            const response = fetch("/users/", requestOptions);
-            const data = response
-            if(response.ok){
-                setToken(data.access_token);
-                window.location.reload();
-            }
-            else{
+            const response = await fetch("/users/", requestOptions);
+            const data = await response.json();
+            if(!response.ok){
                 setErrorName(true);
                 setHelperTextName("Person already exists");
             }
-            //toggleIsOn();
-            //console.log(isOn);
+            else{
+                setToken(data.access_token);
+                handleClickOpen();
+            }
         }
     }
   
@@ -132,6 +151,10 @@ export default function Main() {
 
     const [activeToken,] = useContext(UserContext);
 
+    /*
+        Components of registration
+    */
+
     const emailComponent = <TextField 
                                 className="form" 
                                 required={true}
@@ -170,6 +193,10 @@ export default function Main() {
         }
     };
 
+    /*
+        Validation of all inputs
+    */
+
     const validateName = (inputTextName) => {
         // Input is too short or too long
         if(inputTextName.length < 4 || inputTextName.length > 30){
@@ -177,6 +204,7 @@ export default function Main() {
             setErrorName(true);
             validity.current = false;
         }
+        // Input is empty
         else if(inputTextName === ''){
             setHelperTextName("No whitespaces allowed");
             setErrorName(true);
@@ -189,10 +217,12 @@ export default function Main() {
     };
 
     const validateEmail = (inputTextEmail) => {
+        // Input is not an e-mail
         if(validator.isEmail(inputTextEmail)){
             setErrorEmail(false);
             validity.current = true;
         }
+        // Input is empty
         else if(inputTextEmail === ''){
             setHelperTextEmail("No whitespaces allowed");
             setErrorEmail(true);
@@ -206,10 +236,12 @@ export default function Main() {
     };
 
     const validatePassword = (inputTextPassword) => {
+        // Input is too short
         if(inputTextPassword.length > 7){
             setErrorPassword(false);
             validity.current = true;
         }
+        // Input is empty
         else if(inputTextPassword === ''){
             setHelperTextPassword("No whitespaces allowed");
             setErrorPassword(true);
@@ -223,10 +255,12 @@ export default function Main() {
     };
 
     const validateConfirm = (inputTextConfirm) => {
+        // Input does not match password
         if(inputTextConfirm === inputTextPassword){
             setErrorConfirm(false);
             validity.current = true;
         }
+        // Input is empty
         else if(inputTextConfirm === ''){
             setHelperTextConfirm("No whitespaces allowed");
             setErrorConfirm(true);
@@ -239,13 +273,22 @@ export default function Main() {
         }
     };
 
-    // Eliminating all whitespaces in input
-    //const text = inputText.replace(/\s+/g, '');
-
-    /*  FORGOT PASSWORD
-        <Link to='/forgotpassword'>{isOn ? formSignIn.forgotPassword : formSignUp.forgotPassword}</Link> 
+    /*
+        Dialog
     */
 
+    const [open, setOpen] = useState(false);
+  
+    const handleClickOpen = () => {
+      setOpen(true);
+    };
+  
+    const handleClose = () => {
+      setOpen(false);
+    };
+
+
+    // If user is not logged in already
     if (activeToken === null){
         return (
             <div className='main'>
@@ -300,6 +343,17 @@ export default function Main() {
                                 </Link>
                             </div>
                         </form>
+                        <Dialog open={open} onClose={handleClose}>
+                            <DialogContent>
+                                <DialogContentText>
+                                    You are registered now. 
+                                    Click on "Sign in" to log in to your profile.
+                                </DialogContentText>
+                            </DialogContent>
+                            <DialogActions>
+                                <Button style={{color: '#2F3747'}} onClick={handleClose}>Okay, cool</Button>
+                            </DialogActions>
+                        </Dialog>
                     </div>
                 </div>
             </div>
