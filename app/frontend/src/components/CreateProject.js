@@ -3,11 +3,12 @@ import {Button, TextField ,Stepper, StepLabel, Step, StepContent, Paper} from '@
 import { Box } from '@mui/system';
 import IconButton from '@mui/material/IconButton';
 import PhotoCamera from '@mui/icons-material/PhotoCamera';
-//TODO: Progressbar for user feedback in upload image step
-//import CircularProgress, {CircularProgressProps} from '@mui/material/CircularProgress';
 
 import './CSS/CreateProject.css';
 
+
+//TODO: Progressbar for user feedback in upload image step
+//import CircularProgress, {CircularProgressProps} from '@mui/material/CircularProgress';
 
 
 export default function CreateProject() {
@@ -36,6 +37,7 @@ export default function CreateProject() {
   const [inputText, setInputText] = useState("");
   const validity = useRef(false);
 
+  //API request to create a project
   const createProject = () => {
     validate(inputText);
     if (validity.current){
@@ -96,7 +98,7 @@ export default function CreateProject() {
   };
 
   /*
-    Get list of project names that already exist, so that new project doesn't match an
+    API request to get list of project names that already exist, so that new project doesn't match an
     already existing name
   */
   const [currentProjects, setCurrentProjects] = useState();

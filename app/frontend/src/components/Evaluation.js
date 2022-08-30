@@ -26,7 +26,10 @@ export default function Evaluation() {
     1024: {items: 2},
   };
 
-  // Rating 
+  /* 
+    Rating
+  */
+
   const StyledRating = styled(Rating)(({ theme }) => ({
     '& .MuiRating-iconEmpty .MuiSvgIcon-root': {
       color: theme.palette.action.disabled,
@@ -67,6 +70,8 @@ export default function Evaluation() {
 
   const handleDragStart = (e) => e.preventDefault();
 
+  // Content of carousel: images
+  // TODO: API request get images of project, dynamic rendering
   const items = [
     <img src={image1} onDragStart={handleDragStart} role="presentation" />,
     <img src={image2} onDragStart={handleDragStart} role="presentation" />,

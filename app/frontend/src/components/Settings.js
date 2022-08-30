@@ -130,6 +130,9 @@ export default function Settings() {
     navigate("/");
   };
 
+  /*
+    API requests to edit the name, e-mail or password of a user
+  */
 
   const editName = () => {
     const requestOptions = {

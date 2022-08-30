@@ -9,6 +9,7 @@ const Projects = () => {
   const [tableData, setTableData] = useState([])
   const [token,] = useContext(UserContext);
 
+  // API request to get all existing projects for user
   useEffect(() => { 
     const fetchProjects = async () => {
       const requestOptions = {
@@ -30,6 +31,7 @@ const Projects = () => {
     fetchProjects();
   }, []);
 
+  // Columns of the table. Fields: ID, Title, Status
   const columns =[
       {
         field: "id", 
@@ -68,6 +70,8 @@ const Projects = () => {
   const [status, setStatus] = useState(null);
   const [selectedProjects, setSelectedProjects] = useState([]); //row IDs
 
+
+  // API request to delete projects
   const handleDelete = () => {
     const requestOptions = {
       method: "DELETE", 

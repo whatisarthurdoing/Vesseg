@@ -14,7 +14,7 @@ import image from "../img/Logo.png";
 
 
 /*
-    Artefact, code that might be usefull
+    Artefact, code that might be useful
 */
 
     // Eliminating all whitespaces in input

@@ -16,6 +16,7 @@ import { UserContext } from '../context/UserContext';
 
 
 export default function Header() {
+
   const displayDesktop = () => {
     return (
       <Toolbar className="toolbar">
@@ -45,6 +46,8 @@ export default function Header() {
     setOpen(false);
   };
 
+  // Buttons: Projects, Tasks, About, FAQ and Settings
+  // Plus task dialog
   const getMenuButton = () => {
 
     const [token,] = useContext(UserContext);

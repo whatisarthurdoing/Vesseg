@@ -20,6 +20,9 @@ export default function Project() {
   const [inputText, setInputText] = useState("");
   const validity = useRef(false);
 
+  /*
+    API call to change title of the project
+  */
   const patchProject = () => {
     validate(inputText);
     if (validity.current){
@@ -49,7 +52,7 @@ export default function Project() {
 
   const [currentProjects, setCurrentProjects] = useState();
 
-
+  // API call to get the current project names for comparing them with new one
   useEffect(() => { 
     const fetchProjects = async () => {
       const requestOptions = {
