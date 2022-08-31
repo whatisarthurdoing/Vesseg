@@ -1,0 +1,28 @@
+.MuiToolbar-root{
+    display: flex;
+    justify-content: space-between;
+}
+#contentButtons{
+    height: fit-content;
+    width: fit-content;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+a.MuiTypography-root{
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    width: fit-content;
+}
+#header{
+    width: 100% !important;
+    position: fixed;
+    height: 50pt;
+    left: 0;
+    top: 0;
+}
+#taskButton{
+    width: fit-content;
+    margin: 0px !important;
+}

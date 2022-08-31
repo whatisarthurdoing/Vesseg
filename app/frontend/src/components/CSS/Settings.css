@@ -1,0 +1,59 @@
+.settings{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    height: auto !important;
+    margin-top: 60px;
+    margin-bottom: 50px;
+}
+#editUser{
+    height: fit-content !important;
+    width: fit-content;
+    margin-left: 40px;
+}
+.deleteUser{
+    height: fit-content;
+    margin: 50px !important;
+    align-self: center;
+}
+.editUsername{
+    display: flex;
+    margin: 20px;
+    height: fit-content !important;
+}
+.editUseremail{
+    display: flex;
+    margin: 20px;
+    height: fit-content !important;
+}
+.editPassword{
+    display: flex;
+    margin: 20px;
+    height: fit-content !important;
+}
+.logout{
+    height: fit-content !important;
+}
+.changeNameButton{
+    margin-left: 10px !important;
+}
+.changeEmailButton{
+    margin-left: 0px !important;
+}
+.changePasswordButton{
+    margin-left: 10px !important;
+}
+.paper{
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+}
+#textEditUser{
+    margin-left: 40px;
+    margin-right: 20px;
+}
+#deleteUserButtonInField{
+    margin-bottom: 20px !important;
+    margin-top: 0px !important;
+    margin-left: 20px !important;
+}

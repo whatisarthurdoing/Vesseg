@@ -1,0 +1,144 @@
+.createProject{
+    display: flex;
+    flex-direction: column;
+    margin-top: 60px;
+    margin-bottom: 50px;
+}
+h2{
+    margin: 0 !important;
+}
+.content-createProject{
+    display: flex;
+}
+.stepper{
+    max-width: 600px;
+    margin-left: 160px;
+}
+.buttonsParallel{
+    display: flex;
+    flex-direction: column;
+}
+#contentCreateComponent{
+    display: flex;
+}
+#textEditName{
+    height: fit-content;
+}
+#uploadPaperCreateProject{
+    width: 400px;
+    margin: 20px;
+    height: 400px;
+}
+#cameraIconCreateProject{
+    width: 100%;
+    height: 100%;
+}
+#uploadDataButtonCreateProject{
+    margin-left: 300px;
+}
+#uploadedImagesList{
+    display: flex;
+    width: fit-content;
+    height: 400px;
+    margin: 20px;
+}
+#uploadImagesDiv{
+    display: flex;
+}
+#buttonsChooseModelCreateProject{
+    display: flex;
+}
+#stepButtonsChooseModelCreateProject{
+    display: flex;
+}
+
+span.Mui-active{
+    height: fit-content;
+}
+div.MuiStep-root:nth-child(1) > span:nth-child(1) > span:nth-child(2){
+    height: fit-content !important;
+}
+div.MuiStep-root:nth-child(1) > span:nth-child(1){
+    height: fit-content;
+}
+div.MuiStep-root:nth-child(1){
+    height: fit-content;
+}
+div.MuiStep-root:nth-child(3) > span:nth-child(1){
+    height: fit-content;
+}
+div.MuiStep-root:nth-child(3) > span:nth-child(1) > span:nth-child(2){
+    height: fit-content;
+}
+div.MuiStep-root:nth-child(5) > span:nth-child(1){
+    height: fit-content;
+}
+div.MuiStep-root:nth-child(5) > span:nth-child(1) > span:nth-child(2){
+    height: fit-content;
+}
+div.MuiStep-root:nth-child(7) > span:nth-child(1){
+    height: fit-content;
+}
+div.MuiStep-root:nth-child(9) > span:nth-child(1){
+    height: fit-content;
+}
+.MuiCollapse-wrapperInner{
+    display: flex;
+}
+button.MuiButton-root:nth-child(2){
+    margin-left: 20px;
+    height: 40px;
+    margin: 10px;
+}
+
+/*
+    Third Step
+*/
+
+/* Right sided buttons in third step "choose a model"*/
+#buttonsChooseModelCreateProject > button:nth-child(2){
+    margin: 0px !important;
+}
+button.MuiButton-contained:nth-child(2){
+    margin: 0px !important;
+}
+
+/* Div of content of second step "Upload Data"*/
+.MuiCollapse-entered > div:nth-child(1) > div:nth-child(1){
+    display: flex;
+    flex-direction: column;
+}
+
+/*
+    Fourth Step
+*/
+#buttonsDownloadReportCreateProject{
+    display: flex;
+}
+#stepButtonsDownloadReportCreateProject{
+    display: flex;
+}
+/*Right sided buttons*/
+#buttonsDownloadReportCreateProject > button:nth-child(2){
+    margin: 0px !important;
+}
+button.MuiButton-contained:nth-child(2){
+    margin: 0px !important;
+}
+
+
+/*
+    Stepper in general
+*/
+
+/*SVG circles*/
+.css-1u4zpwo-MuiSvgIcon-root-MuiStepIcon-root.Mui-active{
+    color: rgb(219, 112, 147) !important;
+}
+.css-1u4zpwo-MuiSvgIcon-root-MuiStepIcon-root.Mui-completed{
+    color: rgb(219, 112, 147) !important;
+}
+
+#evaluationButton{
+    margin-left: 10px !important;
+}

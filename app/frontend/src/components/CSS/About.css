@@ -1,0 +1,34 @@
+.about{
+    display: flex;
+    flex-direction: column;
+    background-color: #839AC7;
+    height: auto !important;
+    margin-top: 60px;
+    margin-bottom: 50px;
+}
+.vesseg{
+    height: fit-content;
+    margin-left: 200px;
+    margin-right: 200px;
+}
+.radiomics{
+    height: fit-content;
+    margin-top: 50px;
+    margin-left: 200px;
+    margin-right: 200px;
+}
+.vesseg > p:nth-child(1) > ol:nth-child(6){
+    height: fit-content;
+}
+.about > h1:nth-child(1){
+    color: white;
+}
+.vesseg > p:nth-child(1){
+    color: white;
+}
+.radiomics > h1:nth-child(1){
+    color: white;
+}
+.radiomics > p:nth-child(2){
+    color: white;
+}

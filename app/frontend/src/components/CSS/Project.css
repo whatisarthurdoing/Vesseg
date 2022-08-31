@@ -1,0 +1,116 @@
+.singleProject{
+    height: auto !important;
+    margin-top: 70px;
+    margin-bottom: 50px;
+}
+.allContent{
+    height: fit-content;
+    margin-left: 240px;
+}
+.MuiFormControl-root{
+    height: fit-content;
+    width: 240px;
+}
+.changeProjectName{
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    width: 1000px;
+}
+.buttons{
+    height: fit-content;
+    width: fit-content !important;
+}
+.changeUploadData{
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    width: 1000px;
+    margin-top: 20px;
+}
+.changeModel{
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    width: 1000px;
+    margin-top: 20px;
+}
+.downloadReportAgain{
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    width: 1000px;
+    margin-top: 20px;
+}
+.evaluateAgain{
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    width: 1000px;
+    margin-top: 20px;
+    margin-bottom: 120px;
+}
+h1{
+    align-self: center;
+}
+.projectChangeName{
+    display: flex;
+}
+#titleCreateProject{
+    margin-left: 20px;
+}
+#titleEditData{
+    margin-left: 20px;
+}
+.textEditData{
+    margin-left: 20px;
+    margin-right: 20px;
+}
+#changeModelSelectionButtons{
+    display: flex;
+}
+#titleChangeModel{
+    margin-left: 20px;
+}
+#titleChangeDownloadReport{
+    margin-left: 20px;
+}
+#titleChangeEvaluateAgain{
+    margin-left: 20px;
+}
+#evaluateAgainButton{
+    width: fit-content;
+    margin-bottom: 20px;
+}
+#buttonChangeModelFastAi{
+    width: 160px !important;
+}
+#buttonChangeModelNunet{
+    width: 160px !important;
+    margin: 0px !important;
+}
+#selectButtonChangeModel{
+    width: fit-content;
+}
+#editUploadPaper{
+    width: 400px;
+    margin: 20px;
+    height: 400px;
+}
+#cameraIcon{
+    width: 100%;
+    height: 100%;
+}
+#uploadButtonEditUploadedData{
+    width: fit-content !important;
+    margin-left: 340px;
+}
+#editUploadedImagesList{
+    display: flex;
+    width: fit-content;
+    height: 400px;
+    margin: 20px;
+}
+#editUploadImagesDiv{
+    display: flex;
+}

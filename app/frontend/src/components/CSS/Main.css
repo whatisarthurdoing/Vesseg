@@ -1,0 +1,137 @@
+.main{
+    display: flex;
+    overflow: hidden;
+    margin-top: 60px;
+    margin-bottom: 50px;
+}
+.split{
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    height: 100vh;
+}
+
+.left {
+    justify-content: center;
+    max-width: 60%;
+    -webkit-box-flex: 0;
+    background-color: #839AC7;
+}
+
+.right {
+    justify-content: center;
+    max-width: 40%;
+    -webkit-box-flex: 0;
+    background-color: white;
+}
+.centered{
+    display: flex;
+    flex-direction: column;
+    margin-top: 50px;
+}
+.left h2{
+    color:white;
+    align-self: center;
+}
+.left p{
+    color:white;
+    height: fit-content;
+    width: fit-content;
+    margin: 50px;
+}
+
+.alternative{
+    display: flex;
+    flex-direction: column;
+    height: fit-content;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.right p{
+    color: #acacac;
+    height: fit-content;
+}
+
+.form{
+    height: fit-content;
+}
+
+.titleRight{
+    height: fit-content !important;
+    margin-left: 20px !important;
+}
+
+#vessegTitle{
+    height: fit-content !important;
+}
+
+#mainForm{
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+}
+
+#mainIKIM{
+    align-self: center;
+}
+
+
+div.MuiFormControl-root:nth-child(1){
+    display: flex;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+div.MuiFormControl-root:nth-child(2){
+    display: flex;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+div.MuiFormControl-root:nth-child(3){
+    display: flex;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+div.MuiFormControl-root:nth-child(4){
+    display: flex;
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-bottom: 20px;
+}
+button.MuiButton-root{
+    display: flex;
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-bottom: 20px;
+    width: 240px;
+}
+
+#mainLoggedIn{
+    display: flex;
+    background-color: #839AC7;
+    flex-direction: column;
+    height: 100%;
+}
+#vessegTitleLoggedIn{
+    color: white;
+    height: fit-content;
+    align-self: center;
+    margin-top: 100px !important;
+}
+#textLoggedIn{
+    color: white;
+    margin-left: 200px;
+    margin-right: 200px;
+    margin-top: 100px;
+    align-self: center;
+}
+.mui-image-wrapper {
+    align-self: center;
+}
+#textImage{
+    color:white;
+    align-self: center;
+}
+#image{
+    border-radius: 50%;
+}
