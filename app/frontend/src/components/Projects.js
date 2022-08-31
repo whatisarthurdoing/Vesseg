@@ -1,6 +1,11 @@
 import React , { useContext, useEffect, useState} from 'react'
 import { Button, Link} from '@mui/material';
 import { DataGrid , GRID_CHECKBOX_SELECTION_COL_DEF} from '@mui/x-data-grid';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
 
 import "./CSS/Projects.css";
 import { UserContext } from '../context/UserContext';
@@ -70,6 +75,20 @@ const Projects = () => {
   const [status, setStatus] = useState(null);
   const [selectedProjects, setSelectedProjects] = useState([]); //row IDs
 
+  /*
+    Delete User
+  */
+
+    const [open, setOpen] = useState(false);
+  
+    const handleClickOpen = () => {
+      setOpen(true);
+    };
+  
+    const handleClose = () => {
+      setOpen(false);
+    };
+  
 
   // API request to delete projects
   const handleDelete = () => {
@@ -97,6 +116,7 @@ const Projects = () => {
     catch(e){
       console.log(e);
     }
+    handleClose();
   };
 
   return (
@@ -119,7 +139,24 @@ const Projects = () => {
         </div>
       <div className='buttons'>
         <Button id='createProjectButton' href="/createProject" variant="contained" style={{backgroundColor:'#db7093', color:'white'}}>Create new Project</Button>
-        <Button id='deleteButtonProjects' variant="outlined" color="error" onClick={handleDelete}>Delete</Button>
+        <Button id='deleteButtonProjects' variant="outlined" color="error" onClick={handleClickOpen}>Delete</Button>
+        <Dialog open={open} onClose={handleClose}>
+          <DialogTitle>
+            {"Do you want to delete the projects permanently?"}
+          </DialogTitle>
+          <DialogContent>
+            <DialogContentText>
+              Deleting the projects will lead to deleting all your progress and data as well.
+              This is permanent and can not be reclaimed.
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button style={{color: '#2F3747'}} onClick={handleClose}>Back</Button>
+            <Button id="deleteUserButtonInField" style={{color: 'red'}} onClick={handleDelete} autoFocus>
+              Delete
+            </Button>
+          </DialogActions>
+        </Dialog>
       </div>
     </div>
   )
