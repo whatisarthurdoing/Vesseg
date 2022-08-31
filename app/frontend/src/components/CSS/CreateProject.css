@@ -24,7 +24,7 @@ h2{
 #textEditName{
     height: fit-content;
 }
-#editUploadPaperCreateProject{
+#uploadPaperCreateProject{
     width: 400px;
     margin: 20px;
     height: 400px;
@@ -35,6 +35,15 @@ h2{
 }
 #uploadDataButtonCreateProject{
     margin-left: 300px;
+}
+#uploadedImagesList{
+    display: flex;
+    width: fit-content;
+    height: 400px;
+    margin: 20px;
+}
+#uploadImagesDiv{
+    display: flex;
 }
 #buttonsChooseModelCreateProject{
     display: flex;

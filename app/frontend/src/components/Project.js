@@ -3,6 +3,12 @@ import { useParams } from 'react-router-dom';
 import {Paper, TextField, Button} from '@mui/material';
 import IconButton from '@mui/material/IconButton';
 import PhotoCamera from '@mui/icons-material/PhotoCamera';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
+import DeleteIcon from '@mui/icons-material/Delete';
+import ImageIcon from '@mui/icons-material/Image';
 
 import './CSS/Project.css'
 
@@ -137,12 +143,88 @@ export default function Project() {
         <Paper className="changeUploadData">
           <h3 id='titleEditData'>Edit uploaded data</h3>
           <p className='textEditData'>Upload your image data here. The following types are accepted: JPG, PNG, ?</p>
-          <Paper id="editUploadPaper">
-            <IconButton id='cameraIcon' style={{color:'#2F3747'}} aria-label="upload picture" component="label">
-              <input hidden accept="image/*" multiple type="file"/>
-              <PhotoCamera />
-            </IconButton>
-          </Paper>
+          <div id="editUploadImagesDiv">
+            <Paper id="editUploadPaper">
+              <IconButton id='cameraIcon' style={{color:'#2F3747'}} aria-label="upload picture" component="label">
+                <input hidden accept="image/*" multiple type="file"/>
+                <PhotoCamera />
+              </IconButton>
+            </Paper>
+            <Paper id="editUploadedImagesList">
+              <List dense={false}>
+                <ListItem>
+                  <IconButton>
+                    <ImageIcon/>
+                  </IconButton>
+                  <ListItemText>
+                    [Name]
+                  </ListItemText>
+                  <ListItemText>
+                    [Groesse]
+                  </ListItemText>
+                  <ListItemIcon>
+                    <DeleteIcon/>
+                  </ListItemIcon>
+                </ListItem>
+                <ListItem>
+                  <IconButton>
+                    <ImageIcon/>
+                  </IconButton>
+                  <ListItemText>
+                    [Name]
+                  </ListItemText>
+                  <ListItemText>
+                    [Groesse]
+                  </ListItemText>
+                  <ListItemIcon>
+                    <DeleteIcon/>
+                  </ListItemIcon>
+                </ListItem>
+                <ListItem>
+                  <IconButton>
+                    <ImageIcon/>
+                  </IconButton>
+                  <ListItemText>
+                    [Name]
+                  </ListItemText>
+                  <ListItemText>
+                    [Groesse]
+                  </ListItemText>
+                  <ListItemIcon>
+                    <DeleteIcon/>
+                  </ListItemIcon>
+                </ListItem>
+                <ListItem>
+                  <IconButton>
+                    <ImageIcon/>
+                  </IconButton>
+                  <ListItemText>
+                    [Name]
+                  </ListItemText>
+                  <ListItemText>
+                    [Groesse]
+                  </ListItemText>
+                  <ListItemIcon>
+                    <DeleteIcon/>
+                  </ListItemIcon>
+                </ListItem>
+                <ListItem>
+                  <IconButton>
+                    <ImageIcon/>
+                  </IconButton>
+                  <ListItemText>
+                    [Name]
+                  </ListItemText>
+                  <ListItemText>
+                    [Groesse]
+                  </ListItemText>
+                  <ListItemIcon>
+                    <DeleteIcon/>
+                  </ListItemIcon>
+                </ListItem>
+              </List>
+            </Paper>
+          </div>
           <Button id='uploadButtonEditUploadedData' style={{color:'#2F3747', width:"120px"}} variant="text">Upload</Button>
         </Paper>
         <Paper className="changeModel">

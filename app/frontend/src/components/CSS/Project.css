@@ -105,3 +105,12 @@ h1{
     width: fit-content !important;
     margin-left: 340px;
 }
+#editUploadedImagesList{
+    display: flex;
+    width: fit-content;
+    height: 400px;
+    margin: 20px;
+}
+#editUploadImagesDiv{
+    display: flex;
+}
