@@ -81,7 +81,7 @@ export default function Main() {
     const [helperTextEmail, setHelperTextEmail] = useState("");
     const [helperTextPassword, setHelperTextPassword] = useState("");
     const [helperTextConfirm, setHelperTextConfirm] = useState("");
-    const validity = useRef(false);
+    const validity = useRef(true);
     
     const navigate = useNavigate();
 
@@ -131,20 +131,36 @@ export default function Main() {
         }
     };
   
+    const[flag, setFlag] = useState(false);
     const handleSubmit = (e) => {
         e.preventDefault();
         //Registration
         if(!isOn){
+            // If one validation fails, do not register user
             validateName(inputTextName);
-            validateEmail(inputTextEmail);
-            validatePassword(inputTextPassword);
-            validateConfirm(inputTextConfirm);
+            if (validity.current){
+                validateEmail(inputTextEmail);
+                if (validity.current){
+                    validatePassword(inputTextPassword);
+                    if (validity.current){
+                        validateConfirm(inputTextConfirm);
+                    }
+                }
+            }
             submitRegistration();
         }
         //Login
         else{
-            validateName(inputTextName);
-            validatePassword(inputTextPassword);
+            // If one validation fails, do not log in user
+            if(!flag){
+                if (validity.current){
+                    validateName(inputTextName);
+                    if (validity.current){
+                        validatePassword(inputTextPassword);
+                    }
+                }
+            }
+            setFlag(false);
             submitLogin();
         }
     };
