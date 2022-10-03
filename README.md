@@ -19,26 +19,30 @@ In the project directory:
 `pip install -r requirements.txt`
 ### 3. Run FastApi
 
-`cd app`
+`cd app`\
 `uvicorn backend.main:app --reload`
 
 ### 4. Run React
 
 In new terminal: 
 
-`cd app/frontend`
-`npm install`
+`cd app/frontend`\
+`npm install`\
 `npm start`
+
+
+>Backend (FastAPI) will run on localhost:8000
+>Frontend (React) will run on localhost:3000
 
 
 ---
 ### Good to know
 
 - Interactive API Documentation:
-http://127.0.0.1:8000/docs
+http://localhost:8000/docs
 
 - Alternative interactive API Documentation:
-http://127.0.0.1:8000/redoc
+http://localhost:8000/redoc
 
 -  Material UI User Guide: https://mui.com/material-ui/getting-started/installation/
 
