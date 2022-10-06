@@ -153,7 +153,6 @@ cython_debug/
 #.idea/
 
 # react stuff
-.DS_*
 *.log
 logs
 **/*.backup.*
