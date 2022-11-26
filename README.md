@@ -2,7 +2,7 @@
 
 ![vesseg logo](./app/frontend/src/img/Logo.png)
 
-This is the beginning of the UI update of [vesseg](https://github.com/jacobmatthewmurray/vesseg). I developed it as an student research assistant at [IKIM](https://mml.ikim.nrw/) (Institute of artifical intelligence in medicine).
+This is the beginning of the UI update of [vesseg](https://github.com/jacobmatthewmurray/vesseg). I developed it as a student research assistant at [IKIM](https://mml.ikim.nrw/) (Institute of artifical intelligence in medicine).
 
 ### 1. Clone the repository
 
